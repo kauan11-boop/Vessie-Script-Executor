@@ -55,7 +55,7 @@ local modulo = require("modulo")
 local result = modulo:ler(0x12345678)
 ```
 
-**Para executores:** módulos independentes, escopo isolado, `main.lua` carrega todos. Arquitetura usada por esta biblioteca: `main.lua` + `memoria/`, `jogo/`, `ui/`, `apis/`, `framework/`, `utils/`.
+**Para executores:** módulos independentes, escopo isolado, `main.lua` carrega todos. Arquitetura usada por esta biblioteca: `main.lua` (raiz) + `src/` contendo `memoria/`, `jogo/`, `ui/`, `apis/`, `framework/`, `utils/` e os módulos de núcleo.
 
 ---
 ---
@@ -167,10 +167,13 @@ if not ok then warn("Erro: " .. err) end
 ---
 ## Arquivos da Biblioteca
 
-- `main.lua` - carregamento e inicialização de todos os módulos
-- `apis/apis.lua` - funções de HTTP, webhooks, requisições externas
-- `framework/framework.lua` - sistema de comandos, hooks, FPS tracking
-- `jogo/jogo.lua` - utilidades de teleport, fly, noclip, ESP
-- `memoria/memoria.lua` - leitura/escrita de memória, pattern scanning
-- `ui/ui.lua` - interface gráfica, frames, botões, toggles, textboxes
-- `utils/utils.lua` - 15+ comandos (fly, speed, noclip, godmode, teleport, verificar, antiafk, etc.)
+- `main.lua` - carregamento e inicialização de todos os módulos (único arquivo Lua na raiz)
+- `src/apis/apis.lua` - funções de HTTP, webhooks, requisições externas
+- `src/framework/Framework.lua` - sistema de comandos, hooks, FPS tracking
+- `src/jogo/jogo.lua` - utilidades de teleport, fly, noclip, ESP
+- `src/memoria/memoria.lua` - leitura/escrita de memória, pattern scanning
+- `src/ui/ui.lua` - interface gráfica, frames, botões, toggles, textboxes
+- `src/utils/utils.lua` - 15+ comandos (fly, speed, noclip, godmode, teleport, verificar, antiafk, etc.)
+- `src/command_dispatcher.lua`, `src/public_api.lua`, `src/state_manager.lua`, `src/security_wrapper.lua`, `src/remote_event_bridge.lua`, `src/nonvisual_channel.lua` - núcleo de despacho de comandos, API pública, estado, segurança e comunicação
+
+Para documentação voltada a agents de IA, consulte `AGENTS.md` e `docs/CONTEXTO_IA.md`.

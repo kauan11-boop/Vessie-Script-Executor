@@ -20,7 +20,7 @@ function Library:carregarModulo(nome)
     if modules[nome] then return modules[nome] end
     
     local sucesso, modulo = pcall(function()
-        return require(self._NAME .. "." .. nome)
+        return require("src." .. nome)
     end)
     
     if sucesso then
