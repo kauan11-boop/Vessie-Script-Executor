@@ -29,7 +29,7 @@ function Library:carregarModulo(nome)
 end
 
 function Library:inicializar()
-    local ordem = { "core", "memoria", "jogo", "ui", "apis", "utils", "framework" }
+    local ordem = { "core", "memoria", "jogo", "ui", "apis", "utils", "neural", "framework" }
     for _, nome in ipairs(ordem) do
         self:carregarModulo(nome)
     end
@@ -90,6 +90,10 @@ function Library:adicionarEvento(nome, callback)
     local jogo = self:carregarModulo("jogo")
     if jogo and jogo.adicionarEvento then return jogo:adicionarEvento(nome, callback) end
     return false
+end
+
+function Library:redeNeural()
+    return self:carregarModulo("neural")
 end
 
 function Library:obterModulo(nome)

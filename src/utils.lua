@@ -304,6 +304,234 @@ Utils.comandos.fov = {
     end,
 }
 
+local function ehEfeito(obj)
+    return obj:IsA("ParticleEmitter") or obj:IsA("Trail") or obj:IsA("Beam")
+        or obj:IsA("Sparkles") or obj:IsA("Fire") or obj:IsA("Smoke")
+end
+
+local function ehTextura(obj)
+    return obj:IsA("Decal") or obj:IsA("Texture")
+end
+
+Utils.comandos.otimizar = {
+    nome = "otimizar",
+    descricao = "FPS boost: sombras, efeitos, texturas e agua (com restauracao)",
+    funcao = function(ativo)
+        ativo = ativo ~= false
+        local lighting = game:GetService("Lighting")
+        if ativo then
+            if Utils._otimizar then return true end
+            local snap = { lighting = {}, efeitos = {}, texturas = {}, terreno = {} }
+            for _, prop in ipairs({ "GlobalShadows", "FogEnd", "FogStart", "Brightness" }) do
+                snap.lighting[prop] = lighting[prop]
+            end
+            pcall(function()
+                lighting.GlobalShadows = false
+                lighting.FogEnd = 1e9
+                lighting.FogStart = 1e9
+            end)
+            local terreno = workspace:FindFirstChildOfClass("Terrain")
+            if terreno then
+                for _, prop in ipairs({ "WaterWaveSize", "WaterReflectance", "WaterTransparency" }) do
+                    snap.terreno[prop] = terreno[prop]
+                end
+                pcall(function()
+                    terreno.WaterWaveSize = 0
+                    terreno.WaterReflectance = 0
+                    terreno.WaterTransparency = 1
+                end)
+            end
+            for _, obj in ipairs(game:GetDescendants()) do
+                pcall(function()
+                    if ehEfeito(obj) then
+                        snap.efeitos[obj] = obj.Enabled
+                        obj.Enabled = false
+                    elseif ehTextura(obj) then
+                        table.insert(snap.texturas, { obj = obj, parent = obj.Parent })
+                        obj.Parent = nil
+                    end
+                end)
+            end
+            Utils._otimizar = snap
+            print("[Otimizar] ativado - efeitos/texturas/sombras reduzidos")
+        else
+            local snap = Utils._otimizar
+            if not snap then return true end
+            pcall(function()
+                for prop, valor in pairs(snap.lighting) do lighting[prop] = valor end
+            end)
+            local terreno = workspace:FindFirstChildOfClass("Terrain")
+            if terreno then
+                pcall(function()
+                    for prop, valor in pairs(snap.terreno) do terreno[prop] = valor end
+                end)
+            end
+            for obj, enabled in pairs(snap.efeitos) do
+                pcall(function() if obj and obj.Parent then obj.Enabled = enabled end end)
+            end
+            for _, item in ipairs(snap.texturas) do
+                pcall(function() if item.obj then item.obj.Parent = item.parent end end)
+            end
+            Utils._otimizar = nil
+            print("[Otimizar] desativado - estado restaurado")
+        end
+        return true
+    end,
+}
+
+Utils.comandos.removerefeitos = {
+    nome = "removerefeitos",
+    descricao = "Ativa/desativa efeitos visuais (particulas, trails, beams, fogo)",
+    funcao = function(ativo)
+        ativo = ativo ~= false
+        if ativo then
+            if Utils._efeitos then return true end
+            local snap = {}
+            for _, obj in ipairs(game:GetDescendants()) do
+                pcall(function()
+                    if ehEfeito(obj) then
+                        snap[obj] = obj.Enabled
+                        obj.Enabled = false
+                    end
+                end)
+            end
+            Utils._efeitos = snap
+            print("[RemoverEfeitos] ativado")
+        else
+            local snap = Utils._efeitos
+            if not snap then return true end
+            for obj, enabled in pairs(snap) do
+                pcall(function() if obj and obj.Parent then obj.Enabled = enabled end end)
+            end
+            Utils._efeitos = nil
+            print("[RemoverEfeitos] desativado")
+        end
+        return true
+    end,
+}
+
+Utils.comandos.notextures = {
+    nome = "notextures",
+    descricao = "Remove/restaura decals e texturas (mais FPS)",
+    funcao = function(ativo)
+        ativo = ativo ~= false
+        if ativo then
+            if Utils._texturas then return true end
+            local snap = {}
+            for _, obj in ipairs(game:GetDescendants()) do
+                pcall(function()
+                    if ehTextura(obj) then
+                        table.insert(snap, { obj = obj, parent = obj.Parent })
+                        obj.Parent = nil
+                    end
+                end)
+            end
+            Utils._texturas = snap
+            print("[NoTextures] ativado - " .. #snap .. " texturas removidas")
+        else
+            local snap = Utils._texturas
+            if not snap then return true end
+            for _, item in ipairs(snap) do
+                pcall(function() if item.obj then item.obj.Parent = item.parent end end)
+            end
+            Utils._texturas = nil
+            print("[NoTextures] desativado")
+        end
+        return true
+    end,
+}
+
+Utils.comandos.nofog = {
+    nome = "nofog",
+    descricao = "Ativa/desativa remocao de neblina",
+    funcao = function(ativo)
+        ativo = ativo ~= false
+        local lighting = game:GetService("Lighting")
+        if ativo then
+            if Utils._fog then return true end
+            Utils._fog = { FogEnd = lighting.FogEnd, FogStart = lighting.FogStart }
+            pcall(function()
+                lighting.FogEnd = 1e9
+                lighting.FogStart = 1e9
+            end)
+            print("[NoFog] ativado")
+        elseif Utils._fog then
+            pcall(function()
+                lighting.FogEnd = Utils._fog.FogEnd
+                lighting.FogStart = Utils._fog.FogStart
+            end)
+            Utils._fog = nil
+            print("[NoFog] desativado")
+        end
+        return true
+    end,
+}
+
+Utils.comandos.daytime = {
+    nome = "daytime",
+    descricao = "Define a hora do dia (0-24)",
+    funcao = function(hora)
+        local lighting = game:GetService("Lighting")
+        local valor = tonumber(hora) or 14
+        valor = math.max(0, math.min(24, valor))
+        pcall(function() lighting.ClockTime = valor end)
+        print("[Daytime] ClockTime: " .. valor)
+        return true
+    end,
+}
+
+Utils.comandos.antivoid = {
+    nome = "antivoid",
+    descricao = "Teleporta de volta ao cair abaixo de um limite Y",
+    funcao = function(ativo, limite)
+        ativo = ativo ~= false
+        limite = tonumber(limite) or -150
+        desconectar("antivoid")
+        if ativo then
+            local seguro = Vector3.new(0, 50, 0)
+            Utils._conexoes.antivoid = game:GetService("RunService").Heartbeat:Connect(function()
+                local rp = root()
+                if not rp then return end
+                if rp.Position.Y > limite then
+                    seguro = rp.Position
+                elseif rp.Position.Y < limite then
+                    pcall(function()
+                        rp.CFrame = CFrame.new(seguro + Vector3.new(0, 5, 0))
+                        rp.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                    end)
+                end
+            end)
+            print("[AntiVoid] ativado (limite Y: " .. limite .. ")")
+        else
+            print("[AntiVoid] desativado")
+        end
+        return true
+    end,
+}
+
+Utils.comandos.fps = {
+    nome = "fps",
+    descricao = "Mede e mostra o FPS atual (amostra de 1s)",
+    funcao = function()
+        local ok, resultado = pcall(function()
+            local runService = game:GetService("RunService")
+            local frames = 0
+            local conexao = runService.Heartbeat:Connect(function() frames = frames + 1 end)
+            local inicio = os.clock()
+            task.wait(1)
+            conexao:Disconnect()
+            local fps = math.floor(frames / math.max(os.clock() - inicio, 1e-3))
+            print("[FPS] " .. fps .. " quadros/s")
+            return fps
+        end)
+        if not ok then
+            warn("[FPS] Medicao indisponivel: " .. tostring(resultado))
+            return false
+        end
+        return resultado
+    end,
+}
+
 function Utils:listarComandos()
     local lista = {}
     for nome in pairs(Utils.comandos) do table.insert(lista, nome) end

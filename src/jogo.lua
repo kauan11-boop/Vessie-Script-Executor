@@ -161,4 +161,126 @@ function Jogo:espelharPersonagem(ativo)
     return true
 end
 
+-- Utilitarios de modificacao da base do jogo e conteudo
+
+function Jogo:obterFPS()
+    if not game then return 0 end
+    local ok, fps = pcall(function()
+        local runService = game:GetService("RunService")
+        local frames = 0
+        local conexao = runService.Heartbeat:Connect(function() frames = frames + 1 end)
+        local inicio = os.clock()
+        task.wait(1)
+        conexao:Disconnect()
+        return math.floor(frames / math.max(os.clock() - inicio, 1e-3))
+    end)
+    return ok and fps or 0
+end
+
+-- Define propriedades de Lighting; retorna os valores anteriores para restauracao
+function Jogo:definirIluminacao(props)
+    if not game or type(props) ~= "table" then return false end
+    local lighting = game:GetService("Lighting")
+    local anteriores = {}
+    for prop, valor in pairs(props) do
+        pcall(function()
+            anteriores[prop] = lighting[prop]
+            lighting[prop] = valor
+        end)
+    end
+    return anteriores
+end
+
+function Jogo:definirTempo(hora)
+    if not game then return false end
+    local lighting = game:GetService("Lighting")
+    local valor = math.max(0, math.min(24, tonumber(hora) or 14))
+    return (pcall(function() lighting.ClockTime = valor end))
+end
+
+-- Modifica uma BasePart com uma allowlist de propriedades; retorna valores anteriores
+function Jogo:modificarParte(parte, props)
+    if not parte or not parte:IsA("BasePart") or type(props) ~= "table" then return false end
+    local permitidas = {
+        Material = true, Color = true, Transparency = true, CanCollide = true,
+        Anchored = true, Size = true, Reflectance = true, CastShadow = true, CFrame = true,
+    }
+    local anteriores = {}
+    for prop, valor in pairs(props) do
+        if permitidas[prop] then
+            pcall(function()
+                anteriores[prop] = parte[prop]
+                parte[prop] = valor
+            end)
+        end
+    end
+    return anteriores
+end
+
+-- Desativa efeitos visuais e remove decals/texturas sob alvo (padrao workspace)
+function Jogo:limparConteudo(alvo)
+    if not game then return 0 end
+    alvo = alvo or workspace
+    local afetados = 0
+    for _, obj in ipairs(alvo:GetDescendants()) do
+        pcall(function()
+            if obj:IsA("ParticleEmitter") or obj:IsA("Trail") or obj:IsA("Beam")
+                or obj:IsA("Sparkles") or obj:IsA("Fire") or obj:IsA("Smoke") then
+                obj.Enabled = false
+                afetados = afetados + 1
+            elseif obj:IsA("Decal") or obj:IsA("Texture") then
+                obj.Parent = nil
+                afetados = afetados + 1
+            end
+        end)
+    end
+    return afetados
+end
+
+function Jogo:ancorarPartes(alvo, ativo)
+    if not game then return 0 end
+    alvo = alvo or workspace
+    ativo = ativo ~= false
+    local count = 0
+    for _, obj in ipairs(alvo:GetDescendants()) do
+        if obj:IsA("BasePart") then
+            pcall(function() obj.Anchored = ativo end)
+            count = count + 1
+        end
+    end
+    return count
+end
+
+-- Toggle de otimizacao grafica (sombras + efeitos) com restauracao
+function Jogo:otimizarGraficos(ativo)
+    if not game then return false end
+    ativo = ativo ~= false
+    local lighting = game:GetService("Lighting")
+    if ativo then
+        if Jogo._graficos then return true end
+        local snap = { GlobalShadows = lighting.GlobalShadows, efeitos = {} }
+        pcall(function() lighting.GlobalShadows = false end)
+        for _, obj in ipairs(game:GetDescendants()) do
+            pcall(function()
+                if obj:IsA("ParticleEmitter") or obj:IsA("Trail") or obj:IsA("Beam")
+                    or obj:IsA("Fire") or obj:IsA("Smoke") or obj:IsA("Sparkles") then
+                    snap.efeitos[obj] = obj.Enabled
+                    obj.Enabled = false
+                end
+            end)
+        end
+        Jogo._graficos = snap
+        return true
+    else
+        local snap = Jogo._graficos
+        if not snap then return true end
+        pcall(function() lighting.GlobalShadows = snap.GlobalShadows end)
+        for obj, enabled in pairs(snap.efeitos) do
+            pcall(function() if obj and obj.Parent then obj.Enabled = enabled end end)
+        end
+        Jogo._graficos = nil
+        return true
+    end
+end
+
 return Jogo

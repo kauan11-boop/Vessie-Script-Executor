@@ -1,133 +1,172 @@
 {
-  "geradoEm": "2026-11-08T20:25:56.672Z",
-  "totalArquivos": 32,
+  "geradoEm": "2026-11-08T21:42:16.180Z",
+  "rawBase": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/",
+  "totalArquivos": 38,
   "arquivos": [
     {
       "caminho": "main.lua",
-      "bytes": 2704,
-      "linhas": 95,
-      "proposito": "Ponto de entrada da biblioteca: carrega os módulos de src/ via require(\"src.<nome>\"), inicializa cada um e expõe executarComando, getMemoria, setMemoria e adicionarEvento.",
-      "cabecalho": "--[[\nRoblox Executor Library - Core Module\nVersão: 1.0.0\nDesenvolvido para executores: Xeno, Delta, Mobile Executors\nFunciona no client local sem emuladores\n--]]",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/main.lua",
+      "bytes": 3307,
+      "linhas": 103,
+      "proposito": "Ponto de entrada (v0.2.0): carrega core/memoria/jogo/ui/apis/utils/neural/framework via require(\"src.<nome>\"), inicializa o core primeiro, registra os comandos de utils no core e expõe executarComando, getMemoria, setMemoria, adicionarEvento, redeNeural e obterModulo.",
+      "cabecalho": "--[[\nVessie Script Executor - Ponto de Entrada\nVersão: 0.2.0\nDesenvolvido para executores: Xeno, Delta, Mobile Executors\nFunciona no client local sem emuladores\n\nArquitetura: main.lua (raiz) carrega módulos de src/ via require(\"src.<nome>\").\n<nome> resolve para src/<nome>.lua ou src/<nome>/init.lua.\n--]]",
       "funcoes": [
         {
-          "linha": 19,
+          "linha": 18,
           "local": false,
           "assinatura": "function Library:carregarModulo(nome)"
         },
         {
-          "linha": 36,
+          "linha": 31,
           "local": false,
           "assinatura": "function Library:inicializar()"
         },
         {
-          "linha": 58,
+          "linha": 68,
           "local": false,
           "assinatura": "function Library:executarComando(comando, ...)"
         },
         {
-          "linha": 68,
+          "linha": 77,
           "local": false,
           "assinatura": "function Library:getMemoria(endereco)"
         },
         {
-          "linha": 77,
+          "linha": 83,
           "local": false,
           "assinatura": "function Library:setMemoria(endereco, valor)"
         },
         {
-          "linha": 86,
+          "linha": 89,
           "local": false,
           "assinatura": "function Library:adicionarEvento(nome, callback)"
+        },
+        {
+          "linha": 95,
+          "local": false,
+          "assinatura": "function Library:redeNeural()"
+        },
+        {
+          "linha": 99,
+          "local": false,
+          "assinatura": "function Library:obterModulo(nome)"
         }
       ],
       "registros": [],
       "retorno": "Library"
     },
     {
-      "caminho": "src/apis/apis.lua",
-      "bytes": 3673,
-      "linhas": 127,
-      "proposito": "Integração externa e informações: webhooks/HTTP (placeholders), info do executor/jogador/jogo, callbacks e conversão JSON via HttpService.",
-      "cabecalho": "--[[\nMódulo de APIs - Roblox Executor Library\nFunções de API para integração e informações externas\n--]]",
+      "caminho": "src/apis.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/apis.lua",
+      "bytes": 4799,
+      "linhas": 137,
+      "proposito": "Integração externa: detecta o HTTP do executor (request/syn.request/http_request), webhook/GET/POST/baixarArquivo, conversão JSON via HttpService e informações de executor/jogador/jogo.",
+      "cabecalho": "--[[\nMódulo de APIs - Vessie Script Executor\nIntegração externa (HTTP/webhooks) e informações do executor/jogador/jogo.\nHTTP real é usado quando o executor expõe request; caso contrário, placeholder.\n--]]",
       "funcoes": [
         {
           "linha": 12,
+          "local": true,
+          "assinatura": "local function obterRequest()"
+        },
+        {
+          "linha": 20,
+          "local": true,
+          "assinatura": "local function temHttp()"
+        },
+        {
+          "linha": 24,
           "local": false,
           "assinatura": "function API:enviarWebhook(url, dados, metodo)"
         },
         {
-          "linha": 26,
+          "linha": 45,
           "local": false,
           "assinatura": "function API:requisicaoGET(url)"
         },
         {
-          "linha": 33,
+          "linha": 53,
           "local": false,
           "assinatura": "function API:requisicaoPOST(url, dados)"
         },
         {
-          "linha": 40,
+          "linha": 58,
           "local": false,
           "assinatura": "function API:baixarArquivo(url, caminhoLocal)"
         },
         {
-          "linha": 47,
+          "linha": 71,
           "local": false,
           "assinatura": "function API:obterInfoExecutor()"
         },
         {
-          "linha": 59,
+          "linha": 81,
           "local": false,
           "assinatura": "function API:obterInfoJogador(jogador)"
         },
         {
-          "linha": 76,
+          "linha": 93,
           "local": false,
           "assinatura": "function API:obterInfoJogo()"
         },
         {
-          "linha": 90,
+          "linha": 108,
           "local": false,
           "assinatura": "function API:registrarCallback(evento, callback)"
         },
         {
-          "linha": 100,
+          "linha": 115,
           "local": false,
           "assinatura": "function API:dispararCallback(evento, ...)"
+        },
+        {
+          "linha": 124,
+          "local": false,
+          "assinatura": "function API:tabelaParaJSON(tabela)"
+        },
+        {
+          "linha": 128,
+          "local": false,
+          "assinatura": "function API:JSONParaTabela(jsonString)"
         }
       ],
       "registros": [],
       "retorno": "API"
     },
     {
-      "caminho": "src/command_dispatcher.lua",
-      "bytes": 2024,
-      "linhas": 73,
-      "proposito": "Registro e despacho de handlers de comando da Public API, com execução protegida (pcall/xpcall) e modo seguro.",
-      "cabecalho": "-- Command Dispatcher for Public API\n-- Responsavel por dispatcher de comandos recebidos via remote events\n-- Compatibilidade: Lua 5.1/5.2/5.3/5.4",
+      "caminho": "src/core/command_dispatcher.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/core/command_dispatcher.lua",
+      "bytes": 1848,
+      "linhas": 59,
+      "proposito": "Registro e despacho de handlers de comando da Public API, com execução protegida (pcall) e modo seguro.",
+      "cabecalho": "-- Command Dispatcher for Public API\n-- Despacho de comandos recebidos via remote events\n-- Compatibilidade: Lua 5.1/5.2/5.3/5.4",
       "funcoes": [
         {
-          "linha": 11,
+          "linha": 9,
+          "local": true,
+          "assinatura": "local function function_list()"
+        },
+        {
+          "linha": 18,
           "local": false,
           "assinatura": "function M.register_handler(command_name, handler_func)"
         },
         {
-          "linha": 23,
+          "linha": 29,
           "local": false,
           "assinatura": "function M.get_handler(command_name)"
         },
         {
-          "linha": 29,
+          "linha": 34,
           "local": false,
           "assinatura": "function M.dispatch(command_name, args)"
         },
         {
-          "linha": 59,
+          "linha": 50,
           "local": false,
-          "assinatura": "function function_list()"
+          "assinatura": "function M.list_commands()"
         },
         {
-          "linha": 68,
+          "linha": 54,
           "local": false,
           "assinatura": "function M.set_secure(secure)"
         }
@@ -136,1338 +175,40 @@
       "retorno": "M"
     },
     {
-      "caminho": "src/framework/Client/Players/PlayerManager.lua",
-      "bytes": 5807,
-      "linhas": 176,
-      "proposito": "Rastreia jogadores e personagens com dados por jogador e BindableEvents internos; incompleto (erro de sintaxe e player.PlayerRemoving inexistente).",
-      "cabecalho": "-- Vessie Roblox Framework - PlayerManager (7)\n-- Gerencia jogadores, entrada, carregamento de personagens e respawns",
-      "funcoes": [
-        {
-          "linha": 22,
-          "local": false,
-          "assinatura": "function PlayerManager.Init()"
-        },
-        {
-          "linha": 32,
-          "local": false,
-          "assinatura": "function PlayerManager.OnPlayerAdded(player: Player)"
-        },
-        {
-          "linha": 72,
-          "local": false,
-          "assinatura": "function PlayerManager.OnPlayerRemoving(player: Player)"
-        },
-        {
-          "linha": 80,
-          "local": false,
-          "assinatura": "function PlayerManager.GetCharacter(player: Player)"
-        },
-        {
-          "linha": 98,
-          "local": false,
-          "assinatura": "function PlayerManager.GetData(player: Player, key: string?)"
-        },
-        {
-          "linha": 109,
-          "local": false,
-          "assinatura": "function PlayerManager.SetData(player: Player, key: string, value: any)"
-        },
-        {
-          "linha": 119,
-          "local": false,
-          "assinatura": "function PlayerManager.HasCharacter(player: Player)"
-        },
-        {
-          "linha": 127,
-          "local": false,
-          "assinatura": "function PlayerManager.GetLastPosition(player: Player)"
-        },
-        {
-          "linha": 146,
-          "local": false,
-          "assinatura": "function PlayerManager.SetLastPosition(player: Player, position: Vector3)"
-        },
-        {
-          "linha": 156,
-          "local": false,
-          "assinatura": "function PlayerManager.On(eventName: string, callback: ...)"
-        },
-        {
-          "linha": 167,
-          "local": false,
-          "assinatura": "function PlayerManager.Cleanup(player: Player)"
-        }
-      ],
-      "registros": [
-        {
-          "linha": 13,
-          "nome": "PlayerManager.Events"
-        }
-      ],
-      "retorno": "PlayerManager"
-    },
-    {
-      "caminho": "src/framework/Client/UI/NotificationManager.lua",
-      "bytes": 4750,
-      "linhas": 144,
-      "proposito": "Notificações UI animadas com fila; incompleto (faltam end/return, _ProcessQueue indefinido, usa ThemeManager como global).",
-      "cabecalho": "-- Vessie Roblox Framework - Notification System\n-- Sistema de notificações com fila, duração configurável",
-      "funcoes": [
-        {
-          "linha": 19,
-          "local": false,
-          "assinatura": "function NotificationManager._EnsureContainer()"
-        },
-        {
-          "linha": 52,
-          "local": false,
-          "assinatura": "function NotificationManager.Show(title: string, text: string, duration: number?, type: string?)"
-        }
-      ],
-      "registros": [],
-      "retorno": "NotificationManager"
-    },
-    {
-      "caminho": "src/framework/Client/UI/ThemeManager.lua",
-      "bytes": 3210,
-      "linhas": 110,
-      "proposito": "Temas Light/Dark com cores, fontes, espaçamento e border radius; ApplyCustomTheme muta o tema Light.",
-      "cabecalho": "-- Vessie Roblox Framework - ThemeManager\n-- Gerenciamento de tema: cores, tipografia, espaçamento",
-      "funcoes": [
-        {
-          "linha": 47,
-          "local": false,
-          "assinatura": "function ThemeManager.GetColor(key: string)"
-        },
-        {
-          "linha": 57,
-          "local": false,
-          "assinatura": "function ThemeManager.SetTheme(themeName: string)"
-        },
-        {
-          "linha": 67,
-          "local": false,
-          "assinatura": "function ThemeManager.GetFont()"
-        },
-        {
-          "linha": 75,
-          "local": false,
-          "assinatura": "function ThemeManager.GetFontSize()"
-        },
-        {
-          "linha": 82,
-          "local": false,
-          "assinatura": "function ThemeManager.GetSpacing(size: string)"
-        },
-        {
-          "linha": 93,
-          "local": false,
-          "assinatura": "function ThemeManager.GetBorderRadius()"
-        },
-        {
-          "linha": 99,
-          "local": false,
-          "assinatura": "function ThemeManager.ApplyCustomTheme(customTheme: {}?)"
-        }
-      ],
-      "registros": [
-        {
-          "linha": 8,
-          "nome": "ThemeManager.Themes"
-        }
-      ],
-      "retorno": "ThemeManager"
-    },
-    {
-      "caminho": "src/framework/CollectionUtils.lua",
-      "bytes": 6039,
-      "linhas": 250,
-      "proposito": "Fábricas de estruturas de dados (fila, pilha, conjunto, tabela ordenada) e helpers de deduplicação/comparação. Contém sintaxe genérica <T> inválida em Luau.",
-      "cabecalho": "-- Vessie Roblox Framework - CollectionUtils (6.6)\n-- Estruturas de dados: filas, pilhas, conjuntos, tabelas ordenadas",
-      "funcoes": [
-        {
-          "linha": 14,
-          "local": false,
-          "assinatura": "function _internal:Enqueue(item: T)"
-        },
-        {
-          "linha": 20,
-          "local": false,
-          "assinatura": "function _internal:Dequeue()"
-        },
-        {
-          "linha": 28,
-          "local": false,
-          "assinatura": "function _internal:Peek()"
-        },
-        {
-          "linha": 33,
-          "local": false,
-          "assinatura": "function _internal:IsEmpty()"
-        },
-        {
-          "linha": 37,
-          "local": false,
-          "assinatura": "function _internal:Size()"
-        },
-        {
-          "linha": 50,
-          "local": false,
-          "assinatura": "function _internal:Push(item: T)"
-        },
-        {
-          "linha": 56,
-          "local": false,
-          "assinatura": "function _internal:Pop()"
-        },
-        {
-          "linha": 64,
-          "local": false,
-          "assinatura": "function _internal:Peek()"
-        },
-        {
-          "linha": 69,
-          "local": false,
-          "assinatura": "function _internal:IsEmpty()"
-        },
-        {
-          "linha": 73,
-          "local": false,
-          "assinatura": "function _internal:Size()"
-        },
-        {
-          "linha": 86,
-          "local": false,
-          "assinatura": "function _internal:Add(value: T)"
-        },
-        {
-          "linha": 95,
-          "local": false,
-          "assinatura": "function _internal:Remove(value: T)"
-        },
-        {
-          "linha": 110,
-          "local": false,
-          "assinatura": "function _internal:Has(value: T)"
-        },
-        {
-          "linha": 114,
-          "local": false,
-          "assinatura": "function _internal:Size()"
-        },
-        {
-          "linha": 118,
-          "local": false,
-          "assinatura": "function _internal:IsEmpty()"
-        },
-        {
-          "linha": 122,
-          "local": false,
-          "assinatura": "function _internal:Union(other: {[T]: boolean})"
-        },
-        {
-          "linha": 130,
-          "local": false,
-          "assinatura": "function _internal:Intersect(other: {[T]: boolean])"
-        },
-        {
-          "linha": 150,
-          "local": false,
-          "assinatura": "function _internal:Insert(value: T)"
-        },
-        {
-          "linha": 169,
-          "local": false,
-          "assinatura": "function _internal:Remove(value: T)"
-        },
-        {
-          "linha": 182,
-          "local": false,
-          "assinatura": "function _internal:Get(index: number)"
-        },
-        {
-          "linha": 187,
-          "local": false,
-          "assinatura": "function _internal:Size()"
-        },
-        {
-          "linha": 191,
-          "local": false,
-          "assinatura": "function _internal:IsEmpty()"
-        },
-        {
-          "linha": 195,
-          "local": false,
-          "assinatura": "function _internal:Iterator()"
-        }
-      ],
-      "registros": [],
-      "retorno": "CollectionUtils"
-    },
-    {
-      "caminho": "src/framework/ConfigManager.lua",
-      "bytes": 5709,
-      "linhas": 180,
-      "proposito": "Classe de configurações com defaults, overrides, campos readonly e níveis de acesso (bloqueia ServerOnly no cliente via RunService).",
-      "cabecalho": "-- Vessie Roblox Framework - ConfigManager (6.12)\n-- Gerencia configurações com valores padrão, validação e persistência",
-      "funcoes": [
-        {
-          "linha": 18,
-          "local": false,
-          "assinatura": "function ConfigManager.new(configTable: table)"
-        },
-        {
-          "linha": 32,
-          "local": false,
-          "assinatura": "function ConfigManager:Set(key: string, value: any, access: string?, readonly: boolean?)"
-        },
-        {
-          "linha": 57,
-          "local": false,
-          "assinatura": "function ConfigManager:Get(key: string, default: any)"
-        },
-        {
-          "linha": 72,
-          "local": false,
-          "assinatura": "function ConfigManager:SetDefault(key: string, default: any, access: string?)"
-        },
-        {
-          "linha": 82,
-          "local": false,
-          "assinatura": "function ConfigManager:SetReadOnly(key: string, value: any)"
-        },
-        {
-          "linha": 92,
-          "local": false,
-          "assinatura": "function ConfigManager:Exists(key: string)"
-        },
-        {
-          "linha": 100,
-          "local": false,
-          "assinatura": "function ConfigManager:Remove(key: string)"
-        },
-        {
-          "linha": 111,
-          "local": false,
-          "assinatura": "function ConfigManager:Override(key: string, value: any)"
-        },
-        {
-          "linha": 119,
-          "local": false,
-          "assinatura": "function ConfigManager:GetKeys()"
-        },
-        {
-          "linha": 132,
-          "local": false,
-          "assinatura": "function ConfigManager:GetReadWriteKeys()"
-        },
-        {
-          "linha": 146,
-          "local": false,
-          "assinatura": "function ConfigManager:ValidateRequired(required: {string})"
-        },
-        {
-          "linha": 159,
-          "local": false,
-          "assinatura": "function ConfigManager:Export()"
-        },
-        {
-          "linha": 172,
-          "local": false,
-          "assinatura": "function ConfigManager:Import(importedTable: table)"
-        }
-      ],
-      "registros": [
-        {
-          "linha": 9,
-          "nome": "ConfigManager.Access"
-        }
-      ],
-      "retorno": "ConfigManager"
-    },
-    {
-      "caminho": "src/framework/EventBus.lua",
-      "bytes": 4488,
-      "linhas": 133,
-      "proposito": "Pub/sub por nome (On/Once/Off/Emit), mas incompleto/não funcional: usa RBXScriptSignal.new() inexistente e Emit não invoca callbacks.",
-      "cabecalho": "-- Vessie Roblox Framework - EventBus (6.9)\n-- Sistema de EventBus reutilizável, diferenciado dos eventos nativos do Roblox\n-- Utiliza RBXScriptConnection para gerenciar conexões",
-      "funcoes": [
-        {
-          "linha": 11,
-          "local": false,
-          "assinatura": "function EventBus.new()"
-        },
-        {
-          "linha": 21,
-          "local": false,
-          "assinatura": "function EventBus:On(eventName: string, callback: any)"
-        },
-        {
-          "linha": 41,
-          "local": false,
-          "assinatura": "function EventBus:Once(eventName: string, callback: any)"
-        },
-        {
-          "linha": 42,
-          "local": true,
-          "assinatura": "local function onceFunc(...: any)"
-        },
-        {
-          "linha": 53,
-          "local": false,
-          "assinatura": "function EventBus:Off(eventName: string?, connection: RBXScriptConnection?)"
-        },
-        {
-          "linha": 78,
-          "local": false,
-          "assinatura": "function EventBus:Clear(eventName: string)"
-        },
-        {
-          "linha": 88,
-          "local": false,
-          "assinatura": "function EventBus:Emit(eventName: string, ...: any)"
-        },
-        {
-          "linha": 100,
-          "local": false,
-          "assinatura": "function EventBus:HasListeners(eventName: string)"
-        },
-        {
-          "linha": 105,
-          "local": false,
-          "assinatura": "function EventBus:Destroy()"
-        },
-        {
-          "linha": 118,
-          "local": false,
-          "assinatura": "function EventBus:Count()"
-        }
-      ],
-      "registros": [],
-      "retorno": "EventBus"
-    },
-    {
-      "caminho": "src/framework/Framework.lua",
-      "bytes": 3108,
-      "linhas": 139,
-      "proposito": "Núcleo do framework: registro de módulos (Register/Get), ciclo de vida Init → Start → Cleanup e Maid para limpeza de conexões/instances.",
-      "cabecalho": "-- Vessie Roblox Framework - Core Module\n-- Módulo núcleo responsável pela inicialização, registro e gerenciamento do framework",
-      "funcoes": [
-        {
-          "linha": 14,
-          "local": false,
-          "assinatura": "function Maid.new()"
-        },
-        {
-          "linha": 18,
-          "local": false,
-          "assinatura": "function Maid:GiveTask(task: () -> (), name: string?)"
-        },
-        {
-          "linha": 22,
-          "local": false,
-          "assinatura": "function Maid:DoCleaning()"
-        },
-        {
-          "linha": 47,
-          "local": false,
-          "assinatura": "function Maid:Destroy()"
-        },
-        {
-          "linha": 53,
-          "local": false,
-          "assinatura": "function Framework.Register(name: string, module: any)"
-        },
-        {
-          "linha": 75,
-          "local": false,
-          "assinatura": "function Framework.Get(name: string)"
-        },
-        {
-          "linha": 79,
-          "local": false,
-          "assinatura": "function Framework.Start()"
-        },
-        {
-          "linha": 108,
-          "local": false,
-          "assinatura": "function Framework.Stop()"
-        },
-        {
-          "linha": 127,
-          "local": false,
-          "assinatura": "function Framework.IsInitialized()"
-        },
-        {
-          "linha": 131,
-          "local": false,
-          "assinatura": "function Framework.GetModules()"
-        }
-      ],
-      "registros": [],
-      "retorno": "Framework"
-    },
-    {
-      "caminho": "src/framework/InstanceUtils.lua",
-      "bytes": 1932,
-      "linhas": 55,
-      "proposito": "Helpers seguros para instâncias Roblox: busca, criação validada, propriedades, destruição segura e CFrame a partir de posição/rotação.",
-      "cabecalho": "-- Vessie Roblox Framework - InstanceUtils (6.4)\n-- Utilitários básicos para instâncias do Roblox",
-      "funcoes": [
-        {
-          "linha": 7,
-          "local": false,
-          "assinatura": "function InstanceUtils.FindFirstChildSafe(parent: Instance, name: string, className: string?)"
-        },
-        {
-          "linha": 11,
-          "local": false,
-          "assinatura": "function InstanceUtils.CreateWithValidation(className: string, properties: table)"
-        },
-        {
-          "linha": 20,
-          "local": false,
-          "assinatura": "function InstanceUtils.SetProperties(inst: Instance, properties: table)"
-        },
-        {
-          "linha": 29,
-          "local": false,
-          "assinatura": "function InstanceUtils.DestroySafe(inst: Instance?)"
-        },
-        {
-          "linha": 33,
-          "local": false,
-          "assinatura": "function InstanceUtils.IsClass(instance: Instance, className: string)"
-        },
-        {
-          "linha": 45,
-          "local": false,
-          "assinatura": "function InstanceUtils.CFrameFromPositionRotation(position: Vector3 | table, euler: Vector3 | table)"
-        }
-      ],
-      "registros": [],
-      "retorno": "InstanceUtils"
-    },
-    {
-      "caminho": "src/framework/LifecycleManager.lua",
-      "bytes": 1863,
+      "caminho": "src/core/init.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/core/init.lua",
+      "bytes": 1764,
       "linhas": 53,
-      "proposito": "Máquina de estados de componente (Registered → Running → Stopped/Failed) com validação de estados.",
-      "cabecalho": "-- Vessie Roblox Framework - LifecycleManager (6.11)\n-- Gerencia ciclos de vida dos componentes com estados previsíveis",
+      "proposito": "Faixada do núcleo Public API: agrega os 6 submódulos, inicializar prepara estado/bridge/canal, registrarComando aplica segurança+allowlist+dispatch, executar valida allowlist/rate-limit/processa/histórico e listarComandos.",
+      "cabecalho": "-- Core da Public API — agrega o sistema de comandos não-visual\n-- Ponto único de acesso: registro, execução segura, estado, bridge e canal.",
       "funcoes": [
         {
-          "linha": 19,
+          "linha": 20,
           "local": false,
-          "assinatura": "function LifecycleManager.new(name)"
+          "assinatura": "function Core:inicializar()"
         },
         {
           "linha": 29,
           "local": false,
-          "assinatura": "function LifecycleManager:SetState(newState, errorMessage)"
+          "assinatura": "function Core:registrarComando(nome, funcao)"
         },
         {
-          "linha": 41,
+          "linha": 36,
           "local": false,
-          "assinatura": "function LifecycleManager:GetState()"
-        },
-        {
-          "linha": 42,
-          "local": false,
-          "assinatura": "function LifecycleManager:GetPreviousState()"
-        },
-        {
-          "linha": 43,
-          "local": false,
-          "assinatura": "function LifecycleManager:GetError()"
-        },
-        {
-          "linha": 44,
-          "local": false,
-          "assinatura": "function LifecycleManager:IsState(state)"
-        },
-        {
-          "linha": 46,
-          "local": false,
-          "assinatura": "function LifecycleManager:Destroy()"
-        }
-      ],
-      "registros": [
-        {
-          "linha": 8,
-          "nome": "LifecycleManager.States"
-        }
-      ],
-      "retorno": "LifecycleManager"
-    },
-    {
-      "caminho": "src/framework/Logger.lua",
-      "bytes": 4800,
-      "linhas": 161,
-      "proposito": "Logging com níveis DEBUG/INFO/WARN/ERROR e contexto de módulo; mistura API estática e de instância, com stubs e bugs conhecidos.",
-      "cabecalho": "-- Vessie Roblox Framework - Logger (6.8)\n-- Sistema de logging com níveis: DEBUG, INFO, WARN, ERROR",
-      "funcoes": [
-        {
-          "linha": 32,
-          "local": false,
-          "assinatura": "function Logger.SetLevelMax(level: number)"
-        },
-        {
-          "linha": 42,
-          "local": false,
-          "assinatura": "function Logger.RegisterModule(moduleName: string)"
-        },
-        {
-          "linha": 53,
-          "local": false,
-          "assinatura": "function Logger.new(moduleName: string)"
-        },
-        {
-          "linha": 62,
-          "local": false,
-          "assinatura": "function Logger.On(callback: function)"
-        },
-        {
-          "linha": 69,
-          "local": false,
-          "assinatura": "function Logger.WithTags(tags: table)"
-        },
-        {
-          "linha": 77,
-          "local": false,
-          "assinatura": "function Logger.Error(err: any, context: string?)"
-        },
-        {
-          "linha": 90,
-          "local": false,
-          "assinatura": "function Logger:Debug(message: string, ...: any)"
-        },
-        {
-          "linha": 101,
-          "local": false,
-          "assinatura": "function Logger:Info(message: string, ...: any)"
-        },
-        {
-          "linha": 112,
-          "local": false,
-          "assinatura": "function Logger:Warn(message: string, ...: any)"
-        },
-        {
-          "linha": 123,
-          "local": false,
-          "assinatura": "function Logger:Error(message: string, ...: any)"
-        },
-        {
-          "linha": 132,
-          "local": false,
-          "assinatura": "function Logger:Catch(err: error, context: string)"
-        },
-        {
-          "linha": 143,
-          "local": false,
-          "assinatura": "function Logger.ClearModules()"
-        },
-        {
-          "linha": 149,
-          "local": false,
-          "assinatura": "function Logger:GetLevelMax()"
-        },
-        {
-          "linha": 154,
-          "local": false,
-          "assinatura": "function Logger.LevelName(level: number)"
-        }
-      ],
-      "registros": [
-        {
-          "linha": 9,
-          "nome": "Logger.Level"
-        }
-      ],
-      "retorno": "Logger"
-    },
-    {
-      "caminho": "src/framework/MathUtils.lua",
-      "bytes": 4455,
-      "linhas": 140,
-      "proposito": "Matemática de vetores e CFrame (lerp, clamp, distância, projeção, lookAt, conversões euler); contém bugs conhecidos de runtime.",
-      "cabecalho": "-- Vessie Roblox Framework - MathUtils (6.5)\n-- Utilitários matemáticos: vetores, CFrame, geometria",
-      "funcoes": [
-        {
-          "linha": 12,
-          "local": false,
-          "assinatura": "function MathUtils.Lerp(a: number | Vector3 | CFrame, b: number | Vector3 | CFrame, t: number)"
-        },
-        {
-          "linha": 28,
-          "local": false,
-          "assinatura": "function MathUtils.ClampVec(v: Vector3, min: Vector3, max: Vector3)"
-        },
-        {
-          "linha": 39,
-          "local": false,
-          "assinatura": "function MathUtils.Normalize(v: Vector3)"
+          "assinatura": "function Core:executar(comando, args)"
         },
         {
           "linha": 49,
           "local": false,
-          "assinatura": "function MathUtils.Distance(a: Vector3, b: Vector3)"
-        },
-        {
-          "linha": 57,
-          "local": false,
-          "assinatura": "function MathUtils.AngleBetween(a: Vector3, b: Vector3)"
-        },
-        {
-          "linha": 68,
-          "local": false,
-          "assinatura": "function MathUtils.ProjectOnPlane(v: Vector3, planeNormal: Vector3)"
-        },
-        {
-          "linha": 77,
-          "local": false,
-          "assinatura": "function MathUtils.LookAt(from: Vector3, to: Vector3)"
-        },
-        {
-          "linha": 87,
-          "local": false,
-          "assinatura": "function MathUtils.EulerToCFrame(pitch: number, yaw: number, roll: number)"
-        },
-        {
-          "linha": 106,
-          "local": false,
-          "assinatura": "function MathUtils.CFrameToEuler(cframe: CFrame)"
-        },
-        {
-          "linha": 126,
-          "local": false,
-          "assinatura": "function MathUtils.RotateVector(v: Vector3, c: CFrame)"
-        },
-        {
-          "linha": 134,
-          "local": false,
-          "assinatura": "function MathUtils.ProjectAOnB(a: Vector3, b: Vector3)"
+          "assinatura": "function Core:listarComandos()"
         }
       ],
       "registros": [],
-      "retorno": "MathUtils"
+      "retorno": "Core"
     },
     {
-      "caminho": "src/framework/ModuleRegistry.lua",
-      "bytes": 5844,
-      "linhas": 196,
-      "proposito": "Registro de módulos com dependências, detecção de ciclos e ordem topológica de inicialização (GetInitOrder).",
-      "cabecalho": "-- Vessie Roblox Framework - ModuleRegistry (6.10)\n-- Registro de módulos com validação de nomes, dependências e detecção de ciclos",
-      "funcoes": [
-        {
-          "linha": 10,
-          "local": false,
-          "assinatura": "function ModuleRegistry.new()"
-        },
-        {
-          "linha": 24,
-          "local": false,
-          "assinatura": "function ModuleRegistry:Register(name: string, module: any, dependencies: {string}?)"
-        },
-        {
-          "linha": 54,
-          "local": false,
-          "assinatura": "function ModuleRegistry:Get(name: string)"
-        },
-        {
-          "linha": 61,
-          "local": false,
-          "assinatura": "function ModuleRegistry:IsRegistered(name: string)"
-        },
-        {
-          "linha": 69,
-          "local": false,
-          "assinatura": "function ModuleRegistry:ValidateDependencies(name: string)"
-        },
-        {
-          "linha": 81,
-          "local": true,
-          "assinatura": "local function checkCycle(current: string, path: {string})"
-        },
-        {
-          "linha": 102,
-          "local": false,
-          "assinatura": "function ModuleRegistry:GetInitOrder()"
-        },
-        {
-          "linha": 114,
-          "local": true,
-          "assinatura": "local function visit(moduleName: string)"
-        },
-        {
-          "linha": 141,
-          "local": false,
-          "assinatura": "function ModuleRegistry:Remove(name: string)"
-        },
-        {
-          "linha": 171,
-          "local": false,
-          "assinatura": "function ModuleRegistry:GetNames()"
-        },
-        {
-          "linha": 182,
-          "local": false,
-          "assinatura": "function ModuleRegistry:CheckAllDependencies()"
-        }
-      ],
-      "registros": [],
-      "retorno": "ModuleRegistry"
-    },
-    {
-      "caminho": "src/framework/NumberUtils.lua",
-      "bytes": 3839,
-      "linhas": 104,
-      "proposito": "Utilitários numéricos puros: clamp, lerp, round, mapeamento, wrap, conversão graus/radianos e random.",
-      "cabecalho": "-- Vessie Roblox Framework - NumberUtils (6.7)\n-- Utilitários numéricos: clamp, lerp, arredondamento, aproximação",
-      "funcoes": [
-        {
-          "linha": 12,
-          "local": false,
-          "assinatura": "function NumberUtils.Clamp(value: number, min: number, max: number)"
-        },
-        {
-          "linha": 21,
-          "local": false,
-          "assinatura": "function NumberUtils.Lerp(a: number, b: number, t: number)"
-        },
-        {
-          "linha": 29,
-          "local": false,
-          "assinatura": "function NumberUtils.Round(value: number, decimals: number)"
-        },
-        {
-          "linha": 37,
-          "local": false,
-          "assinatura": "function NumberUtils.IsFinite(value: number)"
-        },
-        {
-          "linha": 46,
-          "local": false,
-          "assinatura": "function NumberUtils.Approximately(a: number, b: number, tolerance: number)"
-        },
-        {
-          "linha": 54,
-          "local": false,
-          "assinatura": "function NumberUtils.RadiansToDegrees(radians: number)"
-        },
-        {
-          "linha": 61,
-          "local": false,
-          "assinatura": "function NumberUtils.DegreesToRadians(degrees: number)"
-        },
-        {
-          "linha": 70,
-          "local": false,
-          "assinatura": "function NumberUtils.Random(min: number, max: number, isInteger: boolean)"
-        },
-        {
-          "linha": 86,
-          "local": false,
-          "assinatura": "function NumberUtils.Map(value: number, inMin: number, inMax: number, outMin: number, outMax: number)"
-        },
-        {
-          "linha": 96,
-          "local": false,
-          "assinatura": "function NumberUtils.Wrap(value: number, min: number, max: number, cycleLength: number)"
-        }
-      ],
-      "registros": [],
-      "retorno": "NumberUtils"
-    },
-    {
-      "caminho": "src/framework/Server/Characters/CharacterManager.lua",
-      "bytes": 3181,
-      "linhas": 96,
-      "proposito": "Helpers de personagem: tipo de rig, root part, vivo/morto, posição, direção, pulo e respawn; incompleto (_data não declarado, typos de enum).",
-      "cabecalho": "-- Vessie - CharacterManager",
-      "funcoes": [
-        {
-          "linha": 8,
-          "local": false,
-          "assinatura": "function CharacterManager.Init()"
-        },
-        {
-          "linha": 10,
-          "local": false,
-          "assinatura": "function CharacterManager.Register(character: Model, config: any?)"
-        },
-        {
-          "linha": 24,
-          "local": false,
-          "assinatura": "function CharacterManager._Setup(character: Model)"
-        },
-        {
-          "linha": 35,
-          "local": false,
-          "assinatura": "function CharacterManager.DetectRigType(character: Model)"
-        },
-        {
-          "linha": 40,
-          "local": false,
-          "assinatura": "function CharacterManager.GetRootPart(character: Model)"
-        },
-        {
-          "linha": 45,
-          "local": false,
-          "assinatura": "function CharacterManager.IsAlive(character: Model)"
-        },
-        {
-          "linha": 50,
-          "local": false,
-          "assinatura": "function CharacterManager.IsOnGround(character: Model)"
-        },
-        {
-          "linha": 57,
-          "local": false,
-          "assinatura": "function CharacterManager.GetPosition(character: Model)"
-        },
-        {
-          "linha": 62,
-          "local": false,
-          "assinatura": "function CharacterManager.GetMoveDirection(character: Model)"
-        },
-        {
-          "linha": 70,
-          "local": false,
-          "assinatura": "function CharacterManager.Jump(character: Model)"
-        },
-        {
-          "linha": 75,
-          "local": false,
-          "assinatura": "function CharacterManager.Respawn(character: Model, location: CFrame?)"
-        },
-        {
-          "linha": 84,
-          "local": false,
-          "assinatura": "function CharacterManager.IsDead(character: Model)"
-        },
-        {
-          "linha": 89,
-          "local": false,
-          "assinatura": "function CharacterManager.RegisterInteractionPoint(character: Model, point: BasePart, itype: string)"
-        }
-      ],
-      "registros": [],
-      "retorno": "CharacterManager"
-    },
-    {
-      "caminho": "src/framework/Server/Permissions/PermissionManager.lua",
-      "bytes": 5439,
-      "linhas": 153,
-      "proposito": "Papéis e permissões (DefineRole/AssignRole/HasPermission); bug conhecido: permissões são globais, não por jogador.",
-      "cabecalho": "-- Vessie Roblox Framework - PermissionManager (10)\n-- Gerenciamento de papéis e permissões",
-      "funcoes": [
-        {
-          "linha": 19,
-          "local": false,
-          "assinatura": "function PermissionManager.DefineRole(roleName: string, permissions: {string})"
-        },
-        {
-          "linha": 26,
-          "local": false,
-          "assinatura": "function PermissionManager.AssignRole(player: Player, roleName: string)"
-        },
-        {
-          "linha": 46,
-          "local": false,
-          "assinatura": "function PermissionManager.RemoveRole(player: Player, roleName: string)"
-        },
-        {
-          "linha": 62,
-          "local": false,
-          "assinatura": "function PermissionManager.HasPermission(player: Player, permission: string, targetPlayer: Player?)"
-        },
-        {
-          "linha": 91,
-          "local": false,
-          "assinatura": "function PermissionManager.CanExecuteOn(executor: Player, target: Player, permission: string)"
-        },
-        {
-          "linha": 108,
-          "local": false,
-          "assinatura": "function PermissionManager.GetPermissions(player: Player)"
-        },
-        {
-          "linha": 126,
-          "local": false,
-          "assinatura": "function PermissionManager.ListRoles()"
-        },
-        {
-          "linha": 132,
-          "local": false,
-          "assinatura": "function PermissionManager.ListPermissions()"
-        },
-        {
-          "linha": 139,
-          "local": false,
-          "assinatura": "function PermissionManager.IsOwner(player: Player)"
-        },
-        {
-          "linha": 148,
-          "local": false,
-          "assinatura": "function PermissionManager.GetLevel(player: Player)"
-        }
-      ],
-      "registros": [],
-      "retorno": "PermissionManager"
-    },
-    {
-      "caminho": "src/framework/Server/Security/SecurityManager.lua",
-      "bytes": 5408,
-      "linhas": 167,
-      "proposito": "Validação de operações do cliente, admin e teleport + rate limiting token-bucket; lista de admins é placeholder.",
-      "cabecalho": "-- Vessie Roblox Framework - SecurityManager (10)\n-- Camada de segurança: validação de entrada, permissões, rate limiting",
-      "funcoes": [
-        {
-          "linha": 17,
-          "local": false,
-          "assinatura": "function RateLimiter.AddTokens(player: Player, amount: number)"
-        },
-        {
-          "linha": 33,
-          "local": false,
-          "assinatura": "function RateLimiter.CanExecute(player: Player, cost: number?)"
-        },
-        {
-          "linha": 67,
-          "local": false,
-          "assinatura": "function SecurityManager.ValidateClientOperation(player: Player, operation: string, args: any?)"
-        },
-        {
-          "linha": 107,
-          "local": false,
-          "assinatura": "function SecurityManager.HasAdminPermission(player: Player, targetPlayer: Player?)"
-        },
-        {
-          "linha": 129,
-          "local": false,
-          "assinatura": "function SecurityManager.ValidateTeleport(player: Player, cframe: CFrame?)"
-        },
-        {
-          "linha": 153,
-          "local": false,
-          "assinatura": "function SecurityManager.LogSuspiciousActivity(player: Player, operation: string, details: string?)"
-        },
-        {
-          "linha": 163,
-          "local": false,
-          "assinatura": "function SecurityManager.ResetRateLimit(player: Player)"
-        }
-      ],
-      "registros": [],
-      "retorno": "SecurityManager"
-    },
-    {
-      "caminho": "src/framework/Shared/Data/DataManager.lua",
-      "bytes": 1566,
-      "linhas": 53,
-      "proposito": "Persistência via DataStoreService com merge e versionamento; store por jogador + PlaceId; Init vazio.",
-      "cabecalho": "-- Vessie - DataManager",
-      "funcoes": [
-        {
-          "linha": 10,
-          "local": false,
-          "assinatura": "function DataManager.Init()"
-        },
-        {
-          "linha": 12,
-          "local": false,
-          "assinatura": "function DataManager.GetStore(name)"
-        },
-        {
-          "linha": 16,
-          "local": false,
-          "assinatura": "function DataManager.Save(player, data, key)"
-        },
-        {
-          "linha": 29,
-          "local": false,
-          "assinatura": "function DataManager.Load(player, key, default)"
-        },
-        {
-          "linha": 37,
-          "local": false,
-          "assinatura": "function DataManager.Remove(player, key)"
-        },
-        {
-          "linha": 44,
-          "local": false,
-          "assinatura": "function DataManager.GetVersion(player, key)"
-        },
-        {
-          "linha": 49,
-          "local": false,
-          "assinatura": "function DataManager.SetVersion(player, version, key)"
-        }
-      ],
-      "registros": [
-        {
-          "linha": 7,
-          "nome": "DataManager._stores"
-        }
-      ],
-      "retorno": "DataManager"
-    },
-    {
-      "caminho": "src/framework/Shared/Networking/NetworkingManager.lua",
-      "bytes": 0,
-      "linhas": 1,
-      "proposito": "Arquivo vazio (0 bytes) — módulo de networking a implementar.",
-      "cabecalho": "",
-      "funcoes": [],
-      "registros": [],
-      "retorno": null
-    },
-    {
-      "caminho": "src/framework/StringUtils.lua",
-      "bytes": 4754,
-      "linhas": 153,
-      "proposito": "Manipulação e validação de strings: trim, split/join, starts/ends with, format, validações (email/número) e geração de IDs.",
-      "cabecalho": "-- Vessie Roblox Framework - StringUtils (6.2)\n-- Utilitários para strings: formatação, validação, manipulação",
-      "funcoes": [
-        {
-          "linha": 10,
-          "local": false,
-          "assinatura": "function StringUtils.Trim(s: string)"
-        },
-        {
-          "linha": 19,
-          "local": false,
-          "assinatura": "function StringUtils.Split(s: string, delimiter: string, plain: boolean?)"
-        },
-        {
-          "linha": 47,
-          "local": false,
-          "assinatura": "function StringUtils.Join(t: {string}, separator: string?)"
-        },
-        {
-          "linha": 58,
-          "local": false,
-          "assinatura": "function StringUtils.StartsWith(s: string, prefix: string)"
-        },
-        {
-          "linha": 66,
-          "local": false,
-          "assinatura": "function StringUtils.EndsWith(s: string, suffix: string)"
-        },
-        {
-          "linha": 73,
-          "local": false,
-          "assinatura": "function StringUtils.Capitalize(s: string)"
-        },
-        {
-          "linha": 81,
-          "local": false,
-          "assinatura": "function StringUtils.Upper(s: string)"
-        },
-        {
-          "linha": 88,
-          "local": false,
-          "assinatura": "function StringUtils.Lower(s: string)"
-        },
-        {
-          "linha": 96,
-          "local": false,
-          "assinatura": "function StringUtils.Format(format: string, ...)"
-        },
-        {
-          "linha": 103,
-          "local": false,
-          "assinatura": "function StringUtils.IsEmail(email: string)"
-        },
-        {
-          "linha": 111,
-          "local": false,
-          "assinatura": "function StringUtils.IsNumber(s: string)"
-        },
-        {
-          "linha": 121,
-          "local": false,
-          "assinatura": "function StringUtils.Truncate(s: string, maxLen: number, suffix: string?)"
-        },
-        {
-          "linha": 132,
-          "local": false,
-          "assinatura": "function StringUtils.Alphanumeric(s: string)"
-        },
-        {
-          "linha": 138,
-          "local": false,
-          "assinatura": "function StringUtils.GenerateId()"
-        },
-        {
-          "linha": 141,
-          "local": false,
-          "assinatura": "Y = function()"
-        },
-        {
-          "linha": 149,
-          "local": false,
-          "assinatura": "function StringUtils.EscapePattern(s: string)"
-        }
-      ],
-      "registros": [],
-      "retorno": "StringUtils"
-    },
-    {
-      "caminho": "src/framework/TableUtils.lua",
-      "bytes": 2074,
-      "linhas": 84,
-      "proposito": "Utilitários de tabelas: cópia rasa/profunda, merge, filter/find, contagem, keys/values e comparação.",
-      "cabecalho": "-- Vessie Roblox Framework - TableUtils (6.13)\n-- Utilitários básicos para tabelas",
-      "funcoes": [
-        {
-          "linha": 8,
-          "local": false,
-          "assinatura": "function TableUtils.ShallowCopy(t)"
-        },
-        {
-          "linha": 15,
-          "local": false,
-          "assinatura": "function TableUtils.DeepCopy(t)"
-        },
-        {
-          "linha": 28,
-          "local": false,
-          "assinatura": "function TableUtils.Merge(target, source)"
-        },
-        {
-          "linha": 35,
-          "local": false,
-          "assinatura": "function TableUtils.Filter(t, keys)"
-        },
-        {
-          "linha": 42,
-          "local": false,
-          "assinatura": "function TableUtils.Find(t, predicate)"
-        },
-        {
-          "linha": 48,
-          "local": false,
-          "assinatura": "function TableUtils.Count(t, predicate)"
-        },
-        {
-          "linha": 55,
-          "local": false,
-          "assinatura": "function TableUtils.IsEmpty(t)"
-        },
-        {
-          "linha": 58,
-          "local": false,
-          "assinatura": "function TableUtils.GetKeys(t)"
-        },
-        {
-          "linha": 65,
-          "local": false,
-          "assinatura": "function TableUtils.GetValues(t)"
-        },
-        {
-          "linha": 72,
-          "local": false,
-          "assinatura": "function TableUtils.IsEqual(t1, t2)"
-        }
-      ],
-      "registros": [],
-      "retorno": "TableUtils"
-    },
-    {
-      "caminho": "src/jogo/jogo.lua",
-      "bytes": 5665,
-      "linhas": 188,
-      "proposito": "Manipulação do jogo: referências de jogadores/personagem, teleport, modo voo (BodyVelocity), ferramentas/itens e silenciar sons.",
-      "cabecalho": "--[[\nMódulo de Manipulação de Jogo - Roblox Executor Library\nFunções para interagir com o jogo Roblox\n--]]",
-      "funcoes": [
-        {
-          "linha": 15,
-          "local": false,
-          "assinatura": "function Jogo:inicializar()"
-        },
-        {
-          "linha": 46,
-          "local": false,
-          "assinatura": "function Jogo:obterJogador(nomeOuUsuario)"
-        },
-        {
-          "linha": 61,
-          "local": false,
-          "assinatura": "function Jogo:teleportar(destino, tipo)"
-        },
-        {
-          "linha": 92,
-          "local": false,
-          "assinatura": "function Jogo:criarModoVoo(ativo)"
-        },
-        {
-          "linha": 131,
-          "local": false,
-          "assinatura": "function Jogo:obterFerramenta(nome)"
-        },
-        {
-          "linha": 139,
-          "local": false,
-          "assinatura": "function Jogo:darItem(nomeItem, quantidade)"
-        },
-        {
-          "linha": 159,
-          "local": false,
-          "assinatura": "function Jogo:silenciarSons(ativo)"
-        },
-        {
-          "linha": 178,
-          "local": false,
-          "assinatura": "function Jogo:espelharPersonagem(ativo)"
-        }
-      ],
-      "registros": [
-        {
-          "linha": 10,
-          "nome": "Jogo.jogadores"
-        }
-      ],
-      "retorno": "Jogo"
-    },
-    {
-      "caminho": "src/memoria/memoria.lua",
-      "bytes": 2804,
-      "linhas": 80,
-      "proposito": "Leitura/escrita de memória do client (placeholders do executor), pattern scanning, proteção de memória e endereço global.",
-      "cabecalho": "--[[\nMódulo de Memória - Roblox Executor Library\nFunções para ler/escrever memória do client Roblox\n--]]",
-      "funcoes": [
-        {
-          "linha": 12,
-          "local": false,
-          "assinatura": "function Memoria:ler(endereco, tipo)"
-        },
-        {
-          "linha": 37,
-          "local": false,
-          "assinatura": "function Memoria:escrever(endereco, valor, tipo)"
-        },
-        {
-          "linha": 57,
-          "local": false,
-          "assinatura": "function Memoria:buscarPatron(enderecoInicio, fim, patron, mascara)"
-        },
-        {
-          "linha": 66,
-          "local": false,
-          "assinatura": "function Memoria:proteger(endereco, tamanho, novoStatus)"
-        },
-        {
-          "linha": 73,
-          "local": false,
-          "assinatura": "function Memoria:getEnderecoGlobal(nomeObjeto, offset)"
-        }
-      ],
-      "registros": [],
-      "retorno": "Memoria"
-    },
-    {
-      "caminho": "src/nonvisual_channel.lua",
+      "caminho": "src/core/nonvisual_channel.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/core/nonvisual_channel.lua",
       "bytes": 2481,
       "linhas": 86,
       "proposito": "Canal de comunicação não-visual: define canal ativo, prepara/valida payloads para remote events e gera IDs de mensagem.",
@@ -1508,128 +249,142 @@
       "retorno": "M"
     },
     {
-      "caminho": "src/public_api.lua",
-      "bytes": 4790,
-      "linhas": 95,
-      "proposito": "API pública de comandos via remote events: registro com allowlist, processamento protegido, trigger e respostas; init registra 9 comandos padrão.",
-      "cabecalho": "-- Public API System for Executor Lua\n-- Versão: 1.0.0\n-- Descrição: Sistema de API pública usando remote events do jogo\n-- Compatível: Lua 5.1/5.2/5.3/5.4\n-- Executores: Xeno, Delta, Mobile",
+      "caminho": "src/core/public_api.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/core/public_api.lua",
+      "bytes": 4794,
+      "linhas": 125,
+      "proposito": "API pública de comandos via remote events: registro com allowlist, processamento protegido (pcall), trigger e respostas; init registra comandos padrão.",
+      "cabecalho": "-- Public API System for Executor Lua\n-- Sistema de API pública usando remote events do jogo (não-visual)\n-- Compatível: Lua 5.1/5.2/5.3/5.4 | Executores: Xeno, Delta, Mobile",
       "funcoes": [
         {
-          "linha": 19,
+          "linha": 17,
+          "local": true,
+          "assinatura": "local function function_list()"
+        },
+        {
+          "linha": 26,
+          "local": true,
+          "assinatura": "local function is_allowed(name)"
+        },
+        {
+          "linha": 34,
           "local": false,
           "assinatura": "function M.register_command(name, func)"
         },
         {
-          "linha": 32,
+          "linha": 44,
           "local": false,
-          "assinatura": "function M.process_command(command, args)"
-        },
-        {
-          "linha": 42,
-          "local": false,
-          "assinatura": "function function_list()"
-        },
-        {
-          "linha": 48,
-          "local": false,
-          "assinatura": "function M.setup_remote_event(remote_event_name, callback)"
+          "assinatura": "function M.unregister_command(name)"
         },
         {
           "linha": 52,
           "local": false,
-          "assinatura": "M._trigger_remote_event = function(...)"
+          "assinatura": "function M.process_command(command, args)"
         },
         {
-          "linha": 56,
+          "linha": 67,
+          "local": false,
+          "assinatura": "function M.list_commands()"
+        },
+        {
+          "linha": 71,
+          "local": false,
+          "assinatura": "function M.allow_command(name)"
+        },
+        {
+          "linha": 81,
+          "local": false,
+          "assinatura": "function M.setup_remote_event(remote_event_name, callback)"
+        },
+        {
+          "linha": 89,
           "local": false,
           "assinatura": "function M.trigger_remote(command, args)"
         },
         {
-          "linha": 65,
+          "linha": 104,
           "local": false,
           "assinatura": "function M.on_response(event_name, callback)"
         },
         {
-          "linha": 73,
+          "linha": 113,
           "local": false,
           "assinatura": "function M.send_response(request_id, success, data)"
         },
         {
-          "linha": 79,
+          "linha": 121,
           "local": false,
           "assinatura": "function M.init()"
         }
       ],
       "registros": [
         {
-          "linha": 9,
+          "linha": 7,
           "nome": "M.config"
-        },
-        {
-          "linha": 16,
-          "nome": "remote_connections"
-        },
-        {
-          "linha": 17,
-          "nome": "registered_commands"
         }
       ],
       "retorno": "M"
     },
     {
-      "caminho": "src/remote_event_bridge.lua",
-      "bytes": 5994,
-      "linhas": 184,
-      "proposito": "Bridges para remote events do jogo: fila de comandos, listeners de resposta e processamento de eventos recebidos; disparo real é simulado.",
-      "cabecalho": "-- Remote Event Bridge for Public API\n-- Conecta o sistema Public API aos remote events do jogo\n-- Permite execucao de comandos de forma nao-visual",
+      "caminho": "src/core/remote_event_bridge.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/core/remote_event_bridge.lua",
+      "bytes": 5136,
+      "linhas": 141,
+      "proposito": "Bridge para remote events do jogo: fila de comandos, listeners de resposta e processador injetado via set_processor; disparo real é simulado.",
+      "cabecalho": "-- Remote Event Bridge for Public API\n-- Conecta o sistema Public API aos remote events do jogo (execução não-visual)",
       "funcoes": [
         {
-          "linha": 9,
+          "linha": 10,
+          "local": false,
+          "assinatura": "function M.set_processor(func)"
+        },
+        {
+          "linha": 16,
           "local": false,
           "assinatura": "function M.create_bridge(remote_event_name)"
         },
         {
-          "linha": 27,
+          "linha": 34,
           "local": false,
           "assinatura": "function bridge:on_response(callback)"
         },
         {
-          "linha": 36,
+          "linha": 42,
           "local": false,
           "assinatura": "function bridge:trigger(command, args)"
         },
         {
-          "linha": 61,
+          "linha": 56,
           "local": false,
           "assinatura": "function bridge:process_next()"
         },
         {
-          "linha": 87,
+          "linha": 66,
           "local": false,
           "assinatura": "function bridge:_fire_remote(payload)"
         },
         {
-          "linha": 108,
+          "linha": 86,
           "local": false,
           "assinatura": "function M.get_bridge(remote_event_name)"
         },
         {
-          "linha": 113,
+          "linha": 90,
           "local": false,
           "assinatura": "function M.remove_bridge(remote_event_name)"
         },
         {
-          "linha": 122,
+          "linha": 98,
           "local": false,
           "assinatura": "function M.list_bridges()"
         },
         {
-          "linha": 132,
+          "linha": 106,
           "local": false,
           "assinatura": "function M.process_remote_event(event_name, payload)"
         },
         {
-          "linha": 165,
+          "linha": 130,
           "local": false,
           "assinatura": "function M.setup(remote_event_name)"
         }
@@ -1638,49 +393,55 @@
       "retorno": "M"
     },
     {
-      "caminho": "src/security_wrapper.lua",
-      "bytes": 4598,
-      "linhas": 163,
+      "caminho": "src/core/security_wrapper.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/core/security_wrapper.lua",
+      "bytes": 4061,
+      "linhas": 112,
       "proposito": "Wrapper de segurança da Public API: allowlist/blocklist de comandos, rate limit por minuto e histórico das últimas 100 execuções.",
-      "cabecalho": "-- Security Wrapper for Public API\n-- Wrapper de seguranca para comandos remotos\n-- Evita execucao de comandos nao autorizados e protege o executor",
+      "cabecalho": "-- Security Wrapper for Public API\n-- Wrapper de seguranca para comandos remotos: allowlist/blocklist, rate limit e historico",
       "funcoes": [
         {
-          "linha": 31,
+          "linha": 17,
+          "local": true,
+          "assinatura": "local function contains(list, value)"
+        },
+        {
+          "linha": 24,
           "local": false,
           "assinatura": "function M.is_command_allowed(command_name)"
         },
         {
-          "linha": 62,
+          "linha": 38,
           "local": false,
           "assinatura": "function M.block_command(command_name)"
         },
         {
-          "linha": 72,
+          "linha": 48,
           "local": false,
           "assinatura": "function M.allow_command(command_name)"
         },
         {
-          "linha": 82,
+          "linha": 58,
           "local": false,
           "assinatura": "function M.check_rate_limit(command_name)"
         },
         {
-          "linha": 114,
+          "linha": 79,
           "local": false,
           "assinatura": "function M.record_execution(command_name, success, args)"
         },
         {
-          "linha": 132,
+          "linha": 93,
           "local": false,
           "assinatura": "function M.get_execution_history()"
         },
         {
-          "linha": 137,
+          "linha": 97,
           "local": false,
           "assinatura": "function M.get_config()"
         },
         {
-          "linha": 142,
+          "linha": 101,
           "local": false,
           "assinatura": "function M.set_config(new_config)"
         }
@@ -1689,7 +450,8 @@
       "retorno": "M"
     },
     {
-      "caminho": "src/state_manager.lua",
+      "caminho": "src/core/state_manager.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/core/state_manager.lua",
       "bytes": 2566,
       "linhas": 93,
       "proposito": "Estado não-visual entre requisições: inicialização, dados chave/valor, contador de comandos e sessões.",
@@ -1745,54 +507,2216 @@
       "retorno": "M"
     },
     {
-      "caminho": "src/ui/ui.lua",
-      "bytes": 5049,
-      "linhas": 165,
-      "proposito": "Criação de UI do executor: ScreenGui, frames arrastáveis, botões, toggles, caixas de texto, rótulos e listas roláveis.",
-      "cabecalho": "--[[\nMódulo de Interface - Roblox Executor Library\nCriação de UIs e menus para o executor\n--]]",
+      "caminho": "src/framework/Client/NotificationManager.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/Client/NotificationManager.lua",
+      "bytes": 6190,
+      "linhas": 191,
+      "proposito": "Notificações UI animadas com fila e máximo visível, integradas ao ThemeManager; auto-dismiss, Clear e Destroy.",
+      "cabecalho": "-- Vessie Roblox Framework - NotificationManager\n-- Sistema de notificações com fila, duração configurável e tema integrado",
       "funcoes": [
         {
-          "linha": 9,
+          "linha": 24,
           "local": false,
-          "assinatura": "function UI:criarGui(nome, pais)"
+          "assinatura": "function NotificationManager._EnsureContainer()"
         },
         {
-          "linha": 22,
-          "local": false,
-          "assinatura": "function UI:criarFrame(gui, titulo, posicao, tamanho, corFundo)"
+          "linha": 57,
+          "local": true,
+          "assinatura": "local function buildNotification(title: string, text: string, ntype: string)"
         },
         {
-          "linha": 54,
+          "linha": 127,
           "local": false,
-          "assinatura": "function UI:criarBotao(frame, texto, posicao, tamanho, cor, callback)"
+          "assinatura": "function NotificationManager._Display(request: any)"
         },
         {
-          "linha": 75,
+          "linha": 157,
           "local": false,
-          "assinatura": "function UI:criarToggle(frame, texto, posicao, ligadoInicial)"
+          "assinatura": "function NotificationManager._ProcessQueue()"
         },
         {
-          "linha": 96,
+          "linha": 164,
           "local": false,
-          "assinatura": "function UI:criarCaixaTexto(frame, textoPlaceholder, posicao, tamanho)"
+          "assinatura": "function NotificationManager.Show(title: string, text: string, duration: number?, ntype: string?)"
         },
         {
-          "linha": 111,
+          "linha": 174,
           "local": false,
-          "assinatura": "function UI:criarRotulo(frame, texto, posicao, tamanho, corTexto)"
+          "assinatura": "function NotificationManager.Clear()"
+        },
+        {
+          "linha": 182,
+          "local": false,
+          "assinatura": "function NotificationManager.Destroy()"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 12,
+          "nome": "NotificationManager._queue"
+        },
+        {
+          "linha": 13,
+          "nome": "NotificationManager._active"
+        }
+      ],
+      "retorno": "NotificationManager"
+    },
+    {
+      "caminho": "src/framework/Client/PlayerManager.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/Client/PlayerManager.lua",
+      "bytes": 5362,
+      "linhas": 191,
+      "proposito": "Rastreia jogadores e personagens com dados por jogador e BindableEvents (PlayerAdded/Removing, CharacterAdded/Removing, PlayerRespawned); Init conecta eventos de Players e limpeza por jogador.",
+      "cabecalho": "-- Vessie Roblox Framework - PlayerManager\n-- Gerencia jogadores, entrada/saída, personagens e respawns",
+      "funcoes": [
+        {
+          "linha": 21,
+          "local": true,
+          "assinatura": "local function fire(eventName: string, ...)"
+        },
+        {
+          "linha": 28,
+          "local": false,
+          "assinatura": "function PlayerManager.Init()"
+        },
+        {
+          "linha": 48,
+          "local": false,
+          "assinatura": "function PlayerManager.OnPlayerAdded(player: Player)"
+        },
+        {
+          "linha": 95,
+          "local": false,
+          "assinatura": "function PlayerManager.OnPlayerRemoving(player: Player)"
+        },
+        {
+          "linha": 106,
+          "local": false,
+          "assinatura": "function PlayerManager.GetCharacter(player: Player)"
+        },
+        {
+          "linha": 119,
+          "local": false,
+          "assinatura": "function PlayerManager.GetData(player: Player, key: string?)"
         },
         {
           "linha": 126,
           "local": false,
-          "assinatura": "function UI:criarLista(frame, posicao, tamanho)"
+          "assinatura": "function PlayerManager.SetData(player: Player, key: string, value: any)"
+        },
+        {
+          "linha": 135,
+          "local": false,
+          "assinatura": "function PlayerManager.HasCharacter(player: Player)"
+        },
+        {
+          "linha": 139,
+          "local": false,
+          "assinatura": "function PlayerManager.GetLastPosition(player: Player)"
+        },
+        {
+          "linha": 153,
+          "local": false,
+          "assinatura": "function PlayerManager.SetLastPosition(player: Player, position: Vector3)"
+        },
+        {
+          "linha": 157,
+          "local": false,
+          "assinatura": "function PlayerManager.On(eventName: string, callback: (...any) -> ())"
+        },
+        {
+          "linha": 166,
+          "local": false,
+          "assinatura": "function PlayerManager.Cleanup(player: Player)"
+        },
+        {
+          "linha": 176,
+          "local": false,
+          "assinatura": "function PlayerManager.Destroy()"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 9,
+          "nome": "PlayerManager._playerData"
+        },
+        {
+          "linha": 10,
+          "nome": "PlayerManager._connections"
+        },
+        {
+          "linha": 13,
+          "nome": "PlayerManager.Events"
+        }
+      ],
+      "retorno": "PlayerManager"
+    },
+    {
+      "caminho": "src/framework/Client/ThemeManager.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/Client/ThemeManager.lua",
+      "bytes": 2871,
+      "linhas": 110,
+      "proposito": "Temas Light/Dark/Custom com cores, fonte, espaçamento e border radius; GetColor/SetTheme/GetFont/GetSpacing/ApplyCustomTheme (sem mutar o tema Light).",
+      "cabecalho": "-- Vessie Roblox Framework - ThemeManager\n-- Gerenciamento de tema: cores, tipografia, espaçamento",
+      "funcoes": [
+        {
+          "linha": 46,
+          "local": true,
+          "assinatura": "local function currentTheme()"
+        },
+        {
+          "linha": 50,
+          "local": false,
+          "assinatura": "function ThemeManager.GetColor(key: string)"
+        },
+        {
+          "linha": 59,
+          "local": false,
+          "assinatura": "function ThemeManager.SetTheme(themeName: string)"
+        },
+        {
+          "linha": 67,
+          "local": false,
+          "assinatura": "function ThemeManager.GetFont()"
+        },
+        {
+          "linha": 72,
+          "local": false,
+          "assinatura": "function ThemeManager.GetFontSize()"
+        },
+        {
+          "linha": 76,
+          "local": false,
+          "assinatura": "function ThemeManager.GetSpacing(size: string)"
+        },
+        {
+          "linha": 86,
+          "local": false,
+          "assinatura": "function ThemeManager.GetBorderRadius()"
+        },
+        {
+          "linha": 90,
+          "local": false,
+          "assinatura": "function ThemeManager.Get(key: string)"
+        },
+        {
+          "linha": 94,
+          "local": false,
+          "assinatura": "function ThemeManager.ApplyCustomTheme(customTheme: {[string]: any}?)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 7,
+          "nome": "ThemeManager.Themes"
+        }
+      ],
+      "retorno": "ThemeManager"
+    },
+    {
+      "caminho": "src/framework/init.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/init.lua",
+      "bytes": 3090,
+      "linhas": 117,
+      "proposito": "Núcleo do framework: registro de módulos (Register/Get), ciclo de vida Init → Start → Cleanup (Start/Stop) e Maid para limpeza de tarefas/conexões/instances; IsInitialized/GetModules.",
+      "cabecalho": "-- Vessie Roblox Framework - Core (init)\n-- Registro de modulos e ciclo de vida Init -> Start -> Cleanup, com Maid p/ limpeza.",
+      "funcoes": [
+        {
+          "linha": 14,
+          "local": false,
+          "assinatura": "function Maid.new()"
+        },
+        {
+          "linha": 18,
+          "local": false,
+          "assinatura": "function Maid:GiveTask(task, name)"
+        },
+        {
+          "linha": 22,
+          "local": false,
+          "assinatura": "function Maid:GiveConnection(connection)"
+        },
+        {
+          "linha": 27,
+          "local": false,
+          "assinatura": "function Maid:GiveInstance(instance)"
+        },
+        {
+          "linha": 32,
+          "local": false,
+          "assinatura": "function Maid:DoCleaning()"
+        },
+        {
+          "linha": 53,
+          "local": false,
+          "assinatura": "function Maid:Destroy()"
+        },
+        {
+          "linha": 60,
+          "local": false,
+          "assinatura": "function Framework.Register(name: string, module: any)"
+        },
+        {
+          "linha": 68,
+          "local": false,
+          "assinatura": "function Framework.Get(name: string)"
+        },
+        {
+          "linha": 73,
+          "local": false,
+          "assinatura": "function Framework.Start()"
+        },
+        {
+          "linha": 92,
+          "local": false,
+          "assinatura": "function Framework.Stop()"
+        },
+        {
+          "linha": 106,
+          "local": false,
+          "assinatura": "function Framework.IsInitialized()"
+        },
+        {
+          "linha": 110,
+          "local": false,
+          "assinatura": "function Framework.GetModules()"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 7,
+          "nome": "Framework._modules"
+        }
+      ],
+      "retorno": "Framework"
+    },
+    {
+      "caminho": "src/framework/runtime/ConfigManager.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/runtime/ConfigManager.lua",
+      "bytes": 3680,
+      "linhas": 121,
+      "proposito": "Classe de configurações com defaults, overrides, campos readonly e níveis de acesso (bloqueia ServerOnly no cliente via RunService); Get trata false e GetKeys deduplica.",
+      "cabecalho": "-- Vessie Roblox Framework - ConfigManager\n-- Configuracoes com defaults, overrides, readonly e niveis de acesso",
+      "funcoes": [
+        {
+          "linha": 14,
+          "local": false,
+          "assinatura": "function ConfigManager.new(configTable: {[string]: any}?)"
+        },
+        {
+          "linha": 23,
+          "local": false,
+          "assinatura": "function ConfigManager:Set(key: string, value: any, access: string?, readonly: boolean?)"
+        },
+        {
+          "linha": 39,
+          "local": false,
+          "assinatura": "function ConfigManager:Get(key: string, default: any)"
+        },
+        {
+          "linha": 46,
+          "local": false,
+          "assinatura": "function ConfigManager:SetDefault(key: string, default: any, access: string?)"
+        },
+        {
+          "linha": 53,
+          "local": false,
+          "assinatura": "function ConfigManager:SetReadOnly(key: string, value: any)"
+        },
+        {
+          "linha": 60,
+          "local": false,
+          "assinatura": "function ConfigManager:Exists(key: string)"
+        },
+        {
+          "linha": 65,
+          "local": false,
+          "assinatura": "function ConfigManager:Remove(key: string)"
+        },
+        {
+          "linha": 73,
+          "local": false,
+          "assinatura": "function ConfigManager:Override(key: string, value: any)"
+        },
+        {
+          "linha": 79,
+          "local": false,
+          "assinatura": "function ConfigManager:GetKeys()"
+        },
+        {
+          "linha": 90,
+          "local": false,
+          "assinatura": "function ConfigManager:GetReadWriteKeys()"
+        },
+        {
+          "linha": 98,
+          "local": false,
+          "assinatura": "function ConfigManager:ValidateRequired(required: {string})"
+        },
+        {
+          "linha": 107,
+          "local": false,
+          "assinatura": "function ConfigManager:Export()"
+        },
+        {
+          "linha": 114,
+          "local": false,
+          "assinatura": "function ConfigManager:Import(importedTable: {[string]: any})"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 8,
+          "nome": "ConfigManager.Access"
+        }
+      ],
+      "retorno": "ConfigManager"
+    },
+    {
+      "caminho": "src/framework/runtime/EventBus.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/runtime/EventBus.lua",
+      "bytes": 2542,
+      "linhas": 97,
+      "proposito": "Pub/sub por nome (On/Once/Off/Emit); conexões com Disconnect e Emit protegido por pcall com limpeza de listeners Once.",
+      "cabecalho": "-- Vessie Roblox Framework - EventBus\n-- Pub/sub por nome (puro, sem RBXScriptSignal). On/Once retornam conexao com Disconnect.",
+      "funcoes": [
+        {
+          "linha": 10,
+          "local": false,
+          "assinatura": "function EventBus.new()"
+        },
+        {
+          "linha": 16,
+          "local": true,
+          "assinatura": "local function addListener(self, eventName, callback, once)"
+        },
+        {
+          "linha": 22,
+          "local": false,
+          "assinatura": "function connection:Disconnect()"
+        },
+        {
+          "linha": 28,
+          "local": false,
+          "assinatura": "function EventBus:On(eventName: string, callback: any)"
+        },
+        {
+          "linha": 32,
+          "local": false,
+          "assinatura": "function EventBus:Once(eventName: string, callback: any)"
+        },
+        {
+          "linha": 36,
+          "local": false,
+          "assinatura": "function EventBus:Off(eventName: string?, connection: any?)"
+        },
+        {
+          "linha": 47,
+          "local": false,
+          "assinatura": "function EventBus:Clear(eventName: string)"
+        },
+        {
+          "linha": 55,
+          "local": false,
+          "assinatura": "function EventBus:Emit(eventName: string, ...)"
+        },
+        {
+          "linha": 72,
+          "local": false,
+          "assinatura": "function EventBus:HasListeners(eventName: string)"
+        },
+        {
+          "linha": 81,
+          "local": false,
+          "assinatura": "function EventBus:Count()"
+        },
+        {
+          "linha": 91,
+          "local": false,
+          "assinatura": "function EventBus:Destroy()"
+        }
+      ],
+      "registros": [],
+      "retorno": "EventBus"
+    },
+    {
+      "caminho": "src/framework/runtime/LifecycleManager.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/runtime/LifecycleManager.lua",
+      "bytes": 1863,
+      "linhas": 53,
+      "proposito": "Máquina de estados de componente (Registered → Running → Stopped/Failed) com validação de transições.",
+      "cabecalho": "-- Vessie Roblox Framework - LifecycleManager (6.11)\n-- Gerencia ciclos de vida dos componentes com estados previsíveis",
+      "funcoes": [
+        {
+          "linha": 19,
+          "local": false,
+          "assinatura": "function LifecycleManager.new(name)"
+        },
+        {
+          "linha": 29,
+          "local": false,
+          "assinatura": "function LifecycleManager:SetState(newState, errorMessage)"
+        },
+        {
+          "linha": 41,
+          "local": false,
+          "assinatura": "function LifecycleManager:GetState()"
+        },
+        {
+          "linha": 42,
+          "local": false,
+          "assinatura": "function LifecycleManager:GetPreviousState()"
+        },
+        {
+          "linha": 43,
+          "local": false,
+          "assinatura": "function LifecycleManager:GetError()"
+        },
+        {
+          "linha": 44,
+          "local": false,
+          "assinatura": "function LifecycleManager:IsState(state)"
+        },
+        {
+          "linha": 46,
+          "local": false,
+          "assinatura": "function LifecycleManager:Destroy()"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 8,
+          "nome": "LifecycleManager.States"
+        }
+      ],
+      "retorno": "LifecycleManager"
+    },
+    {
+      "caminho": "src/framework/runtime/Logger.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/runtime/Logger.lua",
+      "bytes": 3091,
+      "linhas": 113,
+      "proposito": "Logging com níveis DEBUG/INFO/WARN/ERROR e contexto de módulo; API de instância e estática, SetLevelMax e listeners On.",
+      "cabecalho": "-- Vessie Roblox Framework - Logger\n-- Logging com niveis DEBUG/INFO/WARN/ERROR e contexto de modulo.\n-- levelMax = severidade MINIMA exibida (INFO oculta DEBUG). ERROR sempre aparece.",
+      "funcoes": [
+        {
+          "linha": 14,
+          "local": false,
+          "assinatura": "function Logger.LevelName(level: number)"
+        },
+        {
+          "linha": 21,
+          "local": false,
+          "assinatura": "function Logger.SetLevelMax(level: any)"
+        },
+        {
+          "linha": 33,
+          "local": false,
+          "assinatura": "function Logger.RegisterModule(moduleName: string)"
+        },
+        {
+          "linha": 40,
+          "local": false,
+          "assinatura": "function Logger.new(moduleName: string?)"
+        },
+        {
+          "linha": 46,
+          "local": false,
+          "assinatura": "function Logger.On(callback: any)"
+        },
+        {
+          "linha": 52,
+          "local": false,
+          "assinatura": "function Logger.WithTags(tags: any)"
+        },
+        {
+          "linha": 56,
+          "local": true,
+          "assinatura": "local function formatMessage(message, ...)"
+        },
+        {
+          "linha": 61,
+          "local": true,
+          "assinatura": "local function emit(level: number, module: string, msg: string)"
+        },
+        {
+          "linha": 70,
+          "local": false,
+          "assinatura": "function Logger:Debug(message: string, ...)"
+        },
+        {
+          "linha": 75,
+          "local": false,
+          "assinatura": "function Logger:Info(message: string, ...)"
+        },
+        {
+          "linha": 80,
+          "local": false,
+          "assinatura": "function Logger:Warn(message: string, ...)"
+        },
+        {
+          "linha": 85,
+          "local": false,
+          "assinatura": "function Logger:Error(message: string, ...)"
+        },
+        {
+          "linha": 91,
+          "local": false,
+          "assinatura": "function Logger.LogError(err: any, context: string?)"
+        },
+        {
+          "linha": 98,
+          "local": false,
+          "assinatura": "function Logger:Catch(err: any, context: string?)"
+        },
+        {
+          "linha": 103,
+          "local": false,
+          "assinatura": "function Logger.ClearModules()"
+        },
+        {
+          "linha": 108,
+          "local": false,
+          "assinatura": "function Logger:GetLevelMax()"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 9,
+          "nome": "Logger.Level"
+        },
+        {
+          "linha": 11,
+          "nome": "Logger._modules"
+        },
+        {
+          "linha": 12,
+          "nome": "Logger._listeners"
+        }
+      ],
+      "retorno": "Logger"
+    },
+    {
+      "caminho": "src/framework/runtime/ModuleRegistry.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/runtime/ModuleRegistry.lua",
+      "bytes": 3143,
+      "linhas": 109,
+      "proposito": "Registro de módulos com dependências, detecção de ciclos (pilha de recursão), ordem topológica (GetInitOrder) e remoção em cascata.",
+      "cabecalho": "-- Vessie Roblox Framework - ModuleRegistry\n-- Registro de modulos com dependencias, detecao de ciclos e ordem topologica",
+      "funcoes": [
+        {
+          "linha": 8,
+          "local": false,
+          "assinatura": "function ModuleRegistry.new()"
+        },
+        {
+          "linha": 15,
+          "local": false,
+          "assinatura": "function ModuleRegistry:Register(name: string, module: any, dependencies: {string}?)"
+        },
+        {
+          "linha": 27,
+          "local": false,
+          "assinatura": "function ModuleRegistry:Get(name: string)"
+        },
+        {
+          "linha": 31,
+          "local": false,
+          "assinatura": "function ModuleRegistry:IsRegistered(name: string)"
+        },
+        {
+          "linha": 35,
+          "local": false,
+          "assinatura": "function ModuleRegistry:ValidateDependencies(name: string)"
+        },
+        {
+          "linha": 45,
+          "local": true,
+          "assinatura": "local function hasCycle(node)"
+        },
+        {
+          "linha": 62,
+          "local": false,
+          "assinatura": "function ModuleRegistry:GetInitOrder()"
+        },
+        {
+          "linha": 65,
+          "local": true,
+          "assinatura": "local function visit(moduleName)"
+        },
+        {
+          "linha": 77,
+          "local": false,
+          "assinatura": "function ModuleRegistry:Remove(name: string)"
+        },
+        {
+          "linha": 92,
+          "local": false,
+          "assinatura": "function ModuleRegistry:GetNames()"
+        },
+        {
+          "linha": 98,
+          "local": false,
+          "assinatura": "function ModuleRegistry:CheckAllDependencies()"
+        }
+      ],
+      "registros": [],
+      "retorno": "ModuleRegistry"
+    },
+    {
+      "caminho": "src/framework/Server/CharacterManager.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/Server/CharacterManager.lua",
+      "bytes": 3911,
+      "linhas": 133,
+      "proposito": "Helpers de personagem: tipo de rig, root part, vivo/morto, no chão (FloorMaterial), posição, direção de movimento, pulo, respawn (teleport) e pontos de interação; registro em _data.",
+      "cabecalho": "-- Vessie Roblox Framework - CharacterManager\n-- Registro e consulta de personagens (rig, root, estado, movimento)",
+      "funcoes": [
+        {
+          "linha": 9,
+          "local": true,
+          "assinatura": "local function getHumanoid(character: Model)"
+        },
+        {
+          "linha": 14,
+          "local": false,
+          "assinatura": "function CharacterManager.Init()"
+        },
+        {
+          "linha": 16,
+          "local": false,
+          "assinatura": "function CharacterManager.Register(character: Model, config: any?)"
+        },
+        {
+          "linha": 32,
+          "local": false,
+          "assinatura": "function CharacterManager._Setup(character: Model)"
+        },
+        {
+          "linha": 48,
+          "local": false,
+          "assinatura": "function CharacterManager.Unregister(character: Model)"
+        },
+        {
+          "linha": 52,
+          "local": false,
+          "assinatura": "function CharacterManager.GetData(character: Model)"
+        },
+        {
+          "linha": 56,
+          "local": false,
+          "assinatura": "function CharacterManager.GetHumanoid(character: Model)"
+        },
+        {
+          "linha": 60,
+          "local": false,
+          "assinatura": "function CharacterManager.DetectRigType(character: Model)"
+        },
+        {
+          "linha": 65,
+          "local": false,
+          "assinatura": "function CharacterManager.GetRootPart(character: Model)"
+        },
+        {
+          "linha": 70,
+          "local": false,
+          "assinatura": "function CharacterManager.IsAlive(character: Model)"
+        },
+        {
+          "linha": 75,
+          "local": false,
+          "assinatura": "function CharacterManager.IsDead(character: Model)"
+        },
+        {
+          "linha": 80,
+          "local": false,
+          "assinatura": "function CharacterManager.IsOnGround(character: Model)"
+        },
+        {
+          "linha": 86,
+          "local": false,
+          "assinatura": "function CharacterManager.GetPosition(character: Model)"
+        },
+        {
+          "linha": 95,
+          "local": false,
+          "assinatura": "function CharacterManager.GetMoveDirection(character: Model)"
+        },
+        {
+          "linha": 104,
+          "local": false,
+          "assinatura": "function CharacterManager.Jump(character: Model)"
+        },
+        {
+          "linha": 111,
+          "local": false,
+          "assinatura": "function CharacterManager.Respawn(character: Model, location: CFrame?)"
+        },
+        {
+          "linha": 118,
+          "local": false,
+          "assinatura": "function CharacterManager.RegisterInteractionPoint(character: Model, point: BasePart, itype: string)"
+        },
+        {
+          "linha": 126,
+          "local": false,
+          "assinatura": "function CharacterManager.GetInteractionPoints(character: Model, itype: string)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 7,
+          "nome": "CharacterManager._data"
+        }
+      ],
+      "retorno": "CharacterManager"
+    },
+    {
+      "caminho": "src/framework/Server/PermissionManager.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/Server/PermissionManager.lua",
+      "bytes": 3974,
+      "linhas": 125,
+      "proposito": "Papéis e permissões por jogador (DefineRole/AssignRole/GrantPermission/HasPermission com wildcard '*'), CanExecuteOn, IsOwner (CreatorId/configurável); sem vazamento entre jogadores.",
+      "cabecalho": "-- Vessie Roblox Framework - PermissionManager\n-- Papéis (roles) e permissões por jogador, sem vazamento entre jogadores",
+      "funcoes": [
+        {
+          "linha": 12,
+          "local": false,
+          "assinatura": "function PermissionManager.DefineRole(roleName: string, permissions: {string})"
+        },
+        {
+          "linha": 18,
+          "local": false,
+          "assinatura": "function PermissionManager.AssignRole(player: Player, roleName: string)"
+        },
+        {
+          "linha": 34,
+          "local": false,
+          "assinatura": "function PermissionManager.RemoveRole(player: Player, roleName: string)"
+        },
+        {
+          "linha": 41,
+          "local": false,
+          "assinatura": "function PermissionManager.GrantPermission(player: Player, permission: string)"
+        },
+        {
+          "linha": 50,
+          "local": false,
+          "assinatura": "function PermissionManager.RevokePermission(player: Player, permission: string)"
+        },
+        {
+          "linha": 55,
+          "local": false,
+          "assinatura": "function PermissionManager.HasPermission(player: Player, permission: string)"
+        },
+        {
+          "linha": 70,
+          "local": false,
+          "assinatura": "function PermissionManager.CanExecuteOn(executor: Player, target: Player, permission: string)"
+        },
+        {
+          "linha": 77,
+          "local": false,
+          "assinatura": "function PermissionManager.GetPermissions(player: Player)"
+        },
+        {
+          "linha": 94,
+          "local": false,
+          "assinatura": "function PermissionManager.GetRoles(player: Player)"
+        },
+        {
+          "linha": 102,
+          "local": false,
+          "assinatura": "function PermissionManager.ListRoles()"
+        },
+        {
+          "linha": 106,
+          "local": false,
+          "assinatura": "function PermissionManager.SetOwner(player: Player)"
+        },
+        {
+          "linha": 110,
+          "local": false,
+          "assinatura": "function PermissionManager.IsOwner(player: Player)"
+        },
+        {
+          "linha": 115,
+          "local": false,
+          "assinatura": "function PermissionManager.GetLevel(player: Player)"
+        },
+        {
+          "linha": 119,
+          "local": false,
+          "assinatura": "function PermissionManager.Cleanup(player: Player)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 7,
+          "nome": "PermissionManager._roles"
+        },
+        {
+          "linha": 8,
+          "nome": "PermissionManager._playerRoles"
+        },
+        {
+          "linha": 9,
+          "nome": "PermissionManager._playerPermissions"
+        },
+        {
+          "linha": 10,
+          "nome": "PermissionManager._owners"
+        }
+      ],
+      "retorno": "PermissionManager"
+    },
+    {
+      "caminho": "src/framework/Server/SecurityManager.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/Server/SecurityManager.lua",
+      "bytes": 3760,
+      "linhas": 125,
+      "proposito": "Validação de operações do cliente, lista de admins configurável, validação de destino de teleport e rate limiting token-bucket (capacidade/refill configuráveis); log de auditoria.",
+      "cabecalho": "-- Vessie Roblox Framework - SecurityManager\n-- Validação de entrada, permissões de admin e rate limiting (token bucket)",
+      "funcoes": [
+        {
+          "linha": 12,
+          "local": false,
+          "assinatura": "function RateLimiter.Configure(capacity: number, refillPerSecond: number)"
+        },
+        {
+          "linha": 17,
+          "local": true,
+          "assinatura": "local function getBucket(player: Player)"
+        },
+        {
+          "linha": 31,
+          "local": false,
+          "assinatura": "function RateLimiter.CanExecute(player: Player, cost: number?)"
+        },
+        {
+          "linha": 41,
+          "local": false,
+          "assinatura": "function RateLimiter.Reset(player: Player)"
+        },
+        {
+          "linha": 55,
+          "local": false,
+          "assinatura": "function SecurityManager.AllowOperation(operation: string, allowed: boolean?)"
+        },
+        {
+          "linha": 59,
+          "local": false,
+          "assinatura": "function SecurityManager.SetAdmins(userIds: {number})"
+        },
+        {
+          "linha": 66,
+          "local": false,
+          "assinatura": "function SecurityManager.AddAdmin(userId: number)"
+        },
+        {
+          "linha": 70,
+          "local": false,
+          "assinatura": "function SecurityManager.HasAdminPermission(player: Player)"
+        },
+        {
+          "linha": 75,
+          "local": false,
+          "assinatura": "function SecurityManager.SetTeleportBound(bound: number)"
+        },
+        {
+          "linha": 79,
+          "local": false,
+          "assinatura": "function SecurityManager.ValidateClientOperation(player: Player, operation: string, args: any?)"
+        },
+        {
+          "linha": 99,
+          "local": false,
+          "assinatura": "function SecurityManager.ValidateTeleport(player: Player, cframe: CFrame?)"
+        },
+        {
+          "linha": 109,
+          "local": false,
+          "assinatura": "function SecurityManager.LogSuspiciousActivity(player: Player, operation: string, details: string?)"
+        },
+        {
+          "linha": 116,
+          "local": false,
+          "assinatura": "function SecurityManager.ResetRateLimit(player: Player)"
+        },
+        {
+          "linha": 120,
+          "local": false,
+          "assinatura": "function SecurityManager.Cleanup(player: Player)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 8,
+          "nome": "RateLimiter._buckets"
+        },
+        {
+          "linha": 46,
+          "nome": "SecurityManager._admins"
+        },
+        {
+          "linha": 47,
+          "nome": "SecurityManager._allowedOperations"
+        }
+      ],
+      "retorno": "SecurityManager"
+    },
+    {
+      "caminho": "src/framework/Shared/DataManager.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/Shared/DataManager.lua",
+      "bytes": 3678,
+      "linhas": 126,
+      "proposito": "Persistência via DataStoreService com cache de sessão, chave estável por UserId, cache de stores e autosave (PlayerRemoving/BindToClose); Save/Load/Update/Remove e versionamento.",
+      "cabecalho": "-- Vessie Roblox Framework - DataManager\n-- Persistência via DataStore com cache de sessão, chave estável por UserId e autosave",
+      "funcoes": [
+        {
+          "linha": 17,
+          "local": false,
+          "assinatura": "function DataManager.GetStore(name: string)"
+        },
+        {
+          "linha": 25,
+          "local": true,
+          "assinatura": "local function playerStore()"
+        },
+        {
+          "linha": 29,
+          "local": true,
+          "assinatura": "local function keyFor(player: Player, key: string?)"
+        },
+        {
+          "linha": 33,
+          "local": false,
+          "assinatura": "function DataManager.Init()"
+        },
+        {
+          "linha": 49,
+          "local": false,
+          "assinatura": "function DataManager.Load(player: Player, key: string?, default: any?)"
+        },
+        {
+          "linha": 67,
+          "local": false,
+          "assinatura": "function DataManager.Save(player: Player, data: {[string]: any}, key: string?)"
+        },
+        {
+          "linha": 85,
+          "local": false,
+          "assinatura": "function DataManager.Update(player: Player, transform: (any) -> any, key: string?)"
+        },
+        {
+          "linha": 96,
+          "local": false,
+          "assinatura": "function DataManager.Remove(player: Player, key: string?)"
+        },
+        {
+          "linha": 105,
+          "local": false,
+          "assinatura": "function DataManager.Flush(player: Player)"
+        },
+        {
+          "linha": 112,
+          "local": false,
+          "assinatura": "function DataManager.GetVersion(player: Player, key: string?)"
+        },
+        {
+          "linha": 117,
+          "local": false,
+          "assinatura": "function DataManager.SetVersion(player: Player, version: any, key: string?)"
+        },
+        {
+          "linha": 121,
+          "local": false,
+          "assinatura": "function DataManager.ClearCache(player: Player)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 11,
+          "nome": "DataManager._stores"
+        },
+        {
+          "linha": 12,
+          "nome": "DataManager._cache"
+        },
+        {
+          "linha": 14,
+          "nome": "DataManager._connections"
+        }
+      ],
+      "retorno": "DataManager"
+    },
+    {
+      "caminho": "src/framework/Shared/NetworkingManager.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/Shared/NetworkingManager.lua",
+      "bytes": 4107,
+      "linhas": 134,
+      "proposito": "Wrapper de RemoteEvent/RemoteFunction com criação automática em ReplicatedStorage.VessieNetwork; servidor (OnServerEvent/SetCallback/FireClient/FireAllClients) e cliente (OnClientEvent/FireServer/InvokeServer) com limpeza de conexões.",
+      "cabecalho": "-- Vessie Roblox Framework - NetworkingManager\n-- Wrapper de RemoteEvent/RemoteFunction com criação automática e limpeza de conexões",
+      "funcoes": [
+        {
+          "linha": 14,
+          "local": true,
+          "assinatura": "local function getFolder()"
+        },
+        {
+          "linha": 28,
+          "local": true,
+          "assinatura": "local function getRemote(name: string, className: string)"
+        },
+        {
+          "linha": 49,
+          "local": false,
+          "assinatura": "function NetworkingManager.GetEvent(name: string)"
+        },
+        {
+          "linha": 55,
+          "local": false,
+          "assinatura": "function NetworkingManager.GetFunction(name: string)"
+        },
+        {
+          "linha": 61,
+          "local": true,
+          "assinatura": "local function track(connection: RBXScriptConnection)"
+        },
+        {
+          "linha": 67,
+          "local": false,
+          "assinatura": "function NetworkingManager.OnServerEvent(name: string, callback: (Player, ...any) -> ())"
+        },
+        {
+          "linha": 73,
+          "local": false,
+          "assinatura": "function NetworkingManager.SetCallback(name: string, callback: (Player, ...any) -> ...any)"
+        },
+        {
+          "linha": 80,
+          "local": false,
+          "assinatura": "function NetworkingManager.FireClient(name: string, player: Player, ...)"
+        },
+        {
+          "linha": 87,
+          "local": false,
+          "assinatura": "function NetworkingManager.FireAllClients(name: string, ...)"
+        },
+        {
+          "linha": 95,
+          "local": false,
+          "assinatura": "function NetworkingManager.OnClientEvent(name: string, callback: (...any) -> ())"
+        },
+        {
+          "linha": 101,
+          "local": false,
+          "assinatura": "function NetworkingManager.FireServer(name: string, ...)"
+        },
+        {
+          "linha": 108,
+          "local": false,
+          "assinatura": "function NetworkingManager.InvokeServer(name: string, ...)"
+        },
+        {
+          "linha": 114,
+          "local": false,
+          "assinatura": "function NetworkingManager.DisconnectAll()"
+        },
+        {
+          "linha": 121,
+          "local": false,
+          "assinatura": "function NetworkingManager.Destroy()"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 11,
+          "nome": "NetworkingManager._remotes"
+        },
+        {
+          "linha": 12,
+          "nome": "NetworkingManager._connections"
+        }
+      ],
+      "retorno": "NetworkingManager"
+    },
+    {
+      "caminho": "src/framework/utils/CollectionUtils.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/utils/CollectionUtils.lua",
+      "bytes": 4108,
+      "linhas": 207,
+      "proposito": "Fábricas de estruturas de dados (fila, pilha, conjunto, tabela ordenada) e helpers de deduplicação/comparação em Luau válido.",
+      "cabecalho": "-- Vessie Roblox Framework - CollectionUtils\n-- Estruturas de dados: filas, pilhas, conjuntos, tabelas ordenadas",
+      "funcoes": [
+        {
+          "linha": 8,
+          "local": false,
+          "assinatura": "function CollectionUtils.Queue()"
+        },
+        {
+          "linha": 13,
+          "local": false,
+          "assinatura": "function obj:Enqueue(item: any)"
+        },
+        {
+          "linha": 19,
+          "local": false,
+          "assinatura": "function obj:Dequeue()"
+        },
+        {
+          "linha": 27,
+          "local": false,
+          "assinatura": "function obj:Peek()"
+        },
+        {
+          "linha": 32,
+          "local": false,
+          "assinatura": "function obj:IsEmpty()"
+        },
+        {
+          "linha": 36,
+          "local": false,
+          "assinatura": "function obj:Size()"
+        },
+        {
+          "linha": 44,
+          "local": false,
+          "assinatura": "function CollectionUtils.Stack()"
+        },
+        {
+          "linha": 49,
+          "local": false,
+          "assinatura": "function obj:Push(item: any)"
+        },
+        {
+          "linha": 55,
+          "local": false,
+          "assinatura": "function obj:Pop()"
+        },
+        {
+          "linha": 63,
+          "local": false,
+          "assinatura": "function obj:Peek()"
+        },
+        {
+          "linha": 68,
+          "local": false,
+          "assinatura": "function obj:IsEmpty()"
+        },
+        {
+          "linha": 72,
+          "local": false,
+          "assinatura": "function obj:Size()"
+        },
+        {
+          "linha": 80,
+          "local": false,
+          "assinatura": "function CollectionUtils.Set()"
+        },
+        {
+          "linha": 85,
+          "local": false,
+          "assinatura": "function obj:Add(value: any)"
+        },
+        {
+          "linha": 92,
+          "local": false,
+          "assinatura": "function obj:Remove(value: any)"
+        },
+        {
+          "linha": 101,
+          "local": false,
+          "assinatura": "function obj:Has(value: any)"
+        },
+        {
+          "linha": 105,
+          "local": false,
+          "assinatura": "function obj:Size()"
+        },
+        {
+          "linha": 109,
+          "local": false,
+          "assinatura": "function obj:IsEmpty()"
+        },
+        {
+          "linha": 113,
+          "local": false,
+          "assinatura": "function obj:ToList()"
+        },
+        {
+          "linha": 119,
+          "local": false,
+          "assinatura": "function obj:Union(other: {[any]: boolean})"
+        },
+        {
+          "linha": 126,
+          "local": false,
+          "assinatura": "function obj:Intersect(other: {[any]: boolean})"
         },
         {
           "linha": 138,
           "local": false,
-          "assinatura": "function UI:adicionarItemLista(scrollFrame, texto, callback)"
+          "assinatura": "function CollectionUtils.SortedTable(compare: (any, any) -> boolean)"
+        },
+        {
+          "linha": 142,
+          "local": false,
+          "assinatura": "function obj:Insert(value: any)"
+        },
+        {
+          "linha": 151,
+          "local": false,
+          "assinatura": "function obj:Remove(value: any)"
+        },
+        {
+          "linha": 158,
+          "local": false,
+          "assinatura": "function obj:Get(index: number)"
+        },
+        {
+          "linha": 162,
+          "local": false,
+          "assinatura": "function obj:Size()"
+        },
+        {
+          "linha": 166,
+          "local": false,
+          "assinatura": "function obj:IsEmpty()"
+        },
+        {
+          "linha": 170,
+          "local": false,
+          "assinatura": "function obj:Iterator()"
+        },
+        {
+          "linha": 182,
+          "local": false,
+          "assinatura": "function CollectionUtils.Deduplicate(list: {any})"
+        },
+        {
+          "linha": 195,
+          "local": false,
+          "assinatura": "function CollectionUtils.SameElements(a: {any}, b: {any})"
+        }
+      ],
+      "registros": [],
+      "retorno": "CollectionUtils"
+    },
+    {
+      "caminho": "src/framework/utils/InstanceUtils.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/utils/InstanceUtils.lua",
+      "bytes": 1961,
+      "linhas": 58,
+      "proposito": "Helpers seguros para instâncias Roblox: busca (IsA/filtro de classe), criação validada, propriedades, destruição segura e CFrame a partir de posição/rotação.",
+      "cabecalho": "-- Vessie Roblox Framework - InstanceUtils\n-- Utilitarios seguros para instancias do Roblox",
+      "funcoes": [
+        {
+          "linha": 7,
+          "local": false,
+          "assinatura": "function InstanceUtils.FindFirstChildSafe(parent: Instance, name: string, className: string?)"
+        },
+        {
+          "linha": 14,
+          "local": false,
+          "assinatura": "function InstanceUtils.CreateWithValidation(className: string, properties: {[string]: any})"
+        },
+        {
+          "linha": 25,
+          "local": false,
+          "assinatura": "function InstanceUtils.SetProperties(inst: Instance, properties: {[string]: any})"
+        },
+        {
+          "linha": 35,
+          "local": false,
+          "assinatura": "function InstanceUtils.DestroySafe(inst: Instance?)"
+        },
+        {
+          "linha": 42,
+          "local": false,
+          "assinatura": "function InstanceUtils.IsClass(instance: Instance, className: string)"
+        },
+        {
+          "linha": 47,
+          "local": false,
+          "assinatura": "function InstanceUtils.CFrameFromPositionRotation(position: any, euler: any)"
+        }
+      ],
+      "registros": [],
+      "retorno": "InstanceUtils"
+    },
+    {
+      "caminho": "src/framework/utils/MathUtils.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/utils/MathUtils.lua",
+      "bytes": 2141,
+      "linhas": 76,
+      "proposito": "Matemática de vetores e CFrame: lerp, clamp, distância, projeção, lookAt, RotateVector, AngleBetween e conversões euler (fromEulerAnglesXYZ/ToEulerAnglesXYZ).",
+      "cabecalho": "-- Vessie Roblox Framework - MathUtils\n-- Utilitarios matematicos: vetores, CFrame, geometria",
+      "funcoes": [
+        {
+          "linha": 7,
+          "local": false,
+          "assinatura": "function MathUtils.Lerp(a: any, b: any, t: number)"
+        },
+        {
+          "linha": 18,
+          "local": false,
+          "assinatura": "function MathUtils.ClampVec(v: Vector3, min: Vector3, max: Vector3)"
+        },
+        {
+          "linha": 26,
+          "local": false,
+          "assinatura": "function MathUtils.Normalize(v: Vector3)"
+        },
+        {
+          "linha": 32,
+          "local": false,
+          "assinatura": "function MathUtils.Distance(a: Vector3, b: Vector3)"
+        },
+        {
+          "linha": 36,
+          "local": false,
+          "assinatura": "function MathUtils.AngleBetween(a: Vector3, b: Vector3)"
+        },
+        {
+          "linha": 43,
+          "local": false,
+          "assinatura": "function MathUtils.ProjectOnPlane(v: Vector3, planeNormal: Vector3)"
+        },
+        {
+          "linha": 48,
+          "local": false,
+          "assinatura": "function MathUtils.LookAt(from: Vector3, to: Vector3)"
+        },
+        {
+          "linha": 53,
+          "local": false,
+          "assinatura": "function MathUtils.EulerToCFrame(pitch: number, yaw: number, roll: number)"
+        },
+        {
+          "linha": 58,
+          "local": false,
+          "assinatura": "function MathUtils.CFrameToEuler(cframe: CFrame)"
+        },
+        {
+          "linha": 64,
+          "local": false,
+          "assinatura": "function MathUtils.RotateVector(v: Vector3, c: CFrame)"
+        },
+        {
+          "linha": 68,
+          "local": false,
+          "assinatura": "function MathUtils.ProjectAOnB(a: Vector3, b: Vector3)"
+        }
+      ],
+      "registros": [],
+      "retorno": "MathUtils"
+    },
+    {
+      "caminho": "src/framework/utils/NumberUtils.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/utils/NumberUtils.lua",
+      "bytes": 1866,
+      "linhas": 58,
+      "proposito": "Utilitários numéricos puros: clamp, lerp, round, mapeamento, wrap, graus/radianos, IsFinite e random inteiro.",
+      "cabecalho": "-- Vessie Roblox Framework - NumberUtils\n-- Utilitários numéricos: clamp, lerp, arredondamento, aproximação",
+      "funcoes": [
+        {
+          "linha": 7,
+          "local": false,
+          "assinatura": "function NumberUtils.Clamp(value: number, min: number, max: number)"
+        },
+        {
+          "linha": 11,
+          "local": false,
+          "assinatura": "function NumberUtils.Lerp(a: number, b: number, t: number)"
+        },
+        {
+          "linha": 15,
+          "local": false,
+          "assinatura": "function NumberUtils.Round(value: number, decimals: number?)"
+        },
+        {
+          "linha": 21,
+          "local": false,
+          "assinatura": "function NumberUtils.IsFinite(value: number)"
+        },
+        {
+          "linha": 25,
+          "local": false,
+          "assinatura": "function NumberUtils.Approximately(a: number, b: number, tolerance: number?)"
+        },
+        {
+          "linha": 29,
+          "local": false,
+          "assinatura": "function NumberUtils.RadiansToDegrees(radians: number)"
+        },
+        {
+          "linha": 33,
+          "local": false,
+          "assinatura": "function NumberUtils.DegreesToRadians(degrees: number)"
+        },
+        {
+          "linha": 37,
+          "local": false,
+          "assinatura": "function NumberUtils.Random(min: number, max: number, isInteger: boolean?)"
+        },
+        {
+          "linha": 44,
+          "local": false,
+          "assinatura": "function NumberUtils.Map(value: number, inMin: number, inMax: number, outMin: number, outMax: number)"
+        },
+        {
+          "linha": 49,
+          "local": false,
+          "assinatura": "function NumberUtils.Wrap(value: number, min: number, max: number, cycleLength: number?)"
+        }
+      ],
+      "registros": [],
+      "retorno": "NumberUtils"
+    },
+    {
+      "caminho": "src/framework/utils/StringUtils.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/utils/StringUtils.lua",
+      "bytes": 2425,
+      "linhas": 96,
+      "proposito": "Manipulação e validação de strings: trim, split/join, starts/ends with, format, validações (email/número) e geração de IDs hex.",
+      "cabecalho": "-- Vessie Roblox Framework - StringUtils\n-- Utilitarios para strings: formatacao, validacao, manipulacao",
+      "funcoes": [
+        {
+          "linha": 7,
+          "local": false,
+          "assinatura": "function StringUtils.Trim(s: string)"
+        },
+        {
+          "linha": 11,
+          "local": false,
+          "assinatura": "function StringUtils.Split(s: string, delimiter: string, plain: boolean?)"
+        },
+        {
+          "linha": 31,
+          "local": false,
+          "assinatura": "function StringUtils.Join(t: {string}, separator: string?)"
+        },
+        {
+          "linha": 35,
+          "local": false,
+          "assinatura": "function StringUtils.StartsWith(s: string, prefix: string)"
+        },
+        {
+          "linha": 39,
+          "local": false,
+          "assinatura": "function StringUtils.EndsWith(s: string, suffix: string)"
+        },
+        {
+          "linha": 43,
+          "local": false,
+          "assinatura": "function StringUtils.Capitalize(s: string)"
+        },
+        {
+          "linha": 48,
+          "local": false,
+          "assinatura": "function StringUtils.Upper(s: string)"
+        },
+        {
+          "linha": 52,
+          "local": false,
+          "assinatura": "function StringUtils.Lower(s: string)"
+        },
+        {
+          "linha": 56,
+          "local": false,
+          "assinatura": "function StringUtils.Format(format: string, ...)"
+        },
+        {
+          "linha": 60,
+          "local": false,
+          "assinatura": "function StringUtils.IsEmail(email: string)"
+        },
+        {
+          "linha": 64,
+          "local": false,
+          "assinatura": "function StringUtils.IsNumber(s: string)"
+        },
+        {
+          "linha": 68,
+          "local": false,
+          "assinatura": "function StringUtils.Truncate(s: string, maxLen: number, suffix: string?)"
+        },
+        {
+          "linha": 76,
+          "local": false,
+          "assinatura": "function StringUtils.Alphanumeric(s: string)"
+        },
+        {
+          "linha": 80,
+          "local": false,
+          "assinatura": "function StringUtils.GenerateId()"
+        },
+        {
+          "linha": 91,
+          "local": false,
+          "assinatura": "function StringUtils.EscapePattern(s: string)"
+        }
+      ],
+      "registros": [],
+      "retorno": "StringUtils"
+    },
+    {
+      "caminho": "src/framework/utils/TableUtils.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/framework/utils/TableUtils.lua",
+      "bytes": 2050,
+      "linhas": 87,
+      "proposito": "Utilitários de tabelas: cópia rasa/profunda (cycle-safe), merge, filter/find, contagem, keys/values e comparação IsEqual (cycle-safe).",
+      "cabecalho": "-- Vessie Roblox Framework - TableUtils\n-- Utilitários básicos para tabelas (cópia, merge, busca, comparação profunda)",
+      "funcoes": [
+        {
+          "linha": 7,
+          "local": false,
+          "assinatura": "function TableUtils.ShallowCopy(t)"
+        },
+        {
+          "linha": 14,
+          "local": false,
+          "assinatura": "function TableUtils.DeepCopy(t, seen)"
+        },
+        {
+          "linha": 26,
+          "local": false,
+          "assinatura": "function TableUtils.Merge(target, source)"
+        },
+        {
+          "linha": 32,
+          "local": false,
+          "assinatura": "function TableUtils.Filter(t, keys)"
+        },
+        {
+          "linha": 40,
+          "local": false,
+          "assinatura": "function TableUtils.Find(t, predicate)"
+        },
+        {
+          "linha": 47,
+          "local": false,
+          "assinatura": "function TableUtils.Count(t, predicate)"
+        },
+        {
+          "linha": 55,
+          "local": false,
+          "assinatura": "function TableUtils.IsEmpty(t)"
+        },
+        {
+          "linha": 59,
+          "local": false,
+          "assinatura": "function TableUtils.GetKeys(t)"
+        },
+        {
+          "linha": 65,
+          "local": false,
+          "assinatura": "function TableUtils.GetValues(t)"
+        },
+        {
+          "linha": 72,
+          "local": false,
+          "assinatura": "function TableUtils.IsEqual(t1, t2, seen)"
+        }
+      ],
+      "registros": [],
+      "retorno": "TableUtils"
+    },
+    {
+      "caminho": "src/jogo.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/jogo.lua",
+      "bytes": 9925,
+      "linhas": 286,
+      "proposito": "Manipulação e modificação da base do jogo: referências de jogadores/personagem, teleport, voo (BodyVelocity), ferramentas/itens, silenciar sons com restauração, eventos; utilitários de conteúdo obterFPS, definirIluminacao (restaurável), definirTempo, modificarParte (allowlist de propriedades), limparConteudo, ancorarPartes e otimizarGraficos (snapshot restaurável).",
+      "cabecalho": "--[[\nMódulo de Manipulação de Jogo - Vessie Script Executor\nReferências de jogadores/personagem, teleport, voo, itens, sons e eventos.\n--]]",
+      "funcoes": [
+        {
+          "linha": 16,
+          "local": false,
+          "assinatura": "function Jogo:inicializar()"
+        },
+        {
+          "linha": 48,
+          "local": false,
+          "assinatura": "function Jogo:adicionarEvento(nome, callback)"
+        },
+        {
+          "linha": 60,
+          "local": false,
+          "assinatura": "function Jogo:dispararEvento(nome, ...)"
+        },
+        {
+          "linha": 69,
+          "local": false,
+          "assinatura": "function Jogo:obterJogador(nomeOuUsuario)"
+        },
+        {
+          "linha": 79,
+          "local": false,
+          "assinatura": "function Jogo:teleportar(destino, tipo)"
+        },
+        {
+          "linha": 97,
+          "local": false,
+          "assinatura": "function Jogo:criarModoVoo(ativo)"
+        },
+        {
+          "linha": 121,
+          "local": false,
+          "assinatura": "function Jogo:obterFerramenta(nome)"
+        },
+        {
+          "linha": 127,
+          "local": false,
+          "assinatura": "function Jogo:darItem(nomeItem, quantidade)"
+        },
+        {
+          "linha": 138,
+          "local": false,
+          "assinatura": "function Jogo:silenciarSons(ativo)"
         },
         {
           "linha": 156,
+          "local": false,
+          "assinatura": "function Jogo:espelharPersonagem(ativo)"
+        },
+        {
+          "linha": 166,
+          "local": false,
+          "assinatura": "function Jogo:obterFPS()"
+        },
+        {
+          "linha": 181,
+          "local": false,
+          "assinatura": "function Jogo:definirIluminacao(props)"
+        },
+        {
+          "linha": 194,
+          "local": false,
+          "assinatura": "function Jogo:definirTempo(hora)"
+        },
+        {
+          "linha": 202,
+          "local": false,
+          "assinatura": "function Jogo:modificarParte(parte, props)"
+        },
+        {
+          "linha": 221,
+          "local": false,
+          "assinatura": "function Jogo:limparConteudo(alvo)"
+        },
+        {
+          "linha": 240,
+          "local": false,
+          "assinatura": "function Jogo:ancorarPartes(alvo, ativo)"
+        },
+        {
+          "linha": 255,
+          "local": false,
+          "assinatura": "function Jogo:otimizarGraficos(ativo)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 9,
+          "nome": "Jogo.jogadores"
+        }
+      ],
+      "retorno": "Jogo"
+    },
+    {
+      "caminho": "src/memoria.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/memoria.lua",
+      "bytes": 2685,
+      "linhas": 89,
+      "proposito": "Leitura/escrita de memória do client via API do executor (readmemory/writememory) com cache, pattern scanning (placeholder), listarEnderecos e limparCache.",
+      "cabecalho": "--[[\nMódulo de Memória - Vessie Script Executor\nLeitura/escrita de memória do client. Usa a API do executor quando disponível\n(readmemory/writememory); caso contrário, opera como cache simulado (placeholder).\n--]]",
+      "funcoes": [
+        {
+          "linha": 11,
+          "local": true,
+          "assinatura": "local function apiLeitura()"
+        },
+        {
+          "linha": 15,
+          "local": true,
+          "assinatura": "local function apiEscrita()"
+        },
+        {
+          "linha": 19,
+          "local": false,
+          "assinatura": "function Memoria:ler(endereco, tipo)"
+        },
+        {
+          "linha": 38,
+          "local": false,
+          "assinatura": "function Memoria:escrever(endereco, valor, tipo)"
+        },
+        {
+          "linha": 56,
+          "local": false,
+          "assinatura": "function Memoria:buscarPatron(enderecoInicio, fim, patron, mascara)"
+        },
+        {
+          "linha": 66,
+          "local": false,
+          "assinatura": "function Memoria:proteger(endereco, tamanho, novoStatus)"
+        },
+        {
+          "linha": 71,
+          "local": false,
+          "assinatura": "function Memoria:getEnderecoGlobal(nomeObjeto, offset)"
+        },
+        {
+          "linha": 76,
+          "local": false,
+          "assinatura": "function Memoria:listarEnderecos()"
+        },
+        {
+          "linha": 84,
+          "local": false,
+          "assinatura": "function Memoria:limparCache()"
+        }
+      ],
+      "registros": [],
+      "retorno": "Memoria"
+    },
+    {
+      "caminho": "src/neural/ativacoes.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/neural/ativacoes.lua",
+      "bytes": 3700,
+      "linhas": 111,
+      "proposito": "Funções de ativação e perda: linear, sigmoid (estável), tanh, relu, leakyRelu, softmax (aplicar+derivada); perda mse/crossentropy e gradienteSaida (atalho softmax/crossentropy -> saida-alvo).",
+      "cabecalho": "--[[\nRede Neural - Funcoes de ativacao e de perda (Lua 5.1+)\nderivada(nome, z, a) retorna f'(z) elemento a elemento (usa a quando conveniente).\nsoftmax nao tem derivada elementwise: o gradiente de saida e tratado em gradienteSaida.\n--]]",
+      "funcoes": [
+        {
+          "linha": 9,
+          "local": true,
+          "assinatura": "local function map(v, fn)"
+        },
+        {
+          "linha": 15,
+          "local": true,
+          "assinatura": "local function sigmoid(x)"
+        },
+        {
+          "linha": 25,
+          "local": false,
+          "assinatura": "aplicar = function(z)"
+        },
+        {
+          "linha": 26,
+          "local": false,
+          "assinatura": "derivada = function(z)"
+        },
+        {
+          "linha": 29,
+          "local": false,
+          "assinatura": "aplicar = function(z)"
+        },
+        {
+          "linha": 30,
+          "local": false,
+          "assinatura": "derivada = function(z, a)"
+        },
+        {
+          "linha": 33,
+          "local": false,
+          "assinatura": "aplicar = function(z)"
+        },
+        {
+          "linha": 34,
+          "local": false,
+          "assinatura": "derivada = function(z, a)"
+        },
+        {
+          "linha": 37,
+          "local": false,
+          "assinatura": "aplicar = function(z)"
+        },
+        {
+          "linha": 38,
+          "local": false,
+          "assinatura": "derivada = function(z)"
+        },
+        {
+          "linha": 41,
+          "local": false,
+          "assinatura": "aplicar = function(z)"
+        },
+        {
+          "linha": 42,
+          "local": false,
+          "assinatura": "derivada = function(z)"
+        },
+        {
+          "linha": 45,
+          "local": false,
+          "assinatura": "aplicar = function(z)"
+        },
+        {
+          "linha": 56,
+          "local": false,
+          "assinatura": "function Ativacoes.existe(nome)"
+        },
+        {
+          "linha": 60,
+          "local": false,
+          "assinatura": "function Ativacoes.ativar(nome, z)"
+        },
+        {
+          "linha": 66,
+          "local": false,
+          "assinatura": "function Ativacoes.derivada(nome, z, a)"
+        },
+        {
+          "linha": 73,
+          "local": false,
+          "assinatura": "function Ativacoes.perda(nome, saida, alvo)"
+        },
+        {
+          "linha": 88,
+          "local": false,
+          "assinatura": "function Ativacoes.gradienteSaida(nome, ativacao, saida, alvo, z)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 23,
+          "nome": "Ativacoes.funcoes"
+        }
+      ],
+      "retorno": "Ativacoes"
+    },
+    {
+      "caminho": "src/neural/camadas.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/neural/camadas.lua",
+      "bytes": 1481,
+      "linhas": 53,
+      "proposito": "Camada densa (dense) com init Xavier (sqrt(1/entradas)); forward guarda _x/_z/_a, backward calcula _dW=outer(dz,_x)/_db=dz e retorna dL/dx, atualizar aplica SGD in-place (W-=taxa*dW).",
+      "cabecalho": "--[[\nRede Neural - Camada densa (fully connected) com forward/backward (Lua 5.1+)\nW e (saidas x entradas); forward guarda _x/_z/_a; backward guarda _dW/_db.\n--]]",
+      "funcoes": [
+        {
+          "linha": 11,
+          "local": false,
+          "assinatura": "function Camadas.dense(entradas, saidas, ativacao)"
+        },
+        {
+          "linha": 24,
+          "local": false,
+          "assinatura": "function Camadas.forward(camada, x)"
+        },
+        {
+          "linha": 35,
+          "local": false,
+          "assinatura": "function Camadas.backward(camada, dz)"
+        },
+        {
+          "linha": 43,
+          "local": false,
+          "assinatura": "function Camadas.atualizar(camada, taxa)"
+        }
+      ],
+      "registros": [],
+      "retorno": "Camadas"
+    },
+    {
+      "caminho": "src/neural/init.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/neural/init.lua",
+      "bytes": 5524,
+      "linhas": 173,
+      "proposito": "Rede neural MLP completa (Lua 5.1+): classe Neural com camada densa encadeável, forward/backprop, SGD (treinar com épocas/taxa/perda/embaralhar/callback), prever/classificar, avaliar (perda+acurácia), serializar/salvar/carregar e fábricas criar/deDados; expõe matriz/ativacoes/camadas/serializacao.",
+      "cabecalho": "--[[\nRede Neural - Base completa (Lua 5.1+, sem dependencias externas)\nMLP (perceptron multicamadas) com backpropagation e SGD.\n\nUso:\nlocal Neural = require(\"src.neural\")\nlocal rede = Neural.nova()\nrede:camada(2, 4, \"tanh\"):camada(4, 1, \"sigmoid\")\nlocal dados = {\n{ entrada = {0,0}, alvo = {0} }, { entrada = {0,1}, alvo = {1} },\n{ entrada = {1,0}, alvo = {1} }, { entrada = {1,1}, alvo = {0} },\n}\nrede:treinar(dados, { epocas = 2000, taxaAprendizado = 0.5, perda = \"mse\" })\nprint(rede:prever({1,0})[1])\nrede:salvar(\"modelo.json\")\n--]]",
+      "funcoes": [
+        {
+          "linha": 30,
+          "local": false,
+          "assinatura": "function Neural.nova()"
+        },
+        {
+          "linha": 34,
+          "local": false,
+          "assinatura": "function Neural:camada(entradas, saidas, ativacao)"
+        },
+        {
+          "linha": 39,
+          "local": false,
+          "assinatura": "function Neural:forward(entrada)"
+        },
+        {
+          "linha": 50,
+          "local": false,
+          "assinatura": "function Neural:prever(entrada)"
+        },
+        {
+          "linha": 54,
+          "local": false,
+          "assinatura": "function Neural:classificar(entrada)"
+        },
+        {
+          "linha": 58,
+          "local": false,
+          "assinatura": "function Neural:backward(alvo, perda)"
+        },
+        {
+          "linha": 77,
+          "local": false,
+          "assinatura": "function Neural:atualizar(taxa)"
+        },
+        {
+          "linha": 81,
+          "local": false,
+          "assinatura": "function Neural:treinar(dados, opcoes)"
+        },
+        {
+          "linha": 113,
+          "local": false,
+          "assinatura": "function Neural:avaliar(dados, perda)"
+        },
+        {
+          "linha": 125,
+          "local": false,
+          "assinatura": "function Neural:serializar()"
+        },
+        {
+          "linha": 136,
+          "local": false,
+          "assinatura": "function Neural:salvar(caminho)"
+        },
+        {
+          "linha": 141,
+          "local": false,
+          "assinatura": "function Neural.criar(config)"
+        },
+        {
+          "linha": 151,
+          "local": false,
+          "assinatura": "function Neural.deDados(dados)"
+        },
+        {
+          "linha": 166,
+          "local": false,
+          "assinatura": "function Neural.carregar(caminho)"
+        }
+      ],
+      "registros": [],
+      "retorno": "Neural"
+    },
+    {
+      "caminho": "src/neural/matriz.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/neural/matriz.lua",
+      "bytes": 2205,
+      "linhas": 109,
+      "proposito": "Álgebra linear pura para a rede neural: zeros/zeros2d/random2d (Xavier), copia profunda, dot, matVec, transposta, soma/sub/escala/mul (Hadamard), outer, map e argmax; vetores são arrays e matrizes são arrays de linhas.",
+      "cabecalho": "--[[\nRede Neural - Algebra linear (Lua 5.1+, sem dependencias)\nVetores = arrays {1..n}; matrizes = arrays de linhas {1..l}{1..c}.\n--]]",
+      "funcoes": [
+        {
+          "linha": 8,
+          "local": false,
+          "assinatura": "function Matriz.zeros(n)"
+        },
+        {
+          "linha": 14,
+          "local": false,
+          "assinatura": "function Matriz.zeros2d(linhas, colunas)"
+        },
+        {
+          "linha": 20,
+          "local": false,
+          "assinatura": "function Matriz.random2d(linhas, colunas, escala)"
+        },
+        {
+          "linha": 30,
+          "local": false,
+          "assinatura": "function Matriz.copia(a)"
+        },
+        {
+          "linha": 37,
+          "local": false,
+          "assinatura": "function Matriz.dot(a, b)"
+        },
+        {
+          "linha": 44,
+          "local": false,
+          "assinatura": "function Matriz.matVec(W, x)"
+        },
+        {
+          "linha": 50,
+          "local": false,
+          "assinatura": "function Matriz.transposta(W)"
+        },
+        {
+          "linha": 59,
+          "local": false,
+          "assinatura": "function Matriz.soma(a, b)"
+        },
+        {
+          "linha": 65,
+          "local": false,
+          "assinatura": "function Matriz.sub(a, b)"
+        },
+        {
+          "linha": 71,
+          "local": false,
+          "assinatura": "function Matriz.escala(a, s)"
+        },
+        {
+          "linha": 78,
+          "local": false,
+          "assinatura": "function Matriz.mul(a, b)"
+        },
+        {
+          "linha": 85,
+          "local": false,
+          "assinatura": "function Matriz.outer(a, b)"
+        },
+        {
+          "linha": 94,
+          "local": false,
+          "assinatura": "function Matriz.map(a, fn)"
+        },
+        {
+          "linha": 100,
+          "local": false,
+          "assinatura": "function Matriz.argmax(v)"
+        }
+      ],
+      "registros": [],
+      "retorno": "Matriz"
+    },
+    {
+      "caminho": "src/neural/serializacao.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/neural/serializacao.lua",
+      "bytes": 6014,
+      "linhas": 187,
+      "proposito": "JSON próprio (encode/decode recursivo, números %.17g, escape de strings via string.char sem literais de barra), paraJSON/deJSON e salvar/carregar via writefile/readfile do executor (pcall); round-trip fiel dos pesos.",
+      "cabecalho": "--[[\nRede Neural - Serializacao JSON e persistencia (Lua 5.1+, sem dependencias)\nJSON proprio para portabilidade; salvar/carregar usam writefile/readfile do executor.\n--]]",
+      "funcoes": [
+        {
+          "linha": 9,
+          "local": true,
+          "assinatura": "local function isArray(t)"
+        },
+        {
+          "linha": 18,
+          "local": true,
+          "assinatura": "local function escapeStr(s)"
+        },
+        {
+          "linha": 37,
+          "local": false,
+          "assinatura": "encode = function(v)"
+        },
+        {
+          "linha": 59,
+          "local": true,
+          "assinatura": "local function decode(str)"
+        },
+        {
+          "linha": 62,
+          "local": true,
+          "assinatura": "local function skip()"
+        },
+        {
+          "linha": 68,
+          "local": true,
+          "assinatura": "local function parseString()"
+        },
+        {
+          "linha": 92,
+          "local": true,
+          "assinatura": "local function parseNumero()"
+        },
+        {
+          "linha": 101,
+          "local": true,
+          "assinatura": "local function parseArray()"
+        },
+        {
+          "linha": 116,
+          "local": true,
+          "assinatura": "local function parseObject()"
+        },
+        {
+          "linha": 136,
+          "local": false,
+          "assinatura": "parseValor = function()"
+        },
+        {
+          "linha": 152,
+          "local": false,
+          "assinatura": "function Serializacao.paraJSON(tabela)"
+        },
+        {
+          "linha": 156,
+          "local": false,
+          "assinatura": "function Serializacao.deJSON(texto)"
+        },
+        {
+          "linha": 161,
+          "local": false,
+          "assinatura": "function Serializacao.salvar(tabela, caminho)"
+        },
+        {
+          "linha": 173,
+          "local": false,
+          "assinatura": "function Serializacao.carregar(caminho)"
+        }
+      ],
+      "registros": [],
+      "retorno": "Serializacao"
+    },
+    {
+      "caminho": "src/ui.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/ui.lua",
+      "bytes": 5075,
+      "linhas": 146,
+      "proposito": "Criação de UI do executor: ScreenGui, frames arrastáveis, botões, toggles, caixas de texto, rótulos e listas roláveis (UIListLayout + AutomaticCanvasSize).",
+      "cabecalho": "--[[\nMódulo de Interface - Vessie Script Executor\nCriação de UIs e menus para o executor (ScreenGui, frames, botões, toggles, etc.)\n--]]",
+      "funcoes": [
+        {
+          "linha": 8,
+          "local": false,
+          "assinatura": "function UI:criarGui(nome, pais)"
+        },
+        {
+          "linha": 18,
+          "local": false,
+          "assinatura": "function UI:criarFrame(gui, titulo, posicao, tamanho, corFundo)"
+        },
+        {
+          "linha": 46,
+          "local": false,
+          "assinatura": "function UI:criarBotao(frame, texto, posicao, tamanho, cor, callback)"
+        },
+        {
+          "linha": 64,
+          "local": false,
+          "assinatura": "function UI:criarToggle(frame, texto, posicao, ligadoInicial)"
+        },
+        {
+          "linha": 76,
+          "local": false,
+          "assinatura": "function UI:criarCaixaTexto(frame, textoPlaceholder, posicao, tamanho)"
+        },
+        {
+          "linha": 90,
+          "local": false,
+          "assinatura": "function UI:criarRotulo(frame, texto, posicao, tamanho, corTexto)"
+        },
+        {
+          "linha": 103,
+          "local": false,
+          "assinatura": "function UI:criarLista(frame, posicao, tamanho)"
+        },
+        {
+          "linha": 120,
+          "local": false,
+          "assinatura": "function UI:adicionarItemLista(scrollFrame, texto, callback)"
+        },
+        {
+          "linha": 133,
           "local": false,
           "assinatura": "function UI:removerGui(nome)"
         }
@@ -1801,86 +2725,260 @@
       "retorno": "UI"
     },
     {
-      "caminho": "src/utils/utils.lua",
-      "bytes": 8092,
-      "linhas": 227,
-      "proposito": "Comandos prontos de jogo em Utils.comandos: fly, speed, noclip, godmode, esp, verificar e antiafk, com listarComandos.",
-      "cabecalho": "--[[\nMódulo de Utilitários - Roblox Executor Library\nComandos pré-definidos comprimidos para uso único\n--]]",
+      "caminho": "src/utils.lua",
+      "rawUrl": "https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/src/utils.lua",
+      "bytes": 19468,
+      "linhas": 548,
+      "proposito": "22 comandos prontos em Utils.comandos: fly, speed, noclip, godmode, esp, verificar, antiafk, teleport, fullbright, gravity, reset, sit, jump, hipheight, fov + otimização/modificação (otimizar, removerefeitos, notextures, nofog, daytime, antivoid, fps); toggles restauram estado original, rastreamento de conexões/desconectar, listarComandos ordenado e Utils:executar.",
+      "cabecalho": "--[[\nMódulo de Utilitários - Vessie Script Executor\nComandos prontos de jogo em Utils.comandos.<nome> = { nome, descricao, funcao }.\nComandos de toggle gerenciam suas conexões em Utils._conexoes (sem leaks).\n--]]",
       "funcoes": [
         {
-          "linha": 13,
-          "local": false,
-          "assinatura": "funcao = function(...)"
+          "linha": 11,
+          "local": true,
+          "assinatura": "local function personagem()"
         },
         {
-          "linha": 38,
-          "local": false,
-          "assinatura": "funcao = function(velocidade)"
+          "linha": 15,
+          "local": true,
+          "assinatura": "local function humanoid()"
         },
         {
-          "linha": 53,
+          "linha": 20,
+          "local": true,
+          "assinatura": "local function root()"
+        },
+        {
+          "linha": 25,
+          "local": true,
+          "assinatura": "local function desconectar(nome)"
+        },
+        {
+          "linha": 35,
           "local": false,
           "assinatura": "funcao = function(ativo)"
         },
         {
-          "linha": 74,
+          "linha": 60,
+          "local": false,
+          "assinatura": "funcao = function(velocidade)"
+        },
+        {
+          "linha": 72,
           "local": false,
           "assinatura": "funcao = function(ativo)"
         },
         {
           "linha": 96,
           "local": false,
-          "assinatura": "function Utils:listarComandos()"
+          "assinatura": "funcao = function(ativo)"
         },
         {
-          "linha": 109,
+          "linha": 117,
           "local": false,
           "assinatura": "funcao = function(acao)"
         },
         {
-          "linha": 169,
+          "linha": 164,
           "local": false,
           "assinatura": "funcao = function()"
         },
         {
-          "linha": 184,
+          "linha": 175,
           "local": false,
           "assinatura": "funcao = function(ativo)"
         },
         {
-          "linha": 208,
+          "linha": 199,
+          "local": false,
+          "assinatura": "funcao = function(alvo)"
+        },
+        {
+          "linha": 222,
+          "local": false,
+          "assinatura": "funcao = function(ativo)"
+        },
+        {
+          "linha": 243,
+          "local": false,
+          "assinatura": "funcao = function(valor)"
+        },
+        {
+          "linha": 253,
+          "local": false,
+          "assinatura": "funcao = function()"
+        },
+        {
+          "linha": 264,
+          "local": false,
+          "assinatura": "funcao = function(ativo)"
+        },
+        {
+          "linha": 275,
+          "local": false,
+          "assinatura": "funcao = function(valor)"
+        },
+        {
+          "linha": 288,
+          "local": false,
+          "assinatura": "funcao = function(valor)"
+        },
+        {
+          "linha": 299,
+          "local": false,
+          "assinatura": "funcao = function(valor)"
+        },
+        {
+          "linha": 307,
+          "local": true,
+          "assinatura": "local function ehEfeito(obj)"
+        },
+        {
+          "linha": 312,
+          "local": true,
+          "assinatura": "local function ehTextura(obj)"
+        },
+        {
+          "linha": 319,
+          "local": false,
+          "assinatura": "funcao = function(ativo)"
+        },
+        {
+          "linha": 385,
+          "local": false,
+          "assinatura": "funcao = function(ativo)"
+        },
+        {
+          "linha": 416,
+          "local": false,
+          "assinatura": "funcao = function(ativo)"
+        },
+        {
+          "linha": 447,
+          "local": false,
+          "assinatura": "funcao = function(ativo)"
+        },
+        {
+          "linha": 473,
+          "local": false,
+          "assinatura": "funcao = function(hora)"
+        },
+        {
+          "linha": 486,
+          "local": false,
+          "assinatura": "funcao = function(ativo, limite)"
+        },
+        {
+          "linha": 515,
+          "local": false,
+          "assinatura": "funcao = function()"
+        },
+        {
+          "linha": 535,
           "local": false,
           "assinatura": "function Utils:listarComandos()"
+        },
+        {
+          "linha": 542,
+          "local": false,
+          "assinatura": "function Utils:executar(nome, ...)"
         }
       ],
       "registros": [
         {
-          "linha": 10,
+          "linha": 8,
+          "nome": "Utils.comandos"
+        },
+        {
+          "linha": 9,
+          "nome": "Utils._conexoes"
+        },
+        {
+          "linha": 32,
           "nome": "Utils.comandos.fly"
         },
         {
-          "linha": 35,
+          "linha": 57,
           "nome": "Utils.comandos.speed"
         },
         {
-          "linha": 50,
+          "linha": 69,
           "nome": "Utils.comandos.noclip"
         },
         {
-          "linha": 71,
+          "linha": 93,
           "nome": "Utils.comandos.godmode"
         },
         {
-          "linha": 106,
+          "linha": 114,
           "nome": "Utils.comandos.esp"
         },
         {
-          "linha": 166,
+          "linha": 161,
           "nome": "Utils.comandos.verificar"
         },
         {
-          "linha": 181,
+          "linha": 172,
           "nome": "Utils.comandos.antiafk"
+        },
+        {
+          "linha": 196,
+          "nome": "Utils.comandos.teleport"
+        },
+        {
+          "linha": 219,
+          "nome": "Utils.comandos.fullbright"
+        },
+        {
+          "linha": 240,
+          "nome": "Utils.comandos.gravity"
+        },
+        {
+          "linha": 250,
+          "nome": "Utils.comandos.reset"
+        },
+        {
+          "linha": 261,
+          "nome": "Utils.comandos.sit"
+        },
+        {
+          "linha": 272,
+          "nome": "Utils.comandos.jump"
+        },
+        {
+          "linha": 285,
+          "nome": "Utils.comandos.hipheight"
+        },
+        {
+          "linha": 296,
+          "nome": "Utils.comandos.fov"
+        },
+        {
+          "linha": 316,
+          "nome": "Utils.comandos.otimizar"
+        },
+        {
+          "linha": 382,
+          "nome": "Utils.comandos.removerefeitos"
+        },
+        {
+          "linha": 413,
+          "nome": "Utils.comandos.notextures"
+        },
+        {
+          "linha": 444,
+          "nome": "Utils.comandos.nofog"
+        },
+        {
+          "linha": 470,
+          "nome": "Utils.comandos.daytime"
+        },
+        {
+          "linha": 483,
+          "nome": "Utils.comandos.antivoid"
+        },
+        {
+          "linha": 512,
+          "nome": "Utils.comandos.fps"
         }
       ],
       "retorno": "Utils"

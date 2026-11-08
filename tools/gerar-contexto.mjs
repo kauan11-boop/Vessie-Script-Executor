@@ -6,8 +6,30 @@
 import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+// Base raw do GitHub: detectada via git remote/branch, com fallback fixo do projeto.
+const RAW_FALLBACK = 'https://raw.githubusercontent.com/kauan11-boop/Vessie-Script-Executor/refs/heads/main/';
+
+function git(args) {
+  try {
+    return execFileSync('git', args, { cwd: RAIZ, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch {
+    return '';
+  }
+}
+
+function detectarRawBase() {
+  const remote = git(['remote', 'get-url', 'origin']);
+  const branch = git(['rev-parse', '--abbrev-ref', 'HEAD']) || 'main';
+  const m = remote.match(/github\.com[/:]([^/]+)\/([^/]+?)(?:\.git)?$/);
+  if (m) return `https://raw.githubusercontent.com/${m[1]}/${m[2]}/refs/heads/${branch}/`;
+  return RAW_FALLBACK;
+}
+
+const RAW_BASE = detectarRawBase();
 
 async function listarLua(dir) {
   const entradas = await readdir(dir, { withFileTypes: true });
@@ -117,6 +139,7 @@ async function main() {
     const linhas = conteudo.split(/\r?\n/);
     arquivos.push({
       caminho,
+      rawUrl: RAW_BASE + caminho,
       bytes: Buffer.byteLength(conteudo, 'utf8'),
       linhas: linhas.length,
       proposito: descricoes[caminho] ?? null,
@@ -131,7 +154,7 @@ async function main() {
   const dirDocs = path.join(RAIZ, 'docs');
   await mkdir(dirDocs, { recursive: true });
 
-  const json = { geradoEm, totalArquivos: arquivos.length, arquivos };
+  const json = { geradoEm, rawBase: RAW_BASE, totalArquivos: arquivos.length, arquivos };
   await writeFile(path.join(dirDocs, 'contexto.json'), JSON.stringify(json, null, 2) + '\n', 'utf8');
 
   const md = [];
@@ -144,8 +167,23 @@ async function main() {
   md.push('');
   md.push('Para entender um módulo em profundidade, leia o arquivo fonte indicado em cada seção.');
   md.push('');
+  md.push('## Leitura via raw do GitHub');
+  md.push('');
+  md.push('Cada script tem uma URL raw para leitura direta por IA/agentes (sem clonar o repositório).');
+  md.push(`Base: \`${RAW_BASE}\` — some o caminho relativo do arquivo para obter o conteúdo integral.`);
+  md.push('');
+  md.push('Lista completa (caminho -> URL raw):');
+  md.push('');
+  for (const arq of arquivos) {
+    md.push(`- \`${arq.caminho}\` -> ${arq.rawUrl}`);
+  }
+  md.push('');
+  md.push('---');
+  md.push('');
   for (const arq of arquivos) {
     md.push(`## \`${arq.caminho}\``);
+    md.push('');
+    md.push(`**Raw:** ${arq.rawUrl}`);
     md.push('');
     md.push(`${arq.linhas} linhas · ${arq.bytes} bytes${arq.retorno ? ` · retorna \`${arq.retorno}\`` : ''}`);
     md.push('');
@@ -184,6 +222,7 @@ async function main() {
 
   const semDescricao = arquivos.filter((a) => !a.proposito).map((a) => a.caminho);
   console.log(`${arquivos.length} scripts indexados -> docs/CONTEXTO_IA.md e docs/contexto.json`);
+  console.log(`Base raw: ${RAW_BASE}`);
   if (semDescricao.length > 0) {
     console.log(`Sem descrição curada (${semDescricao.length}): ${semDescricao.join(', ')}`);
   }
