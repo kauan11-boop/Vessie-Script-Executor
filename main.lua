@@ -1,95 +1,99 @@
 --[[
-  Roblox Executor Library - Core Module
-  Versão: 1.0.0
+  Vessie Script Executor - Ponto de Entrada
+  Versão: 0.2.0
   Desenvolvido para executores: Xeno, Delta, Mobile Executors
   Funciona no client local sem emuladores
+
+  Arquitetura: main.lua (raiz) carrega módulos de src/ via require("src.<nome>").
+  <nome> resolve para src/<nome>.lua ou src/<nome>/init.lua.
 --]]
 
--- Tabela principal da biblioteca
 local Library = {
-    _VERSION = "1.0.0",
+    _VERSION = "0.2.0",
     _DESCRIPTION = "Biblioteca completa para executores Roblox",
-    _AUTHOR = "Sistema Automatizado"
 }
 
--- Módulos carregados
 local modules = {}
 
--- Função para carregar um módulo
 function Library:carregarModulo(nome)
     if modules[nome] then return modules[nome] end
-    
     local sucesso, modulo = pcall(function()
         return require("src." .. nome)
     end)
-    
-    if sucesso then
+    if sucesso and modulo then
         modules[nome] = modulo
         return modulo
-    else
-        warn("[Library] Falha ao carregar módulo '" .. nome .. "': " .. tostring(modulo))
-        return nil
     end
-end
-
--- Função para inicializar todos os módulos
-function Library:inicializar()
-    -- Carregar módulos em ordem dependente
-    self:carregarModulo("core")
-    self:carregarModulo("memoria")
-    self:carregarModulo("jogo")
-    self:carregarModulo("ui")
-    self:carregarModulo("apis")
-    self:carregarModulo("utils")
-    self:carregarModulo("framework")
-    
-    -- Executar inicialização de cada módulo
-    for nome, modulo in pairs(modules) do
-        if modulo.inicializar then
-            modulo:inicializar()
-        end
-    end
-    
-    print("[Library] Biblioteca carregada com sucesso! Módulos: " .. #modules)
-    return self
-end
-
--- Função para executar um comando pelo framework
-function Library:executarComando(comando, ...)
-    local framework = self:carregarModulo("framework")
-    if framework and framework.executar then
-        return framework:executar(comando, ...)
-    else
-        error("[Framework] Módulo framework não disponível ou função executar não encontrada")
-    end
-end
-
--- Função para obter memória
-function Library:getMemoria(endereco)
-    local memoria = self:carregarModulo("memoria")
-    if memoria and memoria.ler then
-        return memoria:ler(endereco)
-    end
+    warn("[Library] Falha ao carregar módulo '" .. nome .. "': " .. tostring(modulo))
     return nil
 end
 
--- Função para definir memória
+function Library:inicializar()
+    local ordem = { "core", "memoria", "jogo", "ui", "apis", "utils", "framework" }
+    for _, nome in ipairs(ordem) do
+        self:carregarModulo(nome)
+    end
+
+    -- Core primeiro: prepara estado, bridge e canal
+    local core = modules["core"]
+    if core and core.inicializar then
+        core:inicializar()
+    end
+
+    -- Demais módulos (protegido: um módulo com erro não derruba os outros)
+    for nome, modulo in pairs(modules) do
+        if nome ~= "core" and modulo.inicializar then
+            local ok, err = pcall(function() modulo:inicializar() end)
+            if not ok then warn("[Library] Erro ao inicializar '" .. nome .. "': " .. tostring(err)) end
+        end
+    end
+
+    -- Registra os comandos reais de utils no core (Public API)
+    local utils = modules["utils"]
+    if core and utils and utils.comandos then
+        for nome, cmd in pairs(utils.comandos) do
+            if type(cmd) == "table" and type(cmd.funcao) == "function" then
+                core:registrarComando(nome, cmd.funcao)
+            end
+        end
+    end
+
+    local total = 0
+    for _ in pairs(modules) do total = total + 1 end
+    print("[Library] Biblioteca carregada com sucesso! Módulos: " .. total)
+    return self
+end
+
+-- Executa um comando pelo core (segurança + rate limit + histórico)
+function Library:executarComando(comando, ...)
+    local core = self:carregarModulo("core")
+    if core and core.executar then
+        local args = ...
+        return core:executar(comando, args)
+    end
+    error("[Library] Módulo core não disponível")
+end
+
+function Library:getMemoria(endereco)
+    local memoria = self:carregarModulo("memoria")
+    if memoria and memoria.ler then return memoria:ler(endereco) end
+    return nil
+end
+
 function Library:setMemoria(endereco, valor)
     local memoria = self:carregarModulo("memoria")
-    if memoria and memoria.escrever then
-        return memoria:escrever(endereco, valor)
-    end
+    if memoria and memoria.escrever then return memoria:escrever(endereco, valor) end
     return false
 end
 
--- Função para evento
 function Library:adicionarEvento(nome, callback)
     local jogo = self:carregarModulo("jogo")
-    if jogo and jogo.adicionarEvento then
-        return jogo:adicionarEvento(nome, callback)
-    end
+    if jogo and jogo.adicionarEvento then return jogo:adicionarEvento(nome, callback) end
     return false
 end
 
--- Retornar a biblioteca
+function Library:obterModulo(nome)
+    return self:carregarModulo(nome)
+end
+
 return Library:inicializar()
