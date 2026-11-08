@@ -1,0 +1,1889 @@
+{
+  "geradoEm": "2026-11-08T20:25:56.672Z",
+  "totalArquivos": 32,
+  "arquivos": [
+    {
+      "caminho": "main.lua",
+      "bytes": 2704,
+      "linhas": 95,
+      "proposito": "Ponto de entrada da biblioteca: carrega os módulos de src/ via require(\"src.<nome>\"), inicializa cada um e expõe executarComando, getMemoria, setMemoria e adicionarEvento.",
+      "cabecalho": "--[[\nRoblox Executor Library - Core Module\nVersão: 1.0.0\nDesenvolvido para executores: Xeno, Delta, Mobile Executors\nFunciona no client local sem emuladores\n--]]",
+      "funcoes": [
+        {
+          "linha": 19,
+          "local": false,
+          "assinatura": "function Library:carregarModulo(nome)"
+        },
+        {
+          "linha": 36,
+          "local": false,
+          "assinatura": "function Library:inicializar()"
+        },
+        {
+          "linha": 58,
+          "local": false,
+          "assinatura": "function Library:executarComando(comando, ...)"
+        },
+        {
+          "linha": 68,
+          "local": false,
+          "assinatura": "function Library:getMemoria(endereco)"
+        },
+        {
+          "linha": 77,
+          "local": false,
+          "assinatura": "function Library:setMemoria(endereco, valor)"
+        },
+        {
+          "linha": 86,
+          "local": false,
+          "assinatura": "function Library:adicionarEvento(nome, callback)"
+        }
+      ],
+      "registros": [],
+      "retorno": "Library"
+    },
+    {
+      "caminho": "src/apis/apis.lua",
+      "bytes": 3673,
+      "linhas": 127,
+      "proposito": "Integração externa e informações: webhooks/HTTP (placeholders), info do executor/jogador/jogo, callbacks e conversão JSON via HttpService.",
+      "cabecalho": "--[[\nMódulo de APIs - Roblox Executor Library\nFunções de API para integração e informações externas\n--]]",
+      "funcoes": [
+        {
+          "linha": 12,
+          "local": false,
+          "assinatura": "function API:enviarWebhook(url, dados, metodo)"
+        },
+        {
+          "linha": 26,
+          "local": false,
+          "assinatura": "function API:requisicaoGET(url)"
+        },
+        {
+          "linha": 33,
+          "local": false,
+          "assinatura": "function API:requisicaoPOST(url, dados)"
+        },
+        {
+          "linha": 40,
+          "local": false,
+          "assinatura": "function API:baixarArquivo(url, caminhoLocal)"
+        },
+        {
+          "linha": 47,
+          "local": false,
+          "assinatura": "function API:obterInfoExecutor()"
+        },
+        {
+          "linha": 59,
+          "local": false,
+          "assinatura": "function API:obterInfoJogador(jogador)"
+        },
+        {
+          "linha": 76,
+          "local": false,
+          "assinatura": "function API:obterInfoJogo()"
+        },
+        {
+          "linha": 90,
+          "local": false,
+          "assinatura": "function API:registrarCallback(evento, callback)"
+        },
+        {
+          "linha": 100,
+          "local": false,
+          "assinatura": "function API:dispararCallback(evento, ...)"
+        }
+      ],
+      "registros": [],
+      "retorno": "API"
+    },
+    {
+      "caminho": "src/command_dispatcher.lua",
+      "bytes": 2024,
+      "linhas": 73,
+      "proposito": "Registro e despacho de handlers de comando da Public API, com execução protegida (pcall/xpcall) e modo seguro.",
+      "cabecalho": "-- Command Dispatcher for Public API\n-- Responsavel por dispatcher de comandos recebidos via remote events\n-- Compatibilidade: Lua 5.1/5.2/5.3/5.4",
+      "funcoes": [
+        {
+          "linha": 11,
+          "local": false,
+          "assinatura": "function M.register_handler(command_name, handler_func)"
+        },
+        {
+          "linha": 23,
+          "local": false,
+          "assinatura": "function M.get_handler(command_name)"
+        },
+        {
+          "linha": 29,
+          "local": false,
+          "assinatura": "function M.dispatch(command_name, args)"
+        },
+        {
+          "linha": 59,
+          "local": false,
+          "assinatura": "function function_list()"
+        },
+        {
+          "linha": 68,
+          "local": false,
+          "assinatura": "function M.set_secure(secure)"
+        }
+      ],
+      "registros": [],
+      "retorno": "M"
+    },
+    {
+      "caminho": "src/framework/Client/Players/PlayerManager.lua",
+      "bytes": 5807,
+      "linhas": 176,
+      "proposito": "Rastreia jogadores e personagens com dados por jogador e BindableEvents internos; incompleto (erro de sintaxe e player.PlayerRemoving inexistente).",
+      "cabecalho": "-- Vessie Roblox Framework - PlayerManager (7)\n-- Gerencia jogadores, entrada, carregamento de personagens e respawns",
+      "funcoes": [
+        {
+          "linha": 22,
+          "local": false,
+          "assinatura": "function PlayerManager.Init()"
+        },
+        {
+          "linha": 32,
+          "local": false,
+          "assinatura": "function PlayerManager.OnPlayerAdded(player: Player)"
+        },
+        {
+          "linha": 72,
+          "local": false,
+          "assinatura": "function PlayerManager.OnPlayerRemoving(player: Player)"
+        },
+        {
+          "linha": 80,
+          "local": false,
+          "assinatura": "function PlayerManager.GetCharacter(player: Player)"
+        },
+        {
+          "linha": 98,
+          "local": false,
+          "assinatura": "function PlayerManager.GetData(player: Player, key: string?)"
+        },
+        {
+          "linha": 109,
+          "local": false,
+          "assinatura": "function PlayerManager.SetData(player: Player, key: string, value: any)"
+        },
+        {
+          "linha": 119,
+          "local": false,
+          "assinatura": "function PlayerManager.HasCharacter(player: Player)"
+        },
+        {
+          "linha": 127,
+          "local": false,
+          "assinatura": "function PlayerManager.GetLastPosition(player: Player)"
+        },
+        {
+          "linha": 146,
+          "local": false,
+          "assinatura": "function PlayerManager.SetLastPosition(player: Player, position: Vector3)"
+        },
+        {
+          "linha": 156,
+          "local": false,
+          "assinatura": "function PlayerManager.On(eventName: string, callback: ...)"
+        },
+        {
+          "linha": 167,
+          "local": false,
+          "assinatura": "function PlayerManager.Cleanup(player: Player)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 13,
+          "nome": "PlayerManager.Events"
+        }
+      ],
+      "retorno": "PlayerManager"
+    },
+    {
+      "caminho": "src/framework/Client/UI/NotificationManager.lua",
+      "bytes": 4750,
+      "linhas": 144,
+      "proposito": "Notificações UI animadas com fila; incompleto (faltam end/return, _ProcessQueue indefinido, usa ThemeManager como global).",
+      "cabecalho": "-- Vessie Roblox Framework - Notification System\n-- Sistema de notificações com fila, duração configurável",
+      "funcoes": [
+        {
+          "linha": 19,
+          "local": false,
+          "assinatura": "function NotificationManager._EnsureContainer()"
+        },
+        {
+          "linha": 52,
+          "local": false,
+          "assinatura": "function NotificationManager.Show(title: string, text: string, duration: number?, type: string?)"
+        }
+      ],
+      "registros": [],
+      "retorno": "NotificationManager"
+    },
+    {
+      "caminho": "src/framework/Client/UI/ThemeManager.lua",
+      "bytes": 3210,
+      "linhas": 110,
+      "proposito": "Temas Light/Dark com cores, fontes, espaçamento e border radius; ApplyCustomTheme muta o tema Light.",
+      "cabecalho": "-- Vessie Roblox Framework - ThemeManager\n-- Gerenciamento de tema: cores, tipografia, espaçamento",
+      "funcoes": [
+        {
+          "linha": 47,
+          "local": false,
+          "assinatura": "function ThemeManager.GetColor(key: string)"
+        },
+        {
+          "linha": 57,
+          "local": false,
+          "assinatura": "function ThemeManager.SetTheme(themeName: string)"
+        },
+        {
+          "linha": 67,
+          "local": false,
+          "assinatura": "function ThemeManager.GetFont()"
+        },
+        {
+          "linha": 75,
+          "local": false,
+          "assinatura": "function ThemeManager.GetFontSize()"
+        },
+        {
+          "linha": 82,
+          "local": false,
+          "assinatura": "function ThemeManager.GetSpacing(size: string)"
+        },
+        {
+          "linha": 93,
+          "local": false,
+          "assinatura": "function ThemeManager.GetBorderRadius()"
+        },
+        {
+          "linha": 99,
+          "local": false,
+          "assinatura": "function ThemeManager.ApplyCustomTheme(customTheme: {}?)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 8,
+          "nome": "ThemeManager.Themes"
+        }
+      ],
+      "retorno": "ThemeManager"
+    },
+    {
+      "caminho": "src/framework/CollectionUtils.lua",
+      "bytes": 6039,
+      "linhas": 250,
+      "proposito": "Fábricas de estruturas de dados (fila, pilha, conjunto, tabela ordenada) e helpers de deduplicação/comparação. Contém sintaxe genérica <T> inválida em Luau.",
+      "cabecalho": "-- Vessie Roblox Framework - CollectionUtils (6.6)\n-- Estruturas de dados: filas, pilhas, conjuntos, tabelas ordenadas",
+      "funcoes": [
+        {
+          "linha": 14,
+          "local": false,
+          "assinatura": "function _internal:Enqueue(item: T)"
+        },
+        {
+          "linha": 20,
+          "local": false,
+          "assinatura": "function _internal:Dequeue()"
+        },
+        {
+          "linha": 28,
+          "local": false,
+          "assinatura": "function _internal:Peek()"
+        },
+        {
+          "linha": 33,
+          "local": false,
+          "assinatura": "function _internal:IsEmpty()"
+        },
+        {
+          "linha": 37,
+          "local": false,
+          "assinatura": "function _internal:Size()"
+        },
+        {
+          "linha": 50,
+          "local": false,
+          "assinatura": "function _internal:Push(item: T)"
+        },
+        {
+          "linha": 56,
+          "local": false,
+          "assinatura": "function _internal:Pop()"
+        },
+        {
+          "linha": 64,
+          "local": false,
+          "assinatura": "function _internal:Peek()"
+        },
+        {
+          "linha": 69,
+          "local": false,
+          "assinatura": "function _internal:IsEmpty()"
+        },
+        {
+          "linha": 73,
+          "local": false,
+          "assinatura": "function _internal:Size()"
+        },
+        {
+          "linha": 86,
+          "local": false,
+          "assinatura": "function _internal:Add(value: T)"
+        },
+        {
+          "linha": 95,
+          "local": false,
+          "assinatura": "function _internal:Remove(value: T)"
+        },
+        {
+          "linha": 110,
+          "local": false,
+          "assinatura": "function _internal:Has(value: T)"
+        },
+        {
+          "linha": 114,
+          "local": false,
+          "assinatura": "function _internal:Size()"
+        },
+        {
+          "linha": 118,
+          "local": false,
+          "assinatura": "function _internal:IsEmpty()"
+        },
+        {
+          "linha": 122,
+          "local": false,
+          "assinatura": "function _internal:Union(other: {[T]: boolean})"
+        },
+        {
+          "linha": 130,
+          "local": false,
+          "assinatura": "function _internal:Intersect(other: {[T]: boolean])"
+        },
+        {
+          "linha": 150,
+          "local": false,
+          "assinatura": "function _internal:Insert(value: T)"
+        },
+        {
+          "linha": 169,
+          "local": false,
+          "assinatura": "function _internal:Remove(value: T)"
+        },
+        {
+          "linha": 182,
+          "local": false,
+          "assinatura": "function _internal:Get(index: number)"
+        },
+        {
+          "linha": 187,
+          "local": false,
+          "assinatura": "function _internal:Size()"
+        },
+        {
+          "linha": 191,
+          "local": false,
+          "assinatura": "function _internal:IsEmpty()"
+        },
+        {
+          "linha": 195,
+          "local": false,
+          "assinatura": "function _internal:Iterator()"
+        }
+      ],
+      "registros": [],
+      "retorno": "CollectionUtils"
+    },
+    {
+      "caminho": "src/framework/ConfigManager.lua",
+      "bytes": 5709,
+      "linhas": 180,
+      "proposito": "Classe de configurações com defaults, overrides, campos readonly e níveis de acesso (bloqueia ServerOnly no cliente via RunService).",
+      "cabecalho": "-- Vessie Roblox Framework - ConfigManager (6.12)\n-- Gerencia configurações com valores padrão, validação e persistência",
+      "funcoes": [
+        {
+          "linha": 18,
+          "local": false,
+          "assinatura": "function ConfigManager.new(configTable: table)"
+        },
+        {
+          "linha": 32,
+          "local": false,
+          "assinatura": "function ConfigManager:Set(key: string, value: any, access: string?, readonly: boolean?)"
+        },
+        {
+          "linha": 57,
+          "local": false,
+          "assinatura": "function ConfigManager:Get(key: string, default: any)"
+        },
+        {
+          "linha": 72,
+          "local": false,
+          "assinatura": "function ConfigManager:SetDefault(key: string, default: any, access: string?)"
+        },
+        {
+          "linha": 82,
+          "local": false,
+          "assinatura": "function ConfigManager:SetReadOnly(key: string, value: any)"
+        },
+        {
+          "linha": 92,
+          "local": false,
+          "assinatura": "function ConfigManager:Exists(key: string)"
+        },
+        {
+          "linha": 100,
+          "local": false,
+          "assinatura": "function ConfigManager:Remove(key: string)"
+        },
+        {
+          "linha": 111,
+          "local": false,
+          "assinatura": "function ConfigManager:Override(key: string, value: any)"
+        },
+        {
+          "linha": 119,
+          "local": false,
+          "assinatura": "function ConfigManager:GetKeys()"
+        },
+        {
+          "linha": 132,
+          "local": false,
+          "assinatura": "function ConfigManager:GetReadWriteKeys()"
+        },
+        {
+          "linha": 146,
+          "local": false,
+          "assinatura": "function ConfigManager:ValidateRequired(required: {string})"
+        },
+        {
+          "linha": 159,
+          "local": false,
+          "assinatura": "function ConfigManager:Export()"
+        },
+        {
+          "linha": 172,
+          "local": false,
+          "assinatura": "function ConfigManager:Import(importedTable: table)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 9,
+          "nome": "ConfigManager.Access"
+        }
+      ],
+      "retorno": "ConfigManager"
+    },
+    {
+      "caminho": "src/framework/EventBus.lua",
+      "bytes": 4488,
+      "linhas": 133,
+      "proposito": "Pub/sub por nome (On/Once/Off/Emit), mas incompleto/não funcional: usa RBXScriptSignal.new() inexistente e Emit não invoca callbacks.",
+      "cabecalho": "-- Vessie Roblox Framework - EventBus (6.9)\n-- Sistema de EventBus reutilizável, diferenciado dos eventos nativos do Roblox\n-- Utiliza RBXScriptConnection para gerenciar conexões",
+      "funcoes": [
+        {
+          "linha": 11,
+          "local": false,
+          "assinatura": "function EventBus.new()"
+        },
+        {
+          "linha": 21,
+          "local": false,
+          "assinatura": "function EventBus:On(eventName: string, callback: any)"
+        },
+        {
+          "linha": 41,
+          "local": false,
+          "assinatura": "function EventBus:Once(eventName: string, callback: any)"
+        },
+        {
+          "linha": 42,
+          "local": true,
+          "assinatura": "local function onceFunc(...: any)"
+        },
+        {
+          "linha": 53,
+          "local": false,
+          "assinatura": "function EventBus:Off(eventName: string?, connection: RBXScriptConnection?)"
+        },
+        {
+          "linha": 78,
+          "local": false,
+          "assinatura": "function EventBus:Clear(eventName: string)"
+        },
+        {
+          "linha": 88,
+          "local": false,
+          "assinatura": "function EventBus:Emit(eventName: string, ...: any)"
+        },
+        {
+          "linha": 100,
+          "local": false,
+          "assinatura": "function EventBus:HasListeners(eventName: string)"
+        },
+        {
+          "linha": 105,
+          "local": false,
+          "assinatura": "function EventBus:Destroy()"
+        },
+        {
+          "linha": 118,
+          "local": false,
+          "assinatura": "function EventBus:Count()"
+        }
+      ],
+      "registros": [],
+      "retorno": "EventBus"
+    },
+    {
+      "caminho": "src/framework/Framework.lua",
+      "bytes": 3108,
+      "linhas": 139,
+      "proposito": "Núcleo do framework: registro de módulos (Register/Get), ciclo de vida Init → Start → Cleanup e Maid para limpeza de conexões/instances.",
+      "cabecalho": "-- Vessie Roblox Framework - Core Module\n-- Módulo núcleo responsável pela inicialização, registro e gerenciamento do framework",
+      "funcoes": [
+        {
+          "linha": 14,
+          "local": false,
+          "assinatura": "function Maid.new()"
+        },
+        {
+          "linha": 18,
+          "local": false,
+          "assinatura": "function Maid:GiveTask(task: () -> (), name: string?)"
+        },
+        {
+          "linha": 22,
+          "local": false,
+          "assinatura": "function Maid:DoCleaning()"
+        },
+        {
+          "linha": 47,
+          "local": false,
+          "assinatura": "function Maid:Destroy()"
+        },
+        {
+          "linha": 53,
+          "local": false,
+          "assinatura": "function Framework.Register(name: string, module: any)"
+        },
+        {
+          "linha": 75,
+          "local": false,
+          "assinatura": "function Framework.Get(name: string)"
+        },
+        {
+          "linha": 79,
+          "local": false,
+          "assinatura": "function Framework.Start()"
+        },
+        {
+          "linha": 108,
+          "local": false,
+          "assinatura": "function Framework.Stop()"
+        },
+        {
+          "linha": 127,
+          "local": false,
+          "assinatura": "function Framework.IsInitialized()"
+        },
+        {
+          "linha": 131,
+          "local": false,
+          "assinatura": "function Framework.GetModules()"
+        }
+      ],
+      "registros": [],
+      "retorno": "Framework"
+    },
+    {
+      "caminho": "src/framework/InstanceUtils.lua",
+      "bytes": 1932,
+      "linhas": 55,
+      "proposito": "Helpers seguros para instâncias Roblox: busca, criação validada, propriedades, destruição segura e CFrame a partir de posição/rotação.",
+      "cabecalho": "-- Vessie Roblox Framework - InstanceUtils (6.4)\n-- Utilitários básicos para instâncias do Roblox",
+      "funcoes": [
+        {
+          "linha": 7,
+          "local": false,
+          "assinatura": "function InstanceUtils.FindFirstChildSafe(parent: Instance, name: string, className: string?)"
+        },
+        {
+          "linha": 11,
+          "local": false,
+          "assinatura": "function InstanceUtils.CreateWithValidation(className: string, properties: table)"
+        },
+        {
+          "linha": 20,
+          "local": false,
+          "assinatura": "function InstanceUtils.SetProperties(inst: Instance, properties: table)"
+        },
+        {
+          "linha": 29,
+          "local": false,
+          "assinatura": "function InstanceUtils.DestroySafe(inst: Instance?)"
+        },
+        {
+          "linha": 33,
+          "local": false,
+          "assinatura": "function InstanceUtils.IsClass(instance: Instance, className: string)"
+        },
+        {
+          "linha": 45,
+          "local": false,
+          "assinatura": "function InstanceUtils.CFrameFromPositionRotation(position: Vector3 | table, euler: Vector3 | table)"
+        }
+      ],
+      "registros": [],
+      "retorno": "InstanceUtils"
+    },
+    {
+      "caminho": "src/framework/LifecycleManager.lua",
+      "bytes": 1863,
+      "linhas": 53,
+      "proposito": "Máquina de estados de componente (Registered → Running → Stopped/Failed) com validação de estados.",
+      "cabecalho": "-- Vessie Roblox Framework - LifecycleManager (6.11)\n-- Gerencia ciclos de vida dos componentes com estados previsíveis",
+      "funcoes": [
+        {
+          "linha": 19,
+          "local": false,
+          "assinatura": "function LifecycleManager.new(name)"
+        },
+        {
+          "linha": 29,
+          "local": false,
+          "assinatura": "function LifecycleManager:SetState(newState, errorMessage)"
+        },
+        {
+          "linha": 41,
+          "local": false,
+          "assinatura": "function LifecycleManager:GetState()"
+        },
+        {
+          "linha": 42,
+          "local": false,
+          "assinatura": "function LifecycleManager:GetPreviousState()"
+        },
+        {
+          "linha": 43,
+          "local": false,
+          "assinatura": "function LifecycleManager:GetError()"
+        },
+        {
+          "linha": 44,
+          "local": false,
+          "assinatura": "function LifecycleManager:IsState(state)"
+        },
+        {
+          "linha": 46,
+          "local": false,
+          "assinatura": "function LifecycleManager:Destroy()"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 8,
+          "nome": "LifecycleManager.States"
+        }
+      ],
+      "retorno": "LifecycleManager"
+    },
+    {
+      "caminho": "src/framework/Logger.lua",
+      "bytes": 4800,
+      "linhas": 161,
+      "proposito": "Logging com níveis DEBUG/INFO/WARN/ERROR e contexto de módulo; mistura API estática e de instância, com stubs e bugs conhecidos.",
+      "cabecalho": "-- Vessie Roblox Framework - Logger (6.8)\n-- Sistema de logging com níveis: DEBUG, INFO, WARN, ERROR",
+      "funcoes": [
+        {
+          "linha": 32,
+          "local": false,
+          "assinatura": "function Logger.SetLevelMax(level: number)"
+        },
+        {
+          "linha": 42,
+          "local": false,
+          "assinatura": "function Logger.RegisterModule(moduleName: string)"
+        },
+        {
+          "linha": 53,
+          "local": false,
+          "assinatura": "function Logger.new(moduleName: string)"
+        },
+        {
+          "linha": 62,
+          "local": false,
+          "assinatura": "function Logger.On(callback: function)"
+        },
+        {
+          "linha": 69,
+          "local": false,
+          "assinatura": "function Logger.WithTags(tags: table)"
+        },
+        {
+          "linha": 77,
+          "local": false,
+          "assinatura": "function Logger.Error(err: any, context: string?)"
+        },
+        {
+          "linha": 90,
+          "local": false,
+          "assinatura": "function Logger:Debug(message: string, ...: any)"
+        },
+        {
+          "linha": 101,
+          "local": false,
+          "assinatura": "function Logger:Info(message: string, ...: any)"
+        },
+        {
+          "linha": 112,
+          "local": false,
+          "assinatura": "function Logger:Warn(message: string, ...: any)"
+        },
+        {
+          "linha": 123,
+          "local": false,
+          "assinatura": "function Logger:Error(message: string, ...: any)"
+        },
+        {
+          "linha": 132,
+          "local": false,
+          "assinatura": "function Logger:Catch(err: error, context: string)"
+        },
+        {
+          "linha": 143,
+          "local": false,
+          "assinatura": "function Logger.ClearModules()"
+        },
+        {
+          "linha": 149,
+          "local": false,
+          "assinatura": "function Logger:GetLevelMax()"
+        },
+        {
+          "linha": 154,
+          "local": false,
+          "assinatura": "function Logger.LevelName(level: number)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 9,
+          "nome": "Logger.Level"
+        }
+      ],
+      "retorno": "Logger"
+    },
+    {
+      "caminho": "src/framework/MathUtils.lua",
+      "bytes": 4455,
+      "linhas": 140,
+      "proposito": "Matemática de vetores e CFrame (lerp, clamp, distância, projeção, lookAt, conversões euler); contém bugs conhecidos de runtime.",
+      "cabecalho": "-- Vessie Roblox Framework - MathUtils (6.5)\n-- Utilitários matemáticos: vetores, CFrame, geometria",
+      "funcoes": [
+        {
+          "linha": 12,
+          "local": false,
+          "assinatura": "function MathUtils.Lerp(a: number | Vector3 | CFrame, b: number | Vector3 | CFrame, t: number)"
+        },
+        {
+          "linha": 28,
+          "local": false,
+          "assinatura": "function MathUtils.ClampVec(v: Vector3, min: Vector3, max: Vector3)"
+        },
+        {
+          "linha": 39,
+          "local": false,
+          "assinatura": "function MathUtils.Normalize(v: Vector3)"
+        },
+        {
+          "linha": 49,
+          "local": false,
+          "assinatura": "function MathUtils.Distance(a: Vector3, b: Vector3)"
+        },
+        {
+          "linha": 57,
+          "local": false,
+          "assinatura": "function MathUtils.AngleBetween(a: Vector3, b: Vector3)"
+        },
+        {
+          "linha": 68,
+          "local": false,
+          "assinatura": "function MathUtils.ProjectOnPlane(v: Vector3, planeNormal: Vector3)"
+        },
+        {
+          "linha": 77,
+          "local": false,
+          "assinatura": "function MathUtils.LookAt(from: Vector3, to: Vector3)"
+        },
+        {
+          "linha": 87,
+          "local": false,
+          "assinatura": "function MathUtils.EulerToCFrame(pitch: number, yaw: number, roll: number)"
+        },
+        {
+          "linha": 106,
+          "local": false,
+          "assinatura": "function MathUtils.CFrameToEuler(cframe: CFrame)"
+        },
+        {
+          "linha": 126,
+          "local": false,
+          "assinatura": "function MathUtils.RotateVector(v: Vector3, c: CFrame)"
+        },
+        {
+          "linha": 134,
+          "local": false,
+          "assinatura": "function MathUtils.ProjectAOnB(a: Vector3, b: Vector3)"
+        }
+      ],
+      "registros": [],
+      "retorno": "MathUtils"
+    },
+    {
+      "caminho": "src/framework/ModuleRegistry.lua",
+      "bytes": 5844,
+      "linhas": 196,
+      "proposito": "Registro de módulos com dependências, detecção de ciclos e ordem topológica de inicialização (GetInitOrder).",
+      "cabecalho": "-- Vessie Roblox Framework - ModuleRegistry (6.10)\n-- Registro de módulos com validação de nomes, dependências e detecção de ciclos",
+      "funcoes": [
+        {
+          "linha": 10,
+          "local": false,
+          "assinatura": "function ModuleRegistry.new()"
+        },
+        {
+          "linha": 24,
+          "local": false,
+          "assinatura": "function ModuleRegistry:Register(name: string, module: any, dependencies: {string}?)"
+        },
+        {
+          "linha": 54,
+          "local": false,
+          "assinatura": "function ModuleRegistry:Get(name: string)"
+        },
+        {
+          "linha": 61,
+          "local": false,
+          "assinatura": "function ModuleRegistry:IsRegistered(name: string)"
+        },
+        {
+          "linha": 69,
+          "local": false,
+          "assinatura": "function ModuleRegistry:ValidateDependencies(name: string)"
+        },
+        {
+          "linha": 81,
+          "local": true,
+          "assinatura": "local function checkCycle(current: string, path: {string})"
+        },
+        {
+          "linha": 102,
+          "local": false,
+          "assinatura": "function ModuleRegistry:GetInitOrder()"
+        },
+        {
+          "linha": 114,
+          "local": true,
+          "assinatura": "local function visit(moduleName: string)"
+        },
+        {
+          "linha": 141,
+          "local": false,
+          "assinatura": "function ModuleRegistry:Remove(name: string)"
+        },
+        {
+          "linha": 171,
+          "local": false,
+          "assinatura": "function ModuleRegistry:GetNames()"
+        },
+        {
+          "linha": 182,
+          "local": false,
+          "assinatura": "function ModuleRegistry:CheckAllDependencies()"
+        }
+      ],
+      "registros": [],
+      "retorno": "ModuleRegistry"
+    },
+    {
+      "caminho": "src/framework/NumberUtils.lua",
+      "bytes": 3839,
+      "linhas": 104,
+      "proposito": "Utilitários numéricos puros: clamp, lerp, round, mapeamento, wrap, conversão graus/radianos e random.",
+      "cabecalho": "-- Vessie Roblox Framework - NumberUtils (6.7)\n-- Utilitários numéricos: clamp, lerp, arredondamento, aproximação",
+      "funcoes": [
+        {
+          "linha": 12,
+          "local": false,
+          "assinatura": "function NumberUtils.Clamp(value: number, min: number, max: number)"
+        },
+        {
+          "linha": 21,
+          "local": false,
+          "assinatura": "function NumberUtils.Lerp(a: number, b: number, t: number)"
+        },
+        {
+          "linha": 29,
+          "local": false,
+          "assinatura": "function NumberUtils.Round(value: number, decimals: number)"
+        },
+        {
+          "linha": 37,
+          "local": false,
+          "assinatura": "function NumberUtils.IsFinite(value: number)"
+        },
+        {
+          "linha": 46,
+          "local": false,
+          "assinatura": "function NumberUtils.Approximately(a: number, b: number, tolerance: number)"
+        },
+        {
+          "linha": 54,
+          "local": false,
+          "assinatura": "function NumberUtils.RadiansToDegrees(radians: number)"
+        },
+        {
+          "linha": 61,
+          "local": false,
+          "assinatura": "function NumberUtils.DegreesToRadians(degrees: number)"
+        },
+        {
+          "linha": 70,
+          "local": false,
+          "assinatura": "function NumberUtils.Random(min: number, max: number, isInteger: boolean)"
+        },
+        {
+          "linha": 86,
+          "local": false,
+          "assinatura": "function NumberUtils.Map(value: number, inMin: number, inMax: number, outMin: number, outMax: number)"
+        },
+        {
+          "linha": 96,
+          "local": false,
+          "assinatura": "function NumberUtils.Wrap(value: number, min: number, max: number, cycleLength: number)"
+        }
+      ],
+      "registros": [],
+      "retorno": "NumberUtils"
+    },
+    {
+      "caminho": "src/framework/Server/Characters/CharacterManager.lua",
+      "bytes": 3181,
+      "linhas": 96,
+      "proposito": "Helpers de personagem: tipo de rig, root part, vivo/morto, posição, direção, pulo e respawn; incompleto (_data não declarado, typos de enum).",
+      "cabecalho": "-- Vessie - CharacterManager",
+      "funcoes": [
+        {
+          "linha": 8,
+          "local": false,
+          "assinatura": "function CharacterManager.Init()"
+        },
+        {
+          "linha": 10,
+          "local": false,
+          "assinatura": "function CharacterManager.Register(character: Model, config: any?)"
+        },
+        {
+          "linha": 24,
+          "local": false,
+          "assinatura": "function CharacterManager._Setup(character: Model)"
+        },
+        {
+          "linha": 35,
+          "local": false,
+          "assinatura": "function CharacterManager.DetectRigType(character: Model)"
+        },
+        {
+          "linha": 40,
+          "local": false,
+          "assinatura": "function CharacterManager.GetRootPart(character: Model)"
+        },
+        {
+          "linha": 45,
+          "local": false,
+          "assinatura": "function CharacterManager.IsAlive(character: Model)"
+        },
+        {
+          "linha": 50,
+          "local": false,
+          "assinatura": "function CharacterManager.IsOnGround(character: Model)"
+        },
+        {
+          "linha": 57,
+          "local": false,
+          "assinatura": "function CharacterManager.GetPosition(character: Model)"
+        },
+        {
+          "linha": 62,
+          "local": false,
+          "assinatura": "function CharacterManager.GetMoveDirection(character: Model)"
+        },
+        {
+          "linha": 70,
+          "local": false,
+          "assinatura": "function CharacterManager.Jump(character: Model)"
+        },
+        {
+          "linha": 75,
+          "local": false,
+          "assinatura": "function CharacterManager.Respawn(character: Model, location: CFrame?)"
+        },
+        {
+          "linha": 84,
+          "local": false,
+          "assinatura": "function CharacterManager.IsDead(character: Model)"
+        },
+        {
+          "linha": 89,
+          "local": false,
+          "assinatura": "function CharacterManager.RegisterInteractionPoint(character: Model, point: BasePart, itype: string)"
+        }
+      ],
+      "registros": [],
+      "retorno": "CharacterManager"
+    },
+    {
+      "caminho": "src/framework/Server/Permissions/PermissionManager.lua",
+      "bytes": 5439,
+      "linhas": 153,
+      "proposito": "Papéis e permissões (DefineRole/AssignRole/HasPermission); bug conhecido: permissões são globais, não por jogador.",
+      "cabecalho": "-- Vessie Roblox Framework - PermissionManager (10)\n-- Gerenciamento de papéis e permissões",
+      "funcoes": [
+        {
+          "linha": 19,
+          "local": false,
+          "assinatura": "function PermissionManager.DefineRole(roleName: string, permissions: {string})"
+        },
+        {
+          "linha": 26,
+          "local": false,
+          "assinatura": "function PermissionManager.AssignRole(player: Player, roleName: string)"
+        },
+        {
+          "linha": 46,
+          "local": false,
+          "assinatura": "function PermissionManager.RemoveRole(player: Player, roleName: string)"
+        },
+        {
+          "linha": 62,
+          "local": false,
+          "assinatura": "function PermissionManager.HasPermission(player: Player, permission: string, targetPlayer: Player?)"
+        },
+        {
+          "linha": 91,
+          "local": false,
+          "assinatura": "function PermissionManager.CanExecuteOn(executor: Player, target: Player, permission: string)"
+        },
+        {
+          "linha": 108,
+          "local": false,
+          "assinatura": "function PermissionManager.GetPermissions(player: Player)"
+        },
+        {
+          "linha": 126,
+          "local": false,
+          "assinatura": "function PermissionManager.ListRoles()"
+        },
+        {
+          "linha": 132,
+          "local": false,
+          "assinatura": "function PermissionManager.ListPermissions()"
+        },
+        {
+          "linha": 139,
+          "local": false,
+          "assinatura": "function PermissionManager.IsOwner(player: Player)"
+        },
+        {
+          "linha": 148,
+          "local": false,
+          "assinatura": "function PermissionManager.GetLevel(player: Player)"
+        }
+      ],
+      "registros": [],
+      "retorno": "PermissionManager"
+    },
+    {
+      "caminho": "src/framework/Server/Security/SecurityManager.lua",
+      "bytes": 5408,
+      "linhas": 167,
+      "proposito": "Validação de operações do cliente, admin e teleport + rate limiting token-bucket; lista de admins é placeholder.",
+      "cabecalho": "-- Vessie Roblox Framework - SecurityManager (10)\n-- Camada de segurança: validação de entrada, permissões, rate limiting",
+      "funcoes": [
+        {
+          "linha": 17,
+          "local": false,
+          "assinatura": "function RateLimiter.AddTokens(player: Player, amount: number)"
+        },
+        {
+          "linha": 33,
+          "local": false,
+          "assinatura": "function RateLimiter.CanExecute(player: Player, cost: number?)"
+        },
+        {
+          "linha": 67,
+          "local": false,
+          "assinatura": "function SecurityManager.ValidateClientOperation(player: Player, operation: string, args: any?)"
+        },
+        {
+          "linha": 107,
+          "local": false,
+          "assinatura": "function SecurityManager.HasAdminPermission(player: Player, targetPlayer: Player?)"
+        },
+        {
+          "linha": 129,
+          "local": false,
+          "assinatura": "function SecurityManager.ValidateTeleport(player: Player, cframe: CFrame?)"
+        },
+        {
+          "linha": 153,
+          "local": false,
+          "assinatura": "function SecurityManager.LogSuspiciousActivity(player: Player, operation: string, details: string?)"
+        },
+        {
+          "linha": 163,
+          "local": false,
+          "assinatura": "function SecurityManager.ResetRateLimit(player: Player)"
+        }
+      ],
+      "registros": [],
+      "retorno": "SecurityManager"
+    },
+    {
+      "caminho": "src/framework/Shared/Data/DataManager.lua",
+      "bytes": 1566,
+      "linhas": 53,
+      "proposito": "Persistência via DataStoreService com merge e versionamento; store por jogador + PlaceId; Init vazio.",
+      "cabecalho": "-- Vessie - DataManager",
+      "funcoes": [
+        {
+          "linha": 10,
+          "local": false,
+          "assinatura": "function DataManager.Init()"
+        },
+        {
+          "linha": 12,
+          "local": false,
+          "assinatura": "function DataManager.GetStore(name)"
+        },
+        {
+          "linha": 16,
+          "local": false,
+          "assinatura": "function DataManager.Save(player, data, key)"
+        },
+        {
+          "linha": 29,
+          "local": false,
+          "assinatura": "function DataManager.Load(player, key, default)"
+        },
+        {
+          "linha": 37,
+          "local": false,
+          "assinatura": "function DataManager.Remove(player, key)"
+        },
+        {
+          "linha": 44,
+          "local": false,
+          "assinatura": "function DataManager.GetVersion(player, key)"
+        },
+        {
+          "linha": 49,
+          "local": false,
+          "assinatura": "function DataManager.SetVersion(player, version, key)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 7,
+          "nome": "DataManager._stores"
+        }
+      ],
+      "retorno": "DataManager"
+    },
+    {
+      "caminho": "src/framework/Shared/Networking/NetworkingManager.lua",
+      "bytes": 0,
+      "linhas": 1,
+      "proposito": "Arquivo vazio (0 bytes) — módulo de networking a implementar.",
+      "cabecalho": "",
+      "funcoes": [],
+      "registros": [],
+      "retorno": null
+    },
+    {
+      "caminho": "src/framework/StringUtils.lua",
+      "bytes": 4754,
+      "linhas": 153,
+      "proposito": "Manipulação e validação de strings: trim, split/join, starts/ends with, format, validações (email/número) e geração de IDs.",
+      "cabecalho": "-- Vessie Roblox Framework - StringUtils (6.2)\n-- Utilitários para strings: formatação, validação, manipulação",
+      "funcoes": [
+        {
+          "linha": 10,
+          "local": false,
+          "assinatura": "function StringUtils.Trim(s: string)"
+        },
+        {
+          "linha": 19,
+          "local": false,
+          "assinatura": "function StringUtils.Split(s: string, delimiter: string, plain: boolean?)"
+        },
+        {
+          "linha": 47,
+          "local": false,
+          "assinatura": "function StringUtils.Join(t: {string}, separator: string?)"
+        },
+        {
+          "linha": 58,
+          "local": false,
+          "assinatura": "function StringUtils.StartsWith(s: string, prefix: string)"
+        },
+        {
+          "linha": 66,
+          "local": false,
+          "assinatura": "function StringUtils.EndsWith(s: string, suffix: string)"
+        },
+        {
+          "linha": 73,
+          "local": false,
+          "assinatura": "function StringUtils.Capitalize(s: string)"
+        },
+        {
+          "linha": 81,
+          "local": false,
+          "assinatura": "function StringUtils.Upper(s: string)"
+        },
+        {
+          "linha": 88,
+          "local": false,
+          "assinatura": "function StringUtils.Lower(s: string)"
+        },
+        {
+          "linha": 96,
+          "local": false,
+          "assinatura": "function StringUtils.Format(format: string, ...)"
+        },
+        {
+          "linha": 103,
+          "local": false,
+          "assinatura": "function StringUtils.IsEmail(email: string)"
+        },
+        {
+          "linha": 111,
+          "local": false,
+          "assinatura": "function StringUtils.IsNumber(s: string)"
+        },
+        {
+          "linha": 121,
+          "local": false,
+          "assinatura": "function StringUtils.Truncate(s: string, maxLen: number, suffix: string?)"
+        },
+        {
+          "linha": 132,
+          "local": false,
+          "assinatura": "function StringUtils.Alphanumeric(s: string)"
+        },
+        {
+          "linha": 138,
+          "local": false,
+          "assinatura": "function StringUtils.GenerateId()"
+        },
+        {
+          "linha": 141,
+          "local": false,
+          "assinatura": "Y = function()"
+        },
+        {
+          "linha": 149,
+          "local": false,
+          "assinatura": "function StringUtils.EscapePattern(s: string)"
+        }
+      ],
+      "registros": [],
+      "retorno": "StringUtils"
+    },
+    {
+      "caminho": "src/framework/TableUtils.lua",
+      "bytes": 2074,
+      "linhas": 84,
+      "proposito": "Utilitários de tabelas: cópia rasa/profunda, merge, filter/find, contagem, keys/values e comparação.",
+      "cabecalho": "-- Vessie Roblox Framework - TableUtils (6.13)\n-- Utilitários básicos para tabelas",
+      "funcoes": [
+        {
+          "linha": 8,
+          "local": false,
+          "assinatura": "function TableUtils.ShallowCopy(t)"
+        },
+        {
+          "linha": 15,
+          "local": false,
+          "assinatura": "function TableUtils.DeepCopy(t)"
+        },
+        {
+          "linha": 28,
+          "local": false,
+          "assinatura": "function TableUtils.Merge(target, source)"
+        },
+        {
+          "linha": 35,
+          "local": false,
+          "assinatura": "function TableUtils.Filter(t, keys)"
+        },
+        {
+          "linha": 42,
+          "local": false,
+          "assinatura": "function TableUtils.Find(t, predicate)"
+        },
+        {
+          "linha": 48,
+          "local": false,
+          "assinatura": "function TableUtils.Count(t, predicate)"
+        },
+        {
+          "linha": 55,
+          "local": false,
+          "assinatura": "function TableUtils.IsEmpty(t)"
+        },
+        {
+          "linha": 58,
+          "local": false,
+          "assinatura": "function TableUtils.GetKeys(t)"
+        },
+        {
+          "linha": 65,
+          "local": false,
+          "assinatura": "function TableUtils.GetValues(t)"
+        },
+        {
+          "linha": 72,
+          "local": false,
+          "assinatura": "function TableUtils.IsEqual(t1, t2)"
+        }
+      ],
+      "registros": [],
+      "retorno": "TableUtils"
+    },
+    {
+      "caminho": "src/jogo/jogo.lua",
+      "bytes": 5665,
+      "linhas": 188,
+      "proposito": "Manipulação do jogo: referências de jogadores/personagem, teleport, modo voo (BodyVelocity), ferramentas/itens e silenciar sons.",
+      "cabecalho": "--[[\nMódulo de Manipulação de Jogo - Roblox Executor Library\nFunções para interagir com o jogo Roblox\n--]]",
+      "funcoes": [
+        {
+          "linha": 15,
+          "local": false,
+          "assinatura": "function Jogo:inicializar()"
+        },
+        {
+          "linha": 46,
+          "local": false,
+          "assinatura": "function Jogo:obterJogador(nomeOuUsuario)"
+        },
+        {
+          "linha": 61,
+          "local": false,
+          "assinatura": "function Jogo:teleportar(destino, tipo)"
+        },
+        {
+          "linha": 92,
+          "local": false,
+          "assinatura": "function Jogo:criarModoVoo(ativo)"
+        },
+        {
+          "linha": 131,
+          "local": false,
+          "assinatura": "function Jogo:obterFerramenta(nome)"
+        },
+        {
+          "linha": 139,
+          "local": false,
+          "assinatura": "function Jogo:darItem(nomeItem, quantidade)"
+        },
+        {
+          "linha": 159,
+          "local": false,
+          "assinatura": "function Jogo:silenciarSons(ativo)"
+        },
+        {
+          "linha": 178,
+          "local": false,
+          "assinatura": "function Jogo:espelharPersonagem(ativo)"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 10,
+          "nome": "Jogo.jogadores"
+        }
+      ],
+      "retorno": "Jogo"
+    },
+    {
+      "caminho": "src/memoria/memoria.lua",
+      "bytes": 2804,
+      "linhas": 80,
+      "proposito": "Leitura/escrita de memória do client (placeholders do executor), pattern scanning, proteção de memória e endereço global.",
+      "cabecalho": "--[[\nMódulo de Memória - Roblox Executor Library\nFunções para ler/escrever memória do client Roblox\n--]]",
+      "funcoes": [
+        {
+          "linha": 12,
+          "local": false,
+          "assinatura": "function Memoria:ler(endereco, tipo)"
+        },
+        {
+          "linha": 37,
+          "local": false,
+          "assinatura": "function Memoria:escrever(endereco, valor, tipo)"
+        },
+        {
+          "linha": 57,
+          "local": false,
+          "assinatura": "function Memoria:buscarPatron(enderecoInicio, fim, patron, mascara)"
+        },
+        {
+          "linha": 66,
+          "local": false,
+          "assinatura": "function Memoria:proteger(endereco, tamanho, novoStatus)"
+        },
+        {
+          "linha": 73,
+          "local": false,
+          "assinatura": "function Memoria:getEnderecoGlobal(nomeObjeto, offset)"
+        }
+      ],
+      "registros": [],
+      "retorno": "Memoria"
+    },
+    {
+      "caminho": "src/nonvisual_channel.lua",
+      "bytes": 2481,
+      "linhas": 86,
+      "proposito": "Canal de comunicação não-visual: define canal ativo, prepara/valida payloads para remote events e gera IDs de mensagem.",
+      "cabecalho": "-- NonVisual Channel for Public API\n-- Canal de comunicacao nao-visual para enviar/receber informacoes\n-- Sem interfaces graficas, apenas troca de dados por remote events",
+      "funcoes": [
+        {
+          "linha": 11,
+          "local": false,
+          "assinatura": "function M.set_channel(channel_data)"
+        },
+        {
+          "linha": 26,
+          "local": false,
+          "assinatura": "function M.get_channel()"
+        },
+        {
+          "linha": 31,
+          "local": false,
+          "assinatura": "function M.send(data, target)"
+        },
+        {
+          "linha": 61,
+          "local": false,
+          "assinatura": "function M.receive(event_name, payload)"
+        },
+        {
+          "linha": 77,
+          "local": false,
+          "assinatura": "function M.is_channel_active()"
+        },
+        {
+          "linha": 82,
+          "local": false,
+          "assinatura": "function M.generate_message_id()"
+        }
+      ],
+      "registros": [],
+      "retorno": "M"
+    },
+    {
+      "caminho": "src/public_api.lua",
+      "bytes": 4790,
+      "linhas": 95,
+      "proposito": "API pública de comandos via remote events: registro com allowlist, processamento protegido, trigger e respostas; init registra 9 comandos padrão.",
+      "cabecalho": "-- Public API System for Executor Lua\n-- Versão: 1.0.0\n-- Descrição: Sistema de API pública usando remote events do jogo\n-- Compatível: Lua 5.1/5.2/5.3/5.4\n-- Executores: Xeno, Delta, Mobile",
+      "funcoes": [
+        {
+          "linha": 19,
+          "local": false,
+          "assinatura": "function M.register_command(name, func)"
+        },
+        {
+          "linha": 32,
+          "local": false,
+          "assinatura": "function M.process_command(command, args)"
+        },
+        {
+          "linha": 42,
+          "local": false,
+          "assinatura": "function function_list()"
+        },
+        {
+          "linha": 48,
+          "local": false,
+          "assinatura": "function M.setup_remote_event(remote_event_name, callback)"
+        },
+        {
+          "linha": 52,
+          "local": false,
+          "assinatura": "M._trigger_remote_event = function(...)"
+        },
+        {
+          "linha": 56,
+          "local": false,
+          "assinatura": "function M.trigger_remote(command, args)"
+        },
+        {
+          "linha": 65,
+          "local": false,
+          "assinatura": "function M.on_response(event_name, callback)"
+        },
+        {
+          "linha": 73,
+          "local": false,
+          "assinatura": "function M.send_response(request_id, success, data)"
+        },
+        {
+          "linha": 79,
+          "local": false,
+          "assinatura": "function M.init()"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 9,
+          "nome": "M.config"
+        },
+        {
+          "linha": 16,
+          "nome": "remote_connections"
+        },
+        {
+          "linha": 17,
+          "nome": "registered_commands"
+        }
+      ],
+      "retorno": "M"
+    },
+    {
+      "caminho": "src/remote_event_bridge.lua",
+      "bytes": 5994,
+      "linhas": 184,
+      "proposito": "Bridges para remote events do jogo: fila de comandos, listeners de resposta e processamento de eventos recebidos; disparo real é simulado.",
+      "cabecalho": "-- Remote Event Bridge for Public API\n-- Conecta o sistema Public API aos remote events do jogo\n-- Permite execucao de comandos de forma nao-visual",
+      "funcoes": [
+        {
+          "linha": 9,
+          "local": false,
+          "assinatura": "function M.create_bridge(remote_event_name)"
+        },
+        {
+          "linha": 27,
+          "local": false,
+          "assinatura": "function bridge:on_response(callback)"
+        },
+        {
+          "linha": 36,
+          "local": false,
+          "assinatura": "function bridge:trigger(command, args)"
+        },
+        {
+          "linha": 61,
+          "local": false,
+          "assinatura": "function bridge:process_next()"
+        },
+        {
+          "linha": 87,
+          "local": false,
+          "assinatura": "function bridge:_fire_remote(payload)"
+        },
+        {
+          "linha": 108,
+          "local": false,
+          "assinatura": "function M.get_bridge(remote_event_name)"
+        },
+        {
+          "linha": 113,
+          "local": false,
+          "assinatura": "function M.remove_bridge(remote_event_name)"
+        },
+        {
+          "linha": 122,
+          "local": false,
+          "assinatura": "function M.list_bridges()"
+        },
+        {
+          "linha": 132,
+          "local": false,
+          "assinatura": "function M.process_remote_event(event_name, payload)"
+        },
+        {
+          "linha": 165,
+          "local": false,
+          "assinatura": "function M.setup(remote_event_name)"
+        }
+      ],
+      "registros": [],
+      "retorno": "M"
+    },
+    {
+      "caminho": "src/security_wrapper.lua",
+      "bytes": 4598,
+      "linhas": 163,
+      "proposito": "Wrapper de segurança da Public API: allowlist/blocklist de comandos, rate limit por minuto e histórico das últimas 100 execuções.",
+      "cabecalho": "-- Security Wrapper for Public API\n-- Wrapper de seguranca para comandos remotos\n-- Evita execucao de comandos nao autorizados e protege o executor",
+      "funcoes": [
+        {
+          "linha": 31,
+          "local": false,
+          "assinatura": "function M.is_command_allowed(command_name)"
+        },
+        {
+          "linha": 62,
+          "local": false,
+          "assinatura": "function M.block_command(command_name)"
+        },
+        {
+          "linha": 72,
+          "local": false,
+          "assinatura": "function M.allow_command(command_name)"
+        },
+        {
+          "linha": 82,
+          "local": false,
+          "assinatura": "function M.check_rate_limit(command_name)"
+        },
+        {
+          "linha": 114,
+          "local": false,
+          "assinatura": "function M.record_execution(command_name, success, args)"
+        },
+        {
+          "linha": 132,
+          "local": false,
+          "assinatura": "function M.get_execution_history()"
+        },
+        {
+          "linha": 137,
+          "local": false,
+          "assinatura": "function M.get_config()"
+        },
+        {
+          "linha": 142,
+          "local": false,
+          "assinatura": "function M.set_config(new_config)"
+        }
+      ],
+      "registros": [],
+      "retorno": "M"
+    },
+    {
+      "caminho": "src/state_manager.lua",
+      "bytes": 2566,
+      "linhas": 93,
+      "proposito": "Estado não-visual entre requisições: inicialização, dados chave/valor, contador de comandos e sessões.",
+      "cabecalho": "-- State Manager for Public API\n-- Gerencia estado nao-visual entre requisicoes via remote events\n-- Mantem estado em memoria sem interfaces graficas",
+      "funcoes": [
+        {
+          "linha": 17,
+          "local": false,
+          "assinatura": "function M.init()"
+        },
+        {
+          "linha": 29,
+          "local": false,
+          "assinatura": "function M.get_state()"
+        },
+        {
+          "linha": 34,
+          "local": false,
+          "assinatura": "function M.update_state(key, value)"
+        },
+        {
+          "linha": 45,
+          "local": false,
+          "assinatura": "function M.increment_command_count()"
+        },
+        {
+          "linha": 52,
+          "local": false,
+          "assinatura": "function M.register_session(session_id, session_data)"
+        },
+        {
+          "linha": 60,
+          "local": false,
+          "assinatura": "function M.get_session(session_id)"
+        },
+        {
+          "linha": 66,
+          "local": false,
+          "assinatura": "function M.remove_session(session_id)"
+        },
+        {
+          "linha": 77,
+          "local": false,
+          "assinatura": "function M.reset()"
+        },
+        {
+          "linha": 89,
+          "local": false,
+          "assinatura": "function M.is_initialized()"
+        }
+      ],
+      "registros": [],
+      "retorno": "M"
+    },
+    {
+      "caminho": "src/ui/ui.lua",
+      "bytes": 5049,
+      "linhas": 165,
+      "proposito": "Criação de UI do executor: ScreenGui, frames arrastáveis, botões, toggles, caixas de texto, rótulos e listas roláveis.",
+      "cabecalho": "--[[\nMódulo de Interface - Roblox Executor Library\nCriação de UIs e menus para o executor\n--]]",
+      "funcoes": [
+        {
+          "linha": 9,
+          "local": false,
+          "assinatura": "function UI:criarGui(nome, pais)"
+        },
+        {
+          "linha": 22,
+          "local": false,
+          "assinatura": "function UI:criarFrame(gui, titulo, posicao, tamanho, corFundo)"
+        },
+        {
+          "linha": 54,
+          "local": false,
+          "assinatura": "function UI:criarBotao(frame, texto, posicao, tamanho, cor, callback)"
+        },
+        {
+          "linha": 75,
+          "local": false,
+          "assinatura": "function UI:criarToggle(frame, texto, posicao, ligadoInicial)"
+        },
+        {
+          "linha": 96,
+          "local": false,
+          "assinatura": "function UI:criarCaixaTexto(frame, textoPlaceholder, posicao, tamanho)"
+        },
+        {
+          "linha": 111,
+          "local": false,
+          "assinatura": "function UI:criarRotulo(frame, texto, posicao, tamanho, corTexto)"
+        },
+        {
+          "linha": 126,
+          "local": false,
+          "assinatura": "function UI:criarLista(frame, posicao, tamanho)"
+        },
+        {
+          "linha": 138,
+          "local": false,
+          "assinatura": "function UI:adicionarItemLista(scrollFrame, texto, callback)"
+        },
+        {
+          "linha": 156,
+          "local": false,
+          "assinatura": "function UI:removerGui(nome)"
+        }
+      ],
+      "registros": [],
+      "retorno": "UI"
+    },
+    {
+      "caminho": "src/utils/utils.lua",
+      "bytes": 8092,
+      "linhas": 227,
+      "proposito": "Comandos prontos de jogo em Utils.comandos: fly, speed, noclip, godmode, esp, verificar e antiafk, com listarComandos.",
+      "cabecalho": "--[[\nMódulo de Utilitários - Roblox Executor Library\nComandos pré-definidos comprimidos para uso único\n--]]",
+      "funcoes": [
+        {
+          "linha": 13,
+          "local": false,
+          "assinatura": "funcao = function(...)"
+        },
+        {
+          "linha": 38,
+          "local": false,
+          "assinatura": "funcao = function(velocidade)"
+        },
+        {
+          "linha": 53,
+          "local": false,
+          "assinatura": "funcao = function(ativo)"
+        },
+        {
+          "linha": 74,
+          "local": false,
+          "assinatura": "funcao = function(ativo)"
+        },
+        {
+          "linha": 96,
+          "local": false,
+          "assinatura": "function Utils:listarComandos()"
+        },
+        {
+          "linha": 109,
+          "local": false,
+          "assinatura": "funcao = function(acao)"
+        },
+        {
+          "linha": 169,
+          "local": false,
+          "assinatura": "funcao = function()"
+        },
+        {
+          "linha": 184,
+          "local": false,
+          "assinatura": "funcao = function(ativo)"
+        },
+        {
+          "linha": 208,
+          "local": false,
+          "assinatura": "function Utils:listarComandos()"
+        }
+      ],
+      "registros": [
+        {
+          "linha": 10,
+          "nome": "Utils.comandos.fly"
+        },
+        {
+          "linha": 35,
+          "nome": "Utils.comandos.speed"
+        },
+        {
+          "linha": 50,
+          "nome": "Utils.comandos.noclip"
+        },
+        {
+          "linha": 71,
+          "nome": "Utils.comandos.godmode"
+        },
+        {
+          "linha": 106,
+          "nome": "Utils.comandos.esp"
+        },
+        {
+          "linha": 166,
+          "nome": "Utils.comandos.verificar"
+        },
+        {
+          "linha": 181,
+          "nome": "Utils.comandos.antiafk"
+        }
+      ],
+      "retorno": "Utils"
+    }
+  ]
+}
